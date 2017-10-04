@@ -1,0 +1,19 @@
+#version 100
+
+precision mediump float;
+
+attribute vec3 VertexBasePosition_modelspace;
+attribute vec2 VertexTexCoord;
+
+varying vec2 VertexTexCoordOut;
+
+uniform vec4 ColorA;
+//uniform vec4 ColorB;
+
+void main() {
+   VertexTexCoordOut = VertexTexCoord;
+
+   //hud has absolute position
+   vec4 VertexPosition_modelspace = vec4(VertexBasePosition_modelspace,1);
+   gl_Position =  VertexPosition_modelspace;
+}

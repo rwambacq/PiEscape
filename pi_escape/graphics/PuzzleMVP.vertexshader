@@ -1,0 +1,64 @@
+#version 100
+
+precision mediump float;
+
+// attribute: Input vertex data, different for all executions of this shader.
+attribute vec3 VertexBasePosition_modelspace;
+attribute vec3 VertexNormal_modelspace;
+attribute vec2 VertexTexCoord;
+
+// varying: Output data ; will be interpolated for each fragment.
+varying vec3 Position_worldspace;
+varying vec3 Normal_cameraspace;
+varying vec3 EyeDirection_cameraspace;
+varying vec3 LightDirection_cameraspace;
+varying vec2 VertexTexCoordOut;
+
+// uniform: Values that stay constant for the whole mesh.
+uniform mat4 MVP;
+uniform mat4 V;
+uniform mat4 M;
+
+uniform vec3 LightPosition_worldspace;
+
+uniform vec3 TextureLightSettings; //multipliers for: ambient, diffuse, spectral  (example: 0.2, 0.2, 0.3)
+uniform float LightPower; //example: 50.0
+
+uniform mat4 PerDrawTransformation_worldspace;
+uniform float TimeTicks;
+uniform float ProceduralTextureID;
+//colors used by the procedural texture
+uniform vec4 ColorA;
+uniform vec4 ColorB;
+uniform vec4 ProceduralTextureParameter; //up to 4 parameters for procedural texture
+
+
+void main(){
+//	gl_Position =  vec4(VertexBasePosition_modelspace,1);
+
+   VertexTexCoordOut = VertexTexCoord;
+
+   vec4 VertexPosition_modelspace = PerDrawTransformation_worldspace * vec4(VertexBasePosition_modelspace,1);
+    //vec4 VertexPosition_modelspace = vec4(VertexBasePosition_modelspace,1);
+
+	// Output position of the vertex, in clip space : MVP * position
+	gl_Position =  MVP * VertexPosition_modelspace;
+
+	// Position of the vertex, in worldspace : M * position
+	Position_worldspace = (M * VertexPosition_modelspace).xyz;
+
+    // Vector that goes from the vertex to the camera, in camera space.
+	// In camera space, the camera is at the origin (0,0,0).
+	mat4 VM = V * M;
+	vec3 vertexPosition_cameraspace = ( VM * VertexPosition_modelspace).xyz;
+	//was vec3 vertexPosition_cameraspace = ( V * M * VertexPosition_modelspace).xyz;
+	EyeDirection_cameraspace = vec3(0,0,0) - vertexPosition_cameraspace;
+
+    // Vector that goes from the vertex to the light, in camera space. M is ommited because it's identity.
+    vec3 LightPosition_cameraspace = ( V * vec4(LightPosition_worldspace,1)).xyz;
+    LightDirection_cameraspace = LightPosition_cameraspace + EyeDirection_cameraspace;
+
+	// Normal of the the vertex, in camera space
+	Normal_cameraspace = ( V * M * vec4(VertexNormal_modelspace,0)).xyz; // Only correct if ModelMatrix does not scale the model ! Use its inverse transpose if not.
+}
+

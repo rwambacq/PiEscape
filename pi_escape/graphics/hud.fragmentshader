@@ -1,0 +1,35 @@
+#version 100
+
+precision mediump float;
+
+varying vec2 VertexTexCoordOut;
+
+uniform vec4 ColorA;
+//uniform vec4 ColorB;
+
+uniform sampler2D Texture;
+
+void main()
+{
+    //texture
+    vec4 pixColor = texture2D(Texture, VertexTexCoordOut);
+    if (pixColor.a < 0.1)
+        discard;
+    gl_FragColor = vec4(ColorA.xyz, ColorA.a * pixColor.a);
+
+    //texture
+    //gl_FragColor = texture2D(Texture, VertexTexCoordOut);
+
+    //re-colored texture
+    //gl_FragColor = ColorA * texture2D(Texture, VertexTexCoordOut);
+
+    //simple color
+    //gl_FragColor = ColorA;
+
+    //fade from colorB to colorA
+    //float dist = (VertexTexCoordOut.x + VertexTexCoordOut.y) / 2.0;
+	//gl_FragColor = (ColorA * dist) + (ColorB * (1.0 - dist));
+
+    //debug VertexTexCoordOut
+	//gl_FragColor = vec4(VertexTexCoordOut.x, VertexTexCoordOut.y, 0.0, 0.5);
+}

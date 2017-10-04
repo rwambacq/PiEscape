@@ -1,0 +1,107 @@
+#version 100
+
+precision mediump float;
+
+// varying: Interpolated values from the vertex shaders
+varying vec2 VertexTexCoordOut;
+
+// uniform: Values that stay constant for the whole mesh.
+uniform vec3 TextureLightSettings; //multipliers for: ambient, diffuse, spectral  (example: 0.2, 0.2, 0.3)
+
+uniform mat4 PerDrawTransformation_worldspace;
+uniform float TimeTicks;
+uniform float ProceduralTextureID;
+//colors used by the procedural texture
+uniform vec4 ColorA;
+uniform vec4 ColorB;
+uniform vec4 ProceduralTextureParameter; //up to 4 parameters for procedural texture
+
+
+void main()
+{
+	// Light emission properties
+	// You probably want to put them as uniforms
+	vec3 LightColor = vec3(1,1,1);
+
+    vec4 colA = ColorA;
+    vec4 colB = ColorB;
+
+    float pi = 3.1415926535897932384626433832795;
+
+    //some colors have special flag values as R component
+    if (ColorA.r >= 2.0 && ColorA.r <= 6.0) {
+        //auto color cycle
+        float base = TimeTicks / 60.0;
+        base *= ColorA.b;
+        if (ColorA.r == 3.0) { base += VertexTexCoordOut.x; }
+        if (ColorA.r == 4.0) { base += VertexTexCoordOut.y; }
+        if (ColorA.r == 5.0) { base += VertexTexCoordOut.x+VertexTexCoordOut.y; }
+        if (ColorA.r == 6.0 || ColorA.r == 7.0) {
+            float extra = 0.0;
+            if (VertexTexCoordOut.x <= 0.5) extra += 0.5 + VertexTexCoordOut.x;
+            if (VertexTexCoordOut.x > 0.5) extra += 0.5 - VertexTexCoordOut.x;
+            if (VertexTexCoordOut.y <= 0.5) extra += 0.5 + VertexTexCoordOut.y;
+            if (VertexTexCoordOut.y > 0.5) extra += 0.5 - VertexTexCoordOut.y;
+            base -= extra*2.0*pi;
+         }
+        float r = (sin(base*ColorA.g) + 1.0) / 2.0;
+        float g = (sin(base*ColorA.g+2.0) + 1.0) / 2.0;
+        float b = (sin(base*ColorA.g+3.0) + 1.0) / 2.0;
+        colA = vec4(r, g, b, ColorA.a);
+    }
+    if (ColorB.r >= 2.0 && ColorB.r <= 6.0) {
+        //auto color cycle
+        float base = TimeTicks / 60.0;
+        base *= ColorB.b;
+        if (ColorB.r == 3.0) { base += VertexTexCoordOut.x; }
+        if (ColorB.r == 4.0) { base += VertexTexCoordOut.y; }
+        if (ColorB.r == 5.0) { base += VertexTexCoordOut.x+VertexTexCoordOut.y; }
+        if (ColorB.r == 6.0 || ColorB.r == 7.0) {
+            float extra = 0.0;
+            if (VertexTexCoordOut.x <= 0.5) extra += 0.5 + VertexTexCoordOut.x;
+            if (VertexTexCoordOut.x > 0.5) extra += 0.5 - VertexTexCoordOut.x;
+            if (VertexTexCoordOut.y <= 0.5) extra += 0.5 + VertexTexCoordOut.y;
+            if (VertexTexCoordOut.y > 0.5) extra += 0.5 - VertexTexCoordOut.y;
+            base -= extra*2.0*pi;
+         }
+        float r = (cos(base*ColorB.g) + 1.0) / 2.0;
+        float g = (cos(base*ColorB.g+2.0) + 1.0) / 2.0;
+        float b = (cos(base*ColorB.g+3.0) + 1.0) / 2.0;
+        colB = vec4(r, g, b, ColorB.a);
+    }
+
+    //fallback Procedural Texture
+    vec4 PointColor = colA;
+
+    if (ProceduralTextureID == 0.0) {
+        if (ProceduralTextureParameter.x <= 1.0) {
+            PointColor = colA;
+        } else {
+            PointColor = colB;
+        }
+    }
+    if (ProceduralTextureID == 1.0) {
+        if (VertexTexCoordOut.x < ProceduralTextureParameter.x || VertexTexCoordOut.y < ProceduralTextureParameter.x ||
+        VertexTexCoordOut.x > (1.0-ProceduralTextureParameter.x) || VertexTexCoordOut.y > (1.0-ProceduralTextureParameter.x)) {
+            PointColor = colB;
+        } else {
+            PointColor = colA;
+        }
+    }
+    if (ProceduralTextureID == 2.0) {
+        float limit = mod(TimeTicks, 100.0) / 100.0;
+        if (VertexTexCoordOut.x < limit || VertexTexCoordOut.y < limit ||
+            VertexTexCoordOut.x > (1.0-limit) || VertexTexCoordOut.y > (1.0-limit)) {
+            PointColor = colB;
+        } else {
+            PointColor = colA;
+        }
+    }
+
+	// Material properties
+    vec3 MaterialAmbientColor = vec3(TextureLightSettings.r,TextureLightSettings.r,TextureLightSettings.r) * PointColor.rgb;
+
+    vec3 finalFragColor = MaterialAmbientColor;
+
+	gl_FragColor = vec4(finalFragColor.rgb, PointColor.a);
+}
