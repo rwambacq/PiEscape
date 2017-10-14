@@ -1,6 +1,6 @@
-# Project Systeemprogrammeren 2017 (groep 10).
+## Project Systeemprogrammeren 2017 (groep 10).
 
-## Leden : 
+[Leden:](https://github.ugent.be/Systeemprogrammeren2017/project-group10/wiki/Members) 
   - Jeroen Goosens
   - Ruben Wambacq
   - Jules De Vos
