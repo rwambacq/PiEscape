@@ -4,7 +4,7 @@ CMakeFiles/
 Makefile
 cmake_install.cmake
 extrafiles/
-
+after_initial_build_screenshot.PNG
 .idea
 *.cbp
 
