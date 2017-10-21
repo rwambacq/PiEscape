@@ -1,6 +1,16 @@
 #ifndef PIESCAPE2_ES_MEMORY_MANAGER_H
 #define PIESCAPE2_ES_MEMORY_MANAGER_H
 
+#ifndef BENCH_INCLUDED
+#define BENCH_INCLUDED
+#ifdef  BENCH
+int logging_benchmark = 0;
+#else
+extern int logging_benchmark;
+#endif
+#endif
+
+
 #include "entity.h"
 #define MAX_ENTITIES 500u
 

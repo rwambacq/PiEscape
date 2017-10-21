@@ -10,6 +10,8 @@ after_initial_build_screenshot.PNG
 
 *.bmp
 
+*.user
+
 *.vcxproj
 *.filters
 *.sln
