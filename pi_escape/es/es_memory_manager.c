@@ -94,7 +94,7 @@ void free_component(Engine* engine, EntityId entity_id, ComponentId component_id
 EntityId get_new_entity_id(Engine* engine) {
 	if (logging_benchmark) {
 		fprintf(benchfile,
-			"EntityId get_new_enitity_id(%p\n",
+			"EntityId get_new_enitity_id(%p)\n",
 			engine);
 	}
 
