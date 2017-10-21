@@ -1,12 +1,20 @@
 #ifndef PIESCAPE2_ES_MEMORY_MANAGER_H
 #define PIESCAPE2_ES_MEMORY_MANAGER_H
 
+#ifndef STDIO_INCLUDED
+#include <stdio.h>
+#define STDIO_INCLUDED
+#endif
+
+
 #ifndef BENCH_INCLUDED
 #define BENCH_INCLUDED
 #ifdef  BENCH
 int logging_benchmark = 0;
+FILE* benchfile;
 #else
 extern int logging_benchmark;
+extern FILE* benchfile;
 #endif
 #endif
 

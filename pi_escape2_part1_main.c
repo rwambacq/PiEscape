@@ -1,12 +1,16 @@
 #define __STDC_FORMAT_MACROS
 #include <inttypes.h>
 #include <stdio.h>
+#ifndef STDIO_INCLUDED
+#define STDIO_INCLUDED
+#endif
 #include "util/sleep.h"
 #include "pi_escape/graphics/opengl_game_renderer.h"
 #include "pi_escape/level/levelloader.h"
 #include "pi_escape/es/game.h"
 
 #include "pi_escape/es/es_memory_manager.h"
+#include <time.h>
 
 #include <SDL.h>
 #undef main //Weird bug on windows where SDL overwrite main definition
@@ -140,9 +144,13 @@ void runGame(Game* game) {
 }
 
 int main(int argc, char **argv) {
+	// if you call the main game with more than one argument, assume it is benchmarking.
 	if (argc > 1) {
 		printf("benchmark mode\n\n%d\n", logging_benchmark);
 		logging_benchmark = 1;
+		benchfile = fopen("benchmarks/bench.txt", "w");
+		if (benchfile == NULL) { printf("Error when opening file!\nCalls to memory mgmt will not be logged!\n"); exit(1); }
+		else { printf("benchmark file is: %s\n", "benchmarks/bench.txt"); }
 	}
 	else {
 		printf("normal mode\n\n");
@@ -181,6 +189,10 @@ int main(int argc, char **argv) {
 
     levelloader_free(level_loader);
     free(level_loader);
+
+	if (logging_benchmark) {
+		fclose(benchfile);
+	}
 
     return 0;
 }

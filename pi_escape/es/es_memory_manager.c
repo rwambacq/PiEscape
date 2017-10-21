@@ -7,7 +7,8 @@
 
 void es_memory_manager_init(ESMemory* mem) {
 	if (logging_benchmark) {
-		printf("void es_memory_manager_init(%p)\n",
+		fprintf(benchfile,
+			"void es_memory_manager_init(%p)\n",
 			mem);
 	}
 
@@ -27,7 +28,8 @@ void es_memory_manager_free(ESMemory* mem) {
 
 int has_component(Engine* engine, EntityId entity_id, ComponentId component_id) {
 	if (logging_benchmark) {
-		printf("void* has_component(%p, %d, %d)\n",
+		fprintf(benchfile, 
+			"void* has_component(%p, %d, %d)\n",
 			engine, entity_id, component_id);
 	}
     fatal_if(entity_id == NO_ENTITY, "has_component(engine, entity_id==NO_ENTITY, component_id=%d)", component_id);
@@ -39,10 +41,11 @@ int has_component(Engine* engine, EntityId entity_id, ComponentId component_id) 
 }
 
 void* get_component(Engine* engine, EntityId entity_id, ComponentId component_id) {
-	if (logging_benchmark) {
-		printf("void* get_component(%p, %d, %d)\n",
+	/*if (logging_benchmark) {
+		fprintf(benchfile,
+		"void* get_component(%p, %d, %d)\n",
 			engine, entity_id, component_id);
-	}
+	}*/
     fatal_if(entity_id == NO_ENTITY, "get_component(engine, entity_id==NO_ENTITY, component_id=%d)", component_id);
     assert(component_id < COMPONENT_ID_SIZE);
     assert(component_id >= 0);
@@ -56,7 +59,8 @@ void* get_component(Engine* engine, EntityId entity_id, ComponentId component_id
 
 void* create_component(Engine* engine, EntityId entity_id, ComponentId component_id) {
 	if (logging_benchmark) {
-		printf("void* create_component(%p, %d, %d)\n",
+		fprintf(benchfile,
+			"void* create_component(%p, %d, %d)\n",
 			engine, entity_id, component_id);
 	}
 
@@ -72,7 +76,8 @@ void* create_component(Engine* engine, EntityId entity_id, ComponentId component
 
 void free_component(Engine* engine, EntityId entity_id, ComponentId component_id) {
 	if (logging_benchmark) {
-		printf("void free_component(%p, %d, %d)\n",
+		fprintf(benchfile,
+			"void free_component(%p, %d, %d)\n",
 			engine, entity_id, component_id);
 	}
 
@@ -88,7 +93,8 @@ void free_component(Engine* engine, EntityId entity_id, ComponentId component_id
 
 EntityId get_new_entity_id(Engine* engine) {
 	if (logging_benchmark) {
-		printf("EntityId get_new_enitity_id(%p\n",
+		fprintf(benchfile,
+			"EntityId get_new_enitity_id(%p\n",
 			engine);
 	}
 
