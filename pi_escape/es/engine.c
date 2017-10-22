@@ -8,14 +8,17 @@
 
 Engine* engine_alloc(Graphics* graphics) {
     Engine* res = calloc(1, sizeof(Engine));
-    engine_init(res, graphics);
+	int i = 0;
+    engine_init(res, graphics, &i);
     return res;
 }
-void engine_init(Engine* engine, Graphics* graphics) {
+void engine_init(Engine* engine, Graphics* graphics, int* running_benchmark) {
     context_init(&engine->context);
     assert(!engine->context.is_exit_game);
-
-	es_memory_manager_init(&engine->es_memory);
+	//if (!*running_benchmark) {
+		printf("call to es_memory_manager_init(ESmemory*) made from engine_init!\n");
+		es_memory_manager_init(&engine->es_memory);
+	//}
     
     engine->render_system = system_render_alloc(graphics);
     engine->input_system = system_input_alloc();

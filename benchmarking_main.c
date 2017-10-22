@@ -103,7 +103,7 @@ int main(int argc, char **argv){
 
 
 	printf("Running Benchmarks...\n");
-	//running_benchmark = 1; // ! don't allow a call from game_alloc to utilize es_memory_manager_init
+	running_benchmark = 1; // ! don't allow a call from game_alloc to utilize es_memory_manager_init when benchmarking
 
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags)) {
@@ -116,7 +116,7 @@ int main(int argc, char **argv){
 	graphics = graphics_alloc(0, 0);
 
 	//initialise context, engine and assemblage, and add systems
-	pi_escape_2 = game_alloc(graphics);
+	pi_escape_2 = game_alloc(graphics, &running_benchmark);
 
 	// see whether benchlog file has been provided
 	if (argc == 1) { // no arguments have been provided (count == 1; counts function name itself as arg) 

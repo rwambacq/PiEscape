@@ -17,14 +17,14 @@ extern FILE* benchfile;
 #endif
 #endif
 
-/*#ifndef BENCHING
+#ifndef BENCHING
 #define BENCHING
 #ifdef  BENCH_RUN
 int running_benchmark = 0;
 #else
 extern int running_benchmark;
 #endif
-#endif*/
+#endif
 
 
 #include "entity.h"
