@@ -29,7 +29,7 @@ typedef struct Game {
     Engine engine;
 } Game;
 
-void game_init(Game*, Graphics*);
+void game_init(Game*, Graphics);
 Game* game_alloc(Graphics*);
 void game_free(Game*);
 

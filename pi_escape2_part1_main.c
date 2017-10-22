@@ -1,16 +1,18 @@
 #define __STDC_FORMAT_MACROS
 #include <inttypes.h>
-#include <stdio.h>
+
 #ifndef STDIO_INCLUDED
+#include <stdio.h>
 #define STDIO_INCLUDED
 #endif
+
 #include "util/sleep.h"
 #include "pi_escape/graphics/opengl_game_renderer.h"
 #include "pi_escape/level/levelloader.h"
 #include "pi_escape/es/game.h"
 
 #include "pi_escape/es/es_memory_manager.h"
-#include <time.h>
+#define BENCHLOG_FILE_PATH "benchmarks/benchlog.txt"
 
 #include <SDL.h>
 #undef main //Weird bug on windows where SDL overwrite main definition
@@ -112,8 +114,10 @@ void create_demo_entities(Engine* engine) {
     }
 }
 
-
-void runGameAndPrintPerfomanceStatistics(Game* game) {
+/*
+runs game while also keeping track of how many updates have been done every second, then print fps statistics.
+*/
+void run_game_print_perf_stat(Game* game) {
 	Uint32 start_time_ms = SDL_GetTicks();
 	Uint32 last_print_time_ms = start_time_ms;
 	long update_count = 0;
@@ -137,7 +141,7 @@ void runGameAndPrintPerfomanceStatistics(Game* game) {
 	}
 }
 
-void runGame(Game* game) {
+void run_game(Game* game) {
 	while (!game->engine.context.is_exit_game) {
 		engine_update(&(game->engine));
 	}
@@ -148,9 +152,9 @@ int main(int argc, char **argv) {
 	if (argc > 1) {
 		printf("benchmark mode\n\n%d\n", logging_benchmark);
 		logging_benchmark = 1;
-		benchfile = fopen("benchmarks/bench.txt", "w");
+		benchfile = fopen(BENCHLOG_FILE_PATH, "w");
 		if (benchfile == NULL) { printf("Error when opening file!\nCalls to memory mgmt will not be logged!\n"); exit(1); }
-		else { printf("benchmark file is: %s\n", "benchmarks/bench.txt"); }
+		else { printf("benchmark file is: %s\n", BENCHLOG_FILE_PATH); }
 	}
 	else {
 		printf("normal mode\n\n");
@@ -178,8 +182,8 @@ int main(int argc, char **argv) {
 
     //TODO: support playing all levels in sequence
 
-	runGame(pi_escape_2);
-	//runGameAndPrintPerfomanceStatistics(pi_escape_2);
+	run_game(pi_escape_2);
+	//run_game_print_perf_stat(pi_escape_2);
 
     game_free(pi_escape_2);
 	free(pi_escape_2);

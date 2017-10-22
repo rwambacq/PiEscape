@@ -6,7 +6,6 @@
 #define STDIO_INCLUDED
 #endif
 
-
 #ifndef BENCH_INCLUDED
 #define BENCH_INCLUDED
 #ifdef  BENCH
@@ -17,6 +16,15 @@ extern int logging_benchmark;
 extern FILE* benchfile;
 #endif
 #endif
+
+/*#ifndef BENCHING
+#define BENCHING
+#ifdef  BENCH_RUN
+int running_benchmark = 0;
+#else
+extern int running_benchmark;
+#endif
+#endif*/
 
 
 #include "entity.h"

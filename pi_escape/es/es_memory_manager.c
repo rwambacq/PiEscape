@@ -1,15 +1,26 @@
 #define BENCH
+#define BENCH_RUN
 #include "es_memory_manager.h"
+
+#ifndef TIME_INCLUDED
+#include <time.h>
+#define TIME_INCLUDED
+#endif // !TIME_INCLUDED
 
 #include <assert.h>
 
+
+/*
+When logging benchmarks, don't log actual pointer arguments in function calls, as they will be either Engine's or ESmemory's,
+which will be assigned in a random block of memory time and time again when re-executing these benchmarks.
+So, in short, only log actual arguments like Id's, in order to be able to replicate benchmarking situations.
+*/
 
 
 void es_memory_manager_init(ESMemory* mem) {
 	if (logging_benchmark) {
 		fprintf(benchfile,
-			"void es_memory_manager_init(%p)\n",
-			mem);
+			"es_memory_manager_init(ESMemory*)\n");
 	}
 
     mem->next_entity_id = 0;
@@ -29,8 +40,8 @@ void es_memory_manager_free(ESMemory* mem) {
 int has_component(Engine* engine, EntityId entity_id, ComponentId component_id) {
 	if (logging_benchmark) {
 		fprintf(benchfile, 
-			"void* has_component(%p, %d, %d)\n",
-			engine, entity_id, component_id);
+			"has_component(Engine*,%d,%d)\n",
+			entity_id, component_id);
 	}
     fatal_if(entity_id == NO_ENTITY, "has_component(engine, entity_id==NO_ENTITY, component_id=%d)", component_id);
     assert(component_id < COMPONENT_ID_SIZE);
@@ -43,8 +54,8 @@ int has_component(Engine* engine, EntityId entity_id, ComponentId component_id) 
 void* get_component(Engine* engine, EntityId entity_id, ComponentId component_id) {
 	/*if (logging_benchmark) {
 		fprintf(benchfile,
-		"void* get_component(%p, %d, %d)\n",
-			engine, entity_id, component_id);
+		"get_component(Engine*,%d,%d)\n",
+			entity_id, component_id);
 	}*/
     fatal_if(entity_id == NO_ENTITY, "get_component(engine, entity_id==NO_ENTITY, component_id=%d)", component_id);
     assert(component_id < COMPONENT_ID_SIZE);
@@ -60,8 +71,8 @@ void* get_component(Engine* engine, EntityId entity_id, ComponentId component_id
 void* create_component(Engine* engine, EntityId entity_id, ComponentId component_id) {
 	if (logging_benchmark) {
 		fprintf(benchfile,
-			"void* create_component(%p, %d, %d)\n",
-			engine, entity_id, component_id);
+			"create_component(Engine*,%d,%d)\n",
+			entity_id, component_id);
 	}
 
 	fatal_if(entity_id == NO_ENTITY, "create_component(engine, entity_id==NO_ENTITY, component_id=%d)", component_id);
@@ -77,8 +88,8 @@ void* create_component(Engine* engine, EntityId entity_id, ComponentId component
 void free_component(Engine* engine, EntityId entity_id, ComponentId component_id) {
 	if (logging_benchmark) {
 		fprintf(benchfile,
-			"void free_component(%p, %d, %d)\n",
-			engine, entity_id, component_id);
+			"free_component(Engine*,%d,%d)\n",
+			entity_id, component_id);
 	}
 
     fatal_if(entity_id == NO_ENTITY, "free_component(engine, entity_id==NO_ENTITY, component_id=%d)", component_id);
@@ -94,8 +105,7 @@ void free_component(Engine* engine, EntityId entity_id, ComponentId component_id
 EntityId get_new_entity_id(Engine* engine) {
 	if (logging_benchmark) {
 		fprintf(benchfile,
-			"EntityId get_new_enitity_id(%p)\n",
-			engine);
+			"get_new_entity_id(Engine*)\n");
 	}
 
     if (engine->es_memory.next_entity_id == MAX_ENTITIES) {
