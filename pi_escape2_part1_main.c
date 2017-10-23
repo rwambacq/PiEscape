@@ -107,6 +107,19 @@ void create_demo_entities(Engine* engine) {
     }
 }
 
+void fill_level_loader(LevelLoader* level_loader) {
+	strcpy(level_loader->level_paths[0], "pi_escape/level/level_files/tutorial1.lvl");
+	strcpy(level_loader->level_paths[1], "pi_escape/level/level_files/tutorial2.lvl");
+	strcpy(level_loader->level_paths[2], "pi_escape/level/level_files/tutorial3.lvl");
+	strcpy(level_loader->level_paths[3], "pi_escape/level/level_files/tutorial4.lvl");
+	strcpy(level_loader->level_paths[4], "pi_escape/level/level_files/tutorial5.lvl");
+	strcpy(level_loader->level_paths[5], "pi_escape/level/level_files/tutorial6.lvl");
+	strcpy(level_loader->level_paths[6], "pi_escape/level/level_files/tutorial7.lvl");
+	strcpy(level_loader->level_paths[7], "pi_escape/level/level_files/game1.lvl");
+	strcpy(level_loader->level_paths[8], "pi_escape/level/level_files/game2.lvl");
+	strcpy(level_loader->level_paths[9], "pi_escape/level/level_files/game3.lvl");
+}
+
 int main() {
     int imgFlags = IMG_INIT_PNG;
     if(!(IMG_Init(imgFlags) & imgFlags)) {
@@ -114,6 +127,7 @@ int main() {
     }
 
     struct LevelLoader* level_loader = levelloader_alloc();
+	fill_level_loader(level_loader);
 
     //init the graphics system
     Graphics* graphics = graphics_alloc(0, 0);
@@ -121,12 +135,9 @@ int main() {
     //initialise context, engine and assemblage, and add systems
     Game* pi_escape_2 = game_alloc(graphics);
 
-    //TODO: don't use this
-    create_demo_entities(&pi_escape_2->engine);
-
     //TODO: use the 2 lines below instead of using create_demo_entities
-    // Level* level = levelloader_load_level(level_loader, 0);
-    // game_load_level(pi_escape_2, level);
+    Level* level = levelloader_load_level(level_loader, 0);
+    game_load_level(pi_escape_2, level);
 
     //TODO: support playing all levels in sequence
 
