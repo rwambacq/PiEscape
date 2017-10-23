@@ -30,9 +30,11 @@ void game_load_level(Game* g, Level* l) {
 
 	for (x = 0; x < height; x++) {
 		for (y = 0; y < width; y++) {
+
 			char current_char = l->level_description[x][y];
+
 			int has_door = (current_char == 'D');
-			int has_floor = (! current_char == 'D' && ! current_char == 'W');
+			int has_floor = (current_char != 'D' && current_char != 'W');
 			int has_ceil = (!has_floor && !has_door);
 			int has_key = (current_char == 'a' || current_char == 'b' || current_char == 'c' || current_char == 'o');
 			int has_player = (current_char == 'P');
@@ -45,14 +47,20 @@ void game_load_level(Game* g, Level* l) {
 
 			ArtComponent* art = create_component(engine, entity_id, COMP_ART);
 			art->type = ART_WALL;
-
 			WallArtComponent* wall_info = create_component(engine, entity_id, COMP_WALLART);
+
 			wall_info->has_ceil = has_ceil;
 			wall_info->has_floor = has_floor;
-			wall_info->has_wall[N] = has_door || y == 4;
-			wall_info->has_wall[S] = has_door || y == 0;
-			wall_info->has_wall[W] = x == 0 || (x == 3 && y != 2);
-			wall_info->has_wall[E] = x == 4 || (x == 1 && y != 2);
+
+			int wall_above = (l->level_description[x][y + 1] == 'W') && (current_char = 'W');
+			int wall_under = (l->level_description[x][y - 1] == 'W') && (current_char = 'W');
+			int wall_right = (l->level_description[x + 1][y] == 'W') && (current_char = 'W');
+			int wall_left = (l->level_description[x - 1][y] == 'W') && (current_char = 'W');
+
+			wall_info->has_wall[N] = wall_above;
+			wall_info->has_wall[S] = wall_under;
+			wall_info->has_wall[W] = wall_left;
+			wall_info->has_wall[E] = wall_right;
 
 			if (has_key) {
 				EntityId key_entity_id = get_new_entity_id(engine);
@@ -61,7 +69,7 @@ void game_load_level(Game* g, Level* l) {
 				glmc_ivec2_set(gridloc->pos, x, y);
 
 				ItemComponent* item = create_component(engine, key_entity_id, COMP_ITEM);
-				item->color = A;
+				item->color = toupper(current_char);
 
 				ArtComponent* art = create_component(engine, key_entity_id, COMP_ART);
 				art->type = ART_KEY;
@@ -85,7 +93,7 @@ void game_load_level(Game* g, Level* l) {
 				cameralookfrom->distance = 15.0f;
 				cameralookfrom->XYdegees = 0.0f;
 				cameralookfrom->Zdegrees = 25.0f;
-				glmc_vec3_set(cameralookfrom->pos, 4.0f, -4.0f, 4.0f); //this normally gets overridden by camera system
+				glmc_vec3_set(cameralookfrom->pos, 9.0f, 1.0f, 2.0f); //this normally gets overridden by camera system
 			}
 
 			if (has_door) {
@@ -117,7 +125,7 @@ void game_load_level(Game* g, Level* l) {
 				art->type = ART_LOCK;
 
 				LockComponent* lock = create_component(engine, lock_entity_id, COMP_LOCK);
-				lock->requiredKeyColor = B;
+				lock->requiredKeyColor = current_char;
 			}
 		}
 	}
