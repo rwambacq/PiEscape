@@ -89,11 +89,15 @@ void game_load_level(Game* g, Level* l) {
 				CameraLookAtComponent* cameralookat = create_component(engine, player_entity_id, COMP_CAMERA_LOOK_AT);
 				glmc_vec3_set(cameralookat->pos, x * 1.0f, y * 1.0f, 0.0f);
 
+				MoveActionComponent* moveaction = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
+				moveaction->player_x = 1.0f;
+				moveaction->player_y = 1.0f;
+				moveaction->player_z = 0.0f;
+
 				CameraLookFromComponent* cameralookfrom = create_component(engine, player_entity_id, COMP_CAMERA_LOOK_FROM);
-				cameralookfrom->distance = 15.0f;
+				cameralookfrom->distance = 10.0f;
 				cameralookfrom->XYdegees = 0.0f;
-				cameralookfrom->Zdegrees = 25.0f;
-				glmc_vec3_set(cameralookfrom->pos, 9.0f, 1.0f, 2.0f); //this normally gets overridden by camera system
+				cameralookfrom->Zdegrees = 75.0f;
 			}
 
 			if (has_door) {

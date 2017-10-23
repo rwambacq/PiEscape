@@ -29,8 +29,9 @@ typedef struct CameraLookAtComponent {
 } CameraLookAtComponent;
 
 typedef struct MoveActionComponent {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	float player_x;
+	float player_y;
+	float player_z;
 } MoveActionComponent;
 
 typedef struct GridLocationComponent {
