@@ -1,5 +1,4 @@
 #define BENCH
-#define BENCH_RUN
 #include "es_memory_manager.h"
 
 #ifndef TIME_INCLUDED
@@ -18,10 +17,7 @@ So, in short, only log actual arguments like Id's, in order to be able to replic
 
 
 void es_memory_manager_init(ESMemory* mem) {
-	if (logging_benchmark) {
-		fprintf(benchfile,
-			"es_memory_manager_init(ESMemory*)\n");
-	}
+	// will be executed once for sure, don't write call to this function away to benchlog file.
 
     mem->next_entity_id = 0;
     
@@ -52,11 +48,11 @@ int has_component(Engine* engine, EntityId entity_id, ComponentId component_id) 
 }
 
 void* get_component(Engine* engine, EntityId entity_id, ComponentId component_id) {
-	/*if (logging_benchmark) {
+	if (logging_benchmark) {
 		fprintf(benchfile,
 		"get_component(Engine*,%d,%d)\n",
 			entity_id, component_id);
-	}*/
+	}
     fatal_if(entity_id == NO_ENTITY, "get_component(engine, entity_id==NO_ENTITY, component_id=%d)", component_id);
     assert(component_id < COMPONENT_ID_SIZE);
     assert(component_id >= 0);

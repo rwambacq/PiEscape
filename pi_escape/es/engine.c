@@ -12,13 +12,11 @@ Engine* engine_alloc(Graphics* graphics) {
     engine_init(res, graphics, &i);
     return res;
 }
-void engine_init(Engine* engine, Graphics* graphics, int* running_benchmark) {
+void engine_init(Engine* engine, Graphics* graphics) {
     context_init(&engine->context);
     assert(!engine->context.is_exit_game);
-	//if (!*running_benchmark) {
-		printf("call to es_memory_manager_init(ESmemory*) made from engine_init!\n");
-		es_memory_manager_init(&engine->es_memory);
-	//}
+	
+	es_memory_manager_init(&engine->es_memory);
     
     engine->render_system = system_render_alloc(graphics);
     engine->input_system = system_input_alloc();

@@ -171,7 +171,7 @@ int main(int argc, char **argv) {
     Graphics* graphics = graphics_alloc(0, 0);
 
     //initialise context, engine and assemblage, and add systems
-    Game* pi_escape_2 = game_alloc(graphics, &running_benchmark);
+    Game* pi_escape_2 = game_alloc(graphics);
 
     //TODO: don't use this
     create_demo_entities(&(pi_escape_2->engine));

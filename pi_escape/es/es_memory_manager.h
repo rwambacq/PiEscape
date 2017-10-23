@@ -17,15 +17,6 @@ extern FILE* benchfile;
 #endif
 #endif
 
-#ifndef BENCHING
-#define BENCHING
-#ifdef  BENCH_RUN
-int running_benchmark = 0;
-#else
-extern int running_benchmark;
-#endif
-#endif
-
 
 #include "entity.h"
 #define MAX_ENTITIES 500u

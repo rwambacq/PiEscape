@@ -48,16 +48,8 @@ void crunch_line(Engine* engine, char* line) {
 	int bi = 0;
 	int a=0; // first arg for create_component
 	int b=0; // second arg for create_component
-	Uint32 tic;
-	Uint32 delta;
-	/*if (!strncmp("es_memory_manager_init", line, (int) sizeof("es_memory_manager_init") / sizeof(char) - 1)) {
-		es_memory_manager_init(engine);
-	}
-	else */if (!strncmp("get_new_entity_id", line, (int) sizeof("get_new_entity_id") / sizeof(char) - 1)) {
-		tic = tick(); // start time measuring
+	if (!strncmp("get_new_entity_id", line, (int) sizeof("get_new_entity_id") / sizeof(char) - 1)) {
 		get_new_entity_id(engine);		
-		delta = tock(tic); // stop time measuring
-		printf("get_new_entity_id(%p) took %d milliseconds to execute\n", engine, delta);
 	}
 	else if (!strncmp("create_component", line, (int) sizeof("create_component") / sizeof(char) - 1)) {
 		line += (int) sizeof("create_component(Engine*") / sizeof(char);
@@ -86,15 +78,14 @@ void crunch_line(Engine* engine, char* line) {
 
 		a = str_to_int(a_str, strlen(a_str));
 		b = str_to_int(b_str, strlen(b_str));
-		tic = tick(); // start time measuring
 		create_component(engine, a, b);
-		delta = tock(tic); // stop time measuring
-		printf("create_component(%p %d, %d) took %d milliseconds to execute\n", engine, a, b, delta);
 	}
 }
 
 int main(int argc, char **argv){
 	// variable declarations;
+	Uint32 tic;
+	Uint32 toc;
 	FILE* f;
 	char line[50];
 	LevelLoader* level_loader;
@@ -103,7 +94,6 @@ int main(int argc, char **argv){
 
 
 	printf("Running Benchmarks...\n");
-	running_benchmark = 1; // ! don't allow a call from game_alloc to utilize es_memory_manager_init when benchmarking
 
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags)) {
@@ -116,7 +106,7 @@ int main(int argc, char **argv){
 	graphics = graphics_alloc(0, 0);
 
 	//initialise context, engine and assemblage, and add systems
-	pi_escape_2 = game_alloc(graphics, &running_benchmark);
+	pi_escape_2 = game_alloc(graphics);
 
 	// see whether benchlog file has been provided
 	if (argc == 1) { // no arguments have been provided (count == 1; counts function name itself as arg) 
@@ -138,7 +128,7 @@ int main(int argc, char **argv){
 
 	// run function calls being read from benchlog file sequentially
 	// TODO clean up spaghetti code!
-
+	tic = tick();
 	while (!feof(f)) {
 		fscanf(f, "%s", line);
 		printf("Executing: ");
@@ -146,6 +136,8 @@ int main(int argc, char **argv){
 		printf("\n");
 		crunch_line(&pi_escape_2->engine, line);
 	}
+	toc = tock(tic);
+	printf("Benchmark took %d seconds to execute.\n", toc/1000);
 
 	fclose(f);
 	

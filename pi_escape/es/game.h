@@ -29,8 +29,8 @@ typedef struct Game {
     Engine engine;
 } Game;
 
-void game_init(Game*, Graphics*, int*);
-Game* game_alloc(Graphics*, int*);
+void game_init(Game*, Graphics*);
+Game* game_alloc(Graphics*);
 void game_free(Game*);
 
 void game_load_level(Game*, Level*);
