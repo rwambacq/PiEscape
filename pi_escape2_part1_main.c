@@ -139,6 +139,14 @@ int main() {
     Level* level = levelloader_load_level(level_loader, 0);
     game_load_level(pi_escape_2, level);
 
+	int width = level->breedte;
+	int height = level->hoogte;
+
+	int s;
+	for (s = 0; s < height; s++) {
+		printf("%s\n", level->level_description[s]);
+	}
+
     //TODO: support playing all levels in sequence
 
     Uint32 start_time_ms = SDL_GetTicks();

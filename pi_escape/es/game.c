@@ -19,5 +19,106 @@ void game_free(Game* game) {
 }
 
 void game_load_level(Game* g, Level* l) {
-    //TODO: use assembly to create all entities needed for the level
+
+	Engine* engine = &g->engine;
+
+	int width = l->breedte;
+	int height = l->hoogte;
+
+	int x;
+	int y;
+
+	for (x = 0; x < height; x++) {
+		for (y = 0; y < width; y++) {
+			char current_char = l->level_description[x][y];
+			int has_door = (current_char == 'D');
+			int has_floor = (! current_char == 'D' && ! current_char == 'W');
+			int has_ceil = (!has_floor && !has_door);
+			int has_key = (current_char == 'a' || current_char == 'b' || current_char == 'c' || current_char == 'o');
+			int has_player = (current_char == 'P');
+			int has_lock = (current_char == 'A' || current_char == 'B' || current_char == 'C' || current_char == 'O');
+
+			EntityId entity_id = get_new_entity_id(engine);
+
+			GridLocationComponent* gridloc = create_component(engine, entity_id, COMP_GRIDLOCATION);
+			glmc_ivec2_set(gridloc->pos, x, y);
+
+			ArtComponent* art = create_component(engine, entity_id, COMP_ART);
+			art->type = ART_WALL;
+
+			WallArtComponent* wall_info = create_component(engine, entity_id, COMP_WALLART);
+			wall_info->has_ceil = has_ceil;
+			wall_info->has_floor = has_floor;
+			wall_info->has_wall[N] = has_door || y == 4;
+			wall_info->has_wall[S] = has_door || y == 0;
+			wall_info->has_wall[W] = x == 0 || (x == 3 && y != 2);
+			wall_info->has_wall[E] = x == 4 || (x == 1 && y != 2);
+
+			if (has_key) {
+				EntityId key_entity_id = get_new_entity_id(engine);
+
+				GridLocationComponent* gridloc = create_component(engine, key_entity_id, COMP_GRIDLOCATION);
+				glmc_ivec2_set(gridloc->pos, x, y);
+
+				ItemComponent* item = create_component(engine, key_entity_id, COMP_ITEM);
+				item->color = A;
+
+				ArtComponent* art = create_component(engine, key_entity_id, COMP_ART);
+				art->type = ART_KEY;
+			}
+
+			if (has_player) {
+				EntityId player_entity_id = get_new_entity_id(engine);
+
+				GridLocationComponent* gridloc = create_component(engine, player_entity_id, COMP_GRIDLOCATION);
+				glmc_ivec2_set(gridloc->pos, x, y);
+
+				ArtComponent* art = create_component(engine, player_entity_id, COMP_ART);
+				art->type = ART_PLAYER;
+
+				create_component(engine, player_entity_id, COMP_INPUTRECEIVER);
+
+				CameraLookAtComponent* cameralookat = create_component(engine, player_entity_id, COMP_CAMERA_LOOK_AT);
+				glmc_vec3_set(cameralookat->pos, x * 1.0f, y * 1.0f, 0.0f);
+
+				CameraLookFromComponent* cameralookfrom = create_component(engine, player_entity_id, COMP_CAMERA_LOOK_FROM);
+				cameralookfrom->distance = 15.0f;
+				cameralookfrom->XYdegees = 0.0f;
+				cameralookfrom->Zdegrees = 25.0f;
+				glmc_vec3_set(cameralookfrom->pos, 4.0f, -4.0f, 4.0f); //this normally gets overridden by camera system
+			}
+
+			if (has_door) {
+				EntityId door_entity_id = get_new_entity_id(engine);
+
+				GridLocationComponent* gridloc = create_component(engine, door_entity_id, COMP_GRIDLOCATION);
+				glmc_ivec2_set(gridloc->pos, x, y);
+
+				ActivatableComponent* activatable = create_component(engine, door_entity_id, COMP_ACTIVATABLE);
+				activatable->active = 0;
+
+				DirectionComponent* directioncomponent = create_component(engine, door_entity_id, COMP_DIRECTION);
+				directioncomponent->dir = N;
+
+				ArtComponent* art = create_component(engine, door_entity_id, COMP_ART);
+				art->type = ART_DOOR;
+			}
+
+			if (has_lock) {
+				EntityId lock_entity_id = get_new_entity_id(engine);
+
+				GridLocationComponent* gridloc = create_component(engine, lock_entity_id, COMP_GRIDLOCATION);
+				glmc_ivec2_set(gridloc->pos, x, y);
+
+				ActivatableComponent* activatable = create_component(engine, lock_entity_id, COMP_ACTIVATABLE);
+				activatable->active = 0;
+
+				ArtComponent* art = create_component(engine, lock_entity_id, COMP_ART);
+				art->type = ART_LOCK;
+
+				LockComponent* lock = create_component(engine, lock_entity_id, COMP_LOCK);
+				lock->requiredKeyColor = B;
+			}
+		}
+	}
 }

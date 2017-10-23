@@ -58,13 +58,13 @@ Level* levelloader_load_level(LevelLoader* ll, int level_nr) {
 
 	for (p = 0; p < 64; p++) {
 		for (q = 0; q < 64; q++) {
-			level->level_description[p][q] = NULL; /* Alle elementen van de 2D array op 0 zetten om garbage values te vermijden*/
+			level->level_description[p][q] = NULL; /* Alle elementen van de 2D array op NULL zetten om garbage values te vermijden*/
 		}
 	}
 
 	FILE *level_file;
 
-	level_file = fopen(ll->level_paths[level_nr], "r");
+	level_file = fopen(ll->level_paths[1], "r"); // Hier terug plaatsen
 
 	if (level_file == NULL) { printf("Error when opening file!\n"); exit(1); }
 	int counter = 0;
@@ -117,8 +117,8 @@ Level* levelloader_load_level(LevelLoader* ll, int level_nr) {
 
 	int i;
 	int j;
-	for (i = 0; i < counter; i++) { // Als er een rij te veel komt te staan onderaan, ligt het hieraan
-		for ( j = 0; j < longest; j++ ) { // Als er een rij te veel komt te staan rechts, ligt het hieraan
+	for (i = 0; i < counter; i++) { // Als er een rij te weinig komt te staan onderaan, ligt het hieraan
+		for ( j = 0; j < longest - 1; j++ ) { // Als er een kolom te veel komt te staan rechts, ligt het hieraan
 			if (level->level_description[i][j] == NULL) {
 				level->level_description[i][j] = '/';
 			}
