@@ -64,7 +64,7 @@ Level* levelloader_load_level(LevelLoader* ll, int level_nr) {
 
 	FILE *level_file;
 
-	level_file = fopen(ll->level_paths[level_nr], "r");
+	level_file = fopen(ll->level_paths[5], "r");
 
 	if (level_file == NULL) { printf("Error when opening file!\n"); exit(1); }
 	int counter = 0;

@@ -69,7 +69,16 @@ void game_load_level(Game* g, Level* l) {
 				glmc_ivec2_set(gridloc->pos, x, y);
 
 				ItemComponent* item = create_component(engine, key_entity_id, COMP_ITEM);
-				item->color = toupper(current_char);
+				
+				if (current_char == 'a') {
+					item->color = A;
+				} else if (current_char == 'b') {
+					item->color = B;
+				} else if (current_char == 'c') {
+					item->color = C;
+				} else if (current_char == 'o') {
+					item->color = O;
+				}
 
 				ArtComponent* art = create_component(engine, key_entity_id, COMP_ART);
 				art->type = ART_KEY;
@@ -95,7 +104,7 @@ void game_load_level(Game* g, Level* l) {
 				moveaction->player_z = 0.0f;
 
 				CameraLookFromComponent* cameralookfrom = create_component(engine, player_entity_id, COMP_CAMERA_LOOK_FROM);
-				cameralookfrom->distance = 10.0f;
+				cameralookfrom->distance = 20.0f;
 				cameralookfrom->XYdegees = 0.0f;
 				cameralookfrom->Zdegrees = 75.0f;
 			}
@@ -129,7 +138,19 @@ void game_load_level(Game* g, Level* l) {
 				art->type = ART_LOCK;
 
 				LockComponent* lock = create_component(engine, lock_entity_id, COMP_LOCK);
-				lock->requiredKeyColor = current_char;
+
+				if (current_char == 'A') {
+					lock->requiredKeyColor = A;
+				}
+				else if (current_char == 'B') {
+					lock->requiredKeyColor = B;
+				}
+				else if (current_char == 'C') {
+					lock->requiredKeyColor = C;
+				}
+				else if (current_char == 'O') {
+					lock->requiredKeyColor = O;
+				}
 			}
 		}
 	}

@@ -44,16 +44,9 @@ void system_camera_update(CameraSystem* system, Engine* engine) {
 	float camera_y;
 	float camera_z;
 
-	printf("xy rad: %f\n", xy_radians);
-	printf("z rad: %f\n", z_radians);
-
 	camera_x = player_x + (dist * cos(xy_radians) * sin(z_radians));
 	camera_y = player_y + (dist * sin(xy_radians) * sin(z_radians));
 	camera_z = player_z + (dist * cos(z_radians));
-
-	printf("X: %f\n", camera_x);
-	printf("Y: %f\n", camera_y);
-	printf("Z: %f\n", camera_z);
 
 	glmc_vec3_set(cameraLookFrom->pos, camera_x, camera_y, camera_z);
 }
