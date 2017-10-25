@@ -22,7 +22,7 @@ void game_load_level(Game* g, Level* l) {
 
 	Engine* engine = &g->engine;
 	
-	engine->l = l;
+	engine->level = *l;
 
 	int width = l->breedte;
 	int height = l->hoogte;
