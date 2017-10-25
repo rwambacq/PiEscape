@@ -41,12 +41,12 @@ typedef struct GridLocationComponent {
 
 typedef struct OneTimeAnimationComponent {
     //TODO
-	TO_IMPLEMENT_STRUCT;
+	float progress;
 } OneTimeAnimationComponent;
 
 typedef struct MoveAnimationComponent {
     //TODO
-	TO_IMPLEMENT_STRUCT;
+	float progress;
 } MoveAnimationComponent;
 
 typedef struct WalkComponent {
