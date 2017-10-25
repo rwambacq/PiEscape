@@ -21,6 +21,8 @@ void game_free(Game* game) {
 void game_load_level(Game* g, Level* l) {
 
 	Engine* engine = &g->engine;
+	
+	engine->l = l;
 
 	int width = l->breedte;
 	int height = l->hoogte;
@@ -99,12 +101,9 @@ void game_load_level(Game* g, Level* l) {
 				glmc_vec3_set(cameralookat->pos, x * 1.0f, y * 1.0f, 0.0f);
 
 				MoveActionComponent* moveaction = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
-				moveaction->player_x = 1.0f;
-				moveaction->player_y = 1.0f;
-				moveaction->player_z = 0.0f;
 
 				CameraLookFromComponent* cameralookfrom = create_component(engine, player_entity_id, COMP_CAMERA_LOOK_FROM);
-				cameralookfrom->distance = 20.0f;
+				cameralookfrom->distance = 10.0f;
 				cameralookfrom->XYdegees = 0.0f;
 				cameralookfrom->Zdegrees = 75.0f;
 			}

@@ -28,6 +28,7 @@ typedef struct Engine Engine;
 #include "es_memory_manager.h"
 
 typedef struct Engine {
+	Level level;
     Context context;
     
     //systems

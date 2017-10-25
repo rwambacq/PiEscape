@@ -26,7 +26,13 @@ void system_camera_update(CameraSystem* system, Engine* engine) {
 
 	CameraLookFromComponent* cameraLookFrom = search_first_component(engine, COMP_CAMERA_LOOK_FROM);
 	CameraLookAtComponent* cameraLookAt = search_first_component(engine, COMP_CAMERA_LOOK_AT);
-	MoveActionComponent* movement = search_first_component(engine, COMP_MOVE_ACTION);
+	EntityIterator player_it;
+	search_entity_2(engine, COMP_GRIDLOCATION, COMP_INPUTRECEIVER, &player_it);
+	next_entity(&player_it);
+	EntityId player_entity_id = player_it.entity_id;
+	assert(player_entity_id != NO_ENTITY);
+
+	GridLocationComponent* player_grid_comp = get_component(engine, player_entity_id, COMP_GRIDLOCATION);
 
 	float xy_degrees = cameraLookFrom->XYdegees;
 	float z_degrees = cameraLookFrom->Zdegrees;
@@ -36,9 +42,9 @@ void system_camera_update(CameraSystem* system, Engine* engine) {
 
 	float dist = cameraLookFrom->distance;
 
-	float player_x = movement->player_x;
-	float player_y = movement->player_y;
-	float player_z = movement->player_z;
+	float player_x = player_grid_comp->pos[0];
+	float player_y = player_grid_comp->pos[1];
+	float player_z = 0.0;
 
 	float camera_x;
 	float camera_y;
