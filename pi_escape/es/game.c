@@ -104,7 +104,7 @@ void game_load_level(Game* g, Level* l) {
 				moveaction->player_z = 0.0f;
 
 				CameraLookFromComponent* cameralookfrom = create_component(engine, player_entity_id, COMP_CAMERA_LOOK_FROM);
-				cameralookfrom->distance = 2	0.0f;
+				cameralookfrom->distance = 20.0f;
 				cameralookfrom->XYdegees = 0.0f;
 				cameralookfrom->Zdegrees = 75.0f;
 			}
