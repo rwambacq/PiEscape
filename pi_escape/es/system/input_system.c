@@ -52,7 +52,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
             engine->context.is_exit_game = 1;
             break;
         case SDLK_UP:{
-            engine->context.demo = !engine->context.demo;
+			
             break;
         }
         case SDLK_DOWN:{
@@ -60,7 +60,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
             break;
         }
         case SDLK_LEFT:{
-            engine->context.demo = !engine->context.demo;
+			
             break;
         }
         case SDLK_RIGHT:{
@@ -84,6 +84,7 @@ void system_input_update(InputSystem* system, Engine* engine) {
         switch( event.type ) {
             case SDL_KEYDOWN:
                 /* Handle key presses. */
+
                 handleKeyDown(system, engine, &event.key.keysym, input_recv_entity_id);
                 break;
             case SDL_KEYUP:
