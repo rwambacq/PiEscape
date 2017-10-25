@@ -108,7 +108,12 @@ void system_input_update(InputSystem* system, Engine* engine) {
                     int buttonDown = mouseMotionEvent->state & SDL_BUTTON_LEFT;
                     
                     if (buttonDown) {
-                        printf("Mouse dragged %f %f\n", mouseMotionEvent->xrel * 1.0f, mouseMotionEvent->yrel * 1.0f);
+						float x_move = mouseMotionEvent->xrel * 1.0f;
+						float y_move = mouseMotionEvent->yrel * 1.0f;
+                        printf("Mouse dragged %f %f\n", x_move, y_move);
+						CameraLookFromComponent* cameraLookFrom = search_first_component(engine, COMP_CAMERA_LOOK_FROM);
+						cameraLookFrom->XYdegees -= x_move;
+						cameraLookFrom->Zdegrees += y_move;
                     } else {
                         //printf("Mouse moved %f %f\n", mouseMotionEvent->xrel * 1.0f, mouseMotionEvent->yrel * 1.0f);
                     }
