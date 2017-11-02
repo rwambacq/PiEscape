@@ -79,7 +79,7 @@ Uint32 tock(Uint32 tic) {
 }
 
 // do all the dirty work
-void crunch_line(Engine* engine, char* line) {
+void crunch_line(Engine* engine, char* line, EntityIterator* entity_iterator) {
 	int len = (int) strlen(line);
 	char a_str[10];
 	char b_str[10];
@@ -100,7 +100,7 @@ void crunch_line(Engine* engine, char* line) {
 	else if (!strncmp("get_component", line, (int) sizeof("get_component") / sizeof(char) - 1)) {
 		line += (int) sizeof("get_component(Engine*") / sizeof(char);
 		set_int_args_2(line, a_str, b_str);
-		printf("a_str = %s, b_str = %s\n", a_str, b_str);
+		//printf("a_str = %s, b_str = %s\n", a_str, b_str);
 		a = str_to_int(a_str, strlen(a_str));
 		b = str_to_int(b_str, strlen(b_str));
 		get_component(engine, a, b);
@@ -117,9 +117,9 @@ void crunch_line(Engine* engine, char* line) {
 		//printf("%s\n", line);
 		line += (int) sizeof("search_entity_1(Engine*") / sizeof(char);
 		set_int_args_1(line, a_str);
-		printf("a_str = %s\n", a_str);
+		//printf("a_str = %s\n", a_str);
 		a = str_to_int(a_str, strlen(a_str));
-		//search_entity_1(engine, a);
+		search_entity_1(engine, a, entity_iterator);
 	}
 }
 
@@ -128,6 +128,7 @@ int main(int argc, char **argv){
 	Uint32 tic;
 	Uint32 toc;
 	FILE* f;
+	EntityIterator bench_ent_it;
 	char line[50];
 	LevelLoader* level_loader;
 	Graphics* graphics;
@@ -174,7 +175,7 @@ int main(int argc, char **argv){
 		printf("Executing: ");
 		printf(line);
 		printf("\n");
-		crunch_line(&pi_escape_2->engine, line);
+		crunch_line(&pi_escape_2->engine, line, &bench_ent_it);
 	}
 	toc = tock(tic);
 	printf("Benchmark took %f seconds to execute.\n", toc/1000.0f);
