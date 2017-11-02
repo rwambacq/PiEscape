@@ -41,6 +41,7 @@ void game_load_level(Game* g, Level* l) {
 			int has_key = (current_char == 'a' || current_char == 'b' || current_char == 'c' || current_char == 'o');
 			int has_player = (current_char == 'P');
 			int has_lock = (current_char == 'A' || current_char == 'B' || current_char == 'C' || current_char == 'O');
+			int has_exit = (current_char == 'E');
 
 			EntityId entity_id = get_new_entity_id(engine);
 
@@ -123,7 +124,18 @@ void game_load_level(Game* g, Level* l) {
 				ArtComponent* art = create_component(engine, door_entity_id, COMP_ART);
 				art->type = ART_DOOR;
 			}
+			if (has_exit) {
+			
+				EntityId exit_entity_id = get_new_entity_id(engine);
 
+				GridLocationComponent* gridloc = create_component(engine, exit_entity_id, COMP_GRIDLOCATION);
+				glmc_ivec2_set(gridloc->pos, x, y);
+
+				ExitComponent* exit = create_component(engine, exit_entity_id, COMP_EXIT);
+				
+				//raar probleem met walls, die overschreden word
+				art->type = ART_END;
+			}
 			if (has_lock) {
 				EntityId lock_entity_id = get_new_entity_id(engine);
 

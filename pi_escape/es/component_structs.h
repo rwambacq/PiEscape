@@ -127,7 +127,7 @@ typedef struct ArtComponent {
 } ArtComponent;
 
 typedef struct ExitComponent {
-    //TODO
+	int done;
 	TO_IMPLEMENT_STRUCT;
 } ExitComponent;
 
