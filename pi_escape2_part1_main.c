@@ -11,12 +11,12 @@
 #include <SDL_timer.h>
 
 void fill_level_loader(LevelLoader* level_loader) {
-	strcpy(level_loader->level_paths[0], "pi_escape/level/level_files/tutorial1.lvl");
+	strcpy(level_loader->level_paths[0], "pi_escape/level/level_files/tutorial6.lvl");
 	strcpy(level_loader->level_paths[1], "pi_escape/level/level_files/tutorial2.lvl");
 	strcpy(level_loader->level_paths[2], "pi_escape/level/level_files/tutorial3.lvl");
 	strcpy(level_loader->level_paths[3], "pi_escape/level/level_files/tutorial4.lvl");
 	strcpy(level_loader->level_paths[4], "pi_escape/level/level_files/tutorial5.lvl");
-	strcpy(level_loader->level_paths[5], "pi_escape/level/level_files/tutorial6.lvl");
+	strcpy(level_loader->level_paths[5], "pi_escape/level/level_files/tutorial1.lvl");
 	strcpy(level_loader->level_paths[6], "pi_escape/level/level_files/tutorial7.lvl");
 	strcpy(level_loader->level_paths[7], "pi_escape/level/level_files/game1.lvl");
 	strcpy(level_loader->level_paths[8], "pi_escape/level/level_files/game2.lvl");

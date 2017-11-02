@@ -105,9 +105,9 @@ void game_load_level(Game* g, Level* l) {
 				MoveActionComponent* moveaction = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
 
 				CameraLookFromComponent* cameralookfrom = create_component(engine, player_entity_id, COMP_CAMERA_LOOK_FROM);
-				cameralookfrom->distance = 10.0f;
+				cameralookfrom->distance = 15.0f;
 				cameralookfrom->XYdegees = 0.0f;
-				cameralookfrom->Zdegrees = 75.0f;
+				cameralookfrom->Zdegrees = 45.0f;
 			}
 
 			if (has_door) {
