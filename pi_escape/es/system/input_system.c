@@ -56,7 +56,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
             break;
         }
         case SDLK_DOWN:{
-            engine->context.demo = !engine->context.demo;
+			engine->context.demo = !engine->context.demo;
             break;
         }
         case SDLK_LEFT:{
