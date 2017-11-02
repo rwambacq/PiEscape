@@ -59,25 +59,25 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
         case SDLK_UP:{
             engine->context.demo = !engine->context.demo;
 			MoveActionComponent* move = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
-			move->y_min_move = 1;
+			move->x_min_move = 1;
 			break;
         }
         case SDLK_DOWN:{
             engine->context.demo = !engine->context.demo;
 			MoveActionComponent* move = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
-			move->y_plus_move = 1;
+			move->x_plus_move = 1;
 			break;
         }
         case SDLK_LEFT:{
             engine->context.demo = !engine->context.demo;
 			MoveActionComponent* move = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
-			move->x_min_move = 1;
+			move->y_plus_move = 1;
             break;
         }
         case SDLK_RIGHT:{
             engine->context.demo = !engine->context.demo;
 			MoveActionComponent* move = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
-			move->x_plus_move = 1;
+			move->y_min_move = 1;
             break;
         }
         default:
