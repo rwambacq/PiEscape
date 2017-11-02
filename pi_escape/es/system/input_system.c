@@ -54,28 +54,28 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 	assert(player_entity_id != NO_ENTITY);
     switch( keysym->sym ) {
         case SDLK_ESCAPE:
-            engine->context.is_exit_game = 1;
+            //engine->context.is_exit_game = 1;
             break;
         case SDLK_UP:{
-            engine->context.demo = !engine->context.demo;
+            //engine->context.demo = !engine->context.demo;
 			MoveActionComponent* move = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
 			move->x_min_move = 1;
 			break;
         }
         case SDLK_DOWN:{
-            engine->context.demo = !engine->context.demo;
+            //engine->context.demo = !engine->context.demo;
 			MoveActionComponent* move = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
 			move->x_plus_move = 1;
 			break;
         }
         case SDLK_LEFT:{
-            engine->context.demo = !engine->context.demo;
+            //engine->context.demo = !engine->context.demo;
 			MoveActionComponent* move = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
 			move->y_plus_move = 1;
             break;
         }
         case SDLK_RIGHT:{
-            engine->context.demo = !engine->context.demo;
+            //engine->context.demo = !engine->context.demo;
 			MoveActionComponent* move = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
 			move->y_min_move = 1;
             break;

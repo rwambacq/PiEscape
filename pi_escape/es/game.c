@@ -56,10 +56,10 @@ void game_load_level(Game* g, Level* l) {
 			wall_info->has_ceil = has_ceil;
 			wall_info->has_floor = has_floor;
 
-			int wall_above = (l->level_description[x][y + 1] == 'W') && (current_char = 'W');
-			int wall_under = (l->level_description[x][y - 1] == 'W') && (current_char = 'W');
-			int wall_right = (l->level_description[x + 1][y] == 'W') && (current_char = 'W');
-			int wall_left = (l->level_description[x - 1][y] == 'W') && (current_char = 'W');
+			int wall_above = (l->level_description[x][y + 1] == 'W') && (current_char = 'W') || y == width-1;
+			int wall_under = (l->level_description[x][y - 1] == 'W') && (current_char = 'W') || y == 0;;
+			int wall_right = (l->level_description[x + 1][y] == 'W') && (current_char = 'W') || x == height-1;
+			int wall_left = (l->level_description[x - 1][y] == 'W') && (current_char = 'W') || x == 0;
 
 			wall_info->has_wall[N] = wall_above;
 			wall_info->has_wall[S] = wall_under;
