@@ -30,6 +30,46 @@ int str_to_int(char* s, int size) {
 	return res;
 }
 
+void set_int_args_1(char* line, char* a_str) {
+	int ai = 0;
+	while (*line != '\0' && a_str[ai] != '\0') {
+		if (*line != ',' && *line != ')') { // build a
+			a_str[ai++] = *line;
+			line++;
+		}
+		else {
+			a_str[ai] = '\0';
+			line++;
+		}
+	}
+}
+
+void set_int_args_2(char* line, char* a_str, char* b_str) {
+	int ai = 0, bi = 0;
+	while (*line != '\0') {
+		if (a_str[ai] == '\0') { // build b
+			if (*line != ')') {
+				b_str[bi++] = *line;
+				line++;
+			}
+			else {
+				b_str[bi] = '\0';
+				line++;
+			}
+		}
+		else { // build a
+			if (*line != ',') {
+				a_str[ai++] = *line;
+				line++;
+			}
+			else {
+				a_str[ai] = '\0';
+				line++;
+			}
+		}
+	}
+}
+
 Uint32 tick() {
 	return SDL_GetTicks();
 }
@@ -38,47 +78,48 @@ Uint32 tock(Uint32 tic) {
 	return SDL_GetTicks() - tic;
 }
 
+// do all the dirty work
 void crunch_line(Engine* engine, char* line) {
 	int len = (int) strlen(line);
 	char a_str[10];
 	char b_str[10];
 	int i = 0;
 	for (i = 0; i < 10; i++) { a_str[i] = 'e'; b_str[i] = 'e'; }
-	int ai = 0;
-	int bi = 0;
 	int a=0; // first arg for create_component
 	int b=0; // second arg for create_component
 	if (!strncmp("get_new_entity_id", line, (int) sizeof("get_new_entity_id") / sizeof(char) - 1)) {
 		get_new_entity_id(engine);		
 	}
 	else if (!strncmp("create_component", line, (int) sizeof("create_component") / sizeof(char) - 1)) {
-		line += (int) sizeof("create_component(Engine*") / sizeof(char);
-		while (*line != '\0') {
-			if (a_str[ai] == '\0') { // build b
-				if (*line != ')') {
-					b_str[bi++] = *line;
-					line++;
-				}
-				else {
-					b_str[bi] = '\0';
-					line++;
-				}
-			}
-			else { // build a
-				if (*line != ',') {
-					a_str[ai++] = *line;
-					line++;
-				}
-				else {
-					a_str[ai] = '\0';
-					line++;
-				}
-			}
-		}
-
+		line += (int) sizeof("create_component(Engine*") / sizeof(char);		
+		set_int_args_2(line, a_str, b_str);
 		a = str_to_int(a_str, strlen(a_str));
 		b = str_to_int(b_str, strlen(b_str));
 		create_component(engine, a, b);
+	}
+	else if (!strncmp("get_component", line, (int) sizeof("get_component") / sizeof(char) - 1)) {
+		line += (int) sizeof("get_component(Engine*") / sizeof(char);
+		set_int_args_2(line, a_str, b_str);
+		printf("a_str = %s, b_str = %s\n", a_str, b_str);
+		a = str_to_int(a_str, strlen(a_str));
+		b = str_to_int(b_str, strlen(b_str));
+		get_component(engine, a, b);
+	}
+	else if(!strncmp("search_first_entity_1", line, (int) sizeof("search_first_entity_1") / sizeof(char) - 1)){
+		//printf("%s\n", line);
+		line += (int) sizeof("search_first_entity_1(Engine*") / sizeof(char);
+		set_int_args_1(line, a_str);
+		//printf("a_str = %s\n", a_str);
+		a = str_to_int(a_str, strlen(a_str));
+		search_first_entity_1(engine, a);
+	}
+	else if (!strncmp("search_entity_1", line, (int) sizeof("search_entity_1") / sizeof(char) - 1)) {
+		//printf("%s\n", line);
+		line += (int) sizeof("search_entity_1(Engine*") / sizeof(char);
+		set_int_args_1(line, a_str);
+		printf("a_str = %s\n", a_str);
+		a = str_to_int(a_str, strlen(a_str));
+		//search_entity_1(engine, a);
 	}
 }
 
@@ -127,7 +168,6 @@ int main(int argc, char **argv){
 	}
 
 	// run function calls being read from benchlog file sequentially
-	// TODO clean up spaghetti code!
 	tic = tick();
 	while (!feof(f)) {
 		fscanf(f, "%s", line);
@@ -137,7 +177,7 @@ int main(int argc, char **argv){
 		crunch_line(&pi_escape_2->engine, line);
 	}
 	toc = tock(tic);
-	printf("Benchmark took %d seconds to execute.\n", toc/1000);
+	printf("Benchmark took %f seconds to execute.\n", toc/1000.0f);
 
 	fclose(f);
 	
