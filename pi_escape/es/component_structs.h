@@ -29,12 +29,11 @@ typedef struct CameraLookAtComponent {
 } CameraLookAtComponent;
 
 typedef struct MoveActionComponent {
-	float player_x;
-	float player_y;
-	float player_z;
-
+	int x_plus_move;
+	int x_min_move;
+	int y_plus_move;
+	int y_min_move;
 } MoveActionComponent;
-
 
 typedef struct GridLocationComponent {
     t_ivec2 pos;
@@ -42,16 +41,16 @@ typedef struct GridLocationComponent {
 
 typedef struct OneTimeAnimationComponent {
     //TODO
-	TO_IMPLEMENT_STRUCT;
+	float progress;
 } OneTimeAnimationComponent;
 
 typedef struct MoveAnimationComponent {
     //TODO
-	TO_IMPLEMENT_STRUCT;
+	float progress;
 } MoveAnimationComponent;
 
 typedef struct WalkComponent {
-    //TODO
+    //TODO	
 	TO_IMPLEMENT_STRUCT;
 } WalkComponent;
 

@@ -47,24 +47,37 @@ static void handleKeyDown(InputSystem* system, Engine* engine, SDL_keysym *keysy
 
 static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym, EntityId inputReceiverEntity)
 {
+	EntityIterator player_it;
+	search_entity_2(engine, COMP_GRIDLOCATION, COMP_INPUTRECEIVER, &player_it);
+	next_entity(&player_it);
+	EntityId player_entity_id = player_it.entity_id;
+	assert(player_entity_id != NO_ENTITY);
     switch( keysym->sym ) {
         case SDLK_ESCAPE:
             engine->context.is_exit_game = 1;
             break;
         case SDLK_UP:{
-			
-            break;
+            engine->context.demo = !engine->context.demo;
+			MoveActionComponent* move = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
+			move->y_min_move = 1;
+			break;
         }
         case SDLK_DOWN:{
             engine->context.demo = !engine->context.demo;
-            break;
+			MoveActionComponent* move = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
+			move->y_plus_move = 1;
+			break;
         }
         case SDLK_LEFT:{
-			
+            engine->context.demo = !engine->context.demo;
+			MoveActionComponent* move = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
+			move->x_min_move = 1;
             break;
         }
         case SDLK_RIGHT:{
             engine->context.demo = !engine->context.demo;
+			MoveActionComponent* move = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
+			move->x_plus_move = 1;
             break;
         }
         default:
@@ -76,6 +89,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 
 void system_input_update(InputSystem* system, Engine* engine) {
     EntityId input_recv_entity_id = search_first_entity_1(engine, COMP_INPUTRECEIVER);
+	CameraLookFromComponent* cameraLookFrom = search_first_component(engine, COMP_CAMERA_LOOK_FROM);
 
     SDL_Event event;
     memset(&event, 0, sizeof(SDL_Event));
@@ -84,7 +98,6 @@ void system_input_update(InputSystem* system, Engine* engine) {
         switch( event.type ) {
             case SDL_KEYDOWN:
                 /* Handle key presses. */
-
                 handleKeyDown(system, engine, &event.key.keysym, input_recv_entity_id);
                 break;
             case SDL_KEYUP:
@@ -109,7 +122,10 @@ void system_input_update(InputSystem* system, Engine* engine) {
                     int buttonDown = mouseMotionEvent->state & SDL_BUTTON_LEFT;
                     
                     if (buttonDown) {
-                        printf("Mouse dragged %f %f\n", mouseMotionEvent->xrel * 1.0f, mouseMotionEvent->yrel * 1.0f);
+						float x_move = mouseMotionEvent->xrel * 1.0f;
+						float y_move = mouseMotionEvent->yrel * 1.0f;
+						cameraLookFrom->XYdegees -= x_move;
+						cameraLookFrom->Zdegrees += y_move;
                     } else {
                         //printf("Mouse moved %f %f\n", mouseMotionEvent->xrel * 1.0f, mouseMotionEvent->yrel * 1.0f);
                     }
@@ -120,11 +136,15 @@ void system_input_update(InputSystem* system, Engine* engine) {
                 //SDL 1.2 handles the wheel in a silly way
                 switch (event.button.button) {
                     case SDL_BUTTON_WHEELUP: {
-                        printf("Wheel up\n");
+						if (cameraLookFrom->distance > 5) {
+							cameraLookFrom->distance -= 1;
+						}
                         break;
                     }
                     case SDL_BUTTON_WHEELDOWN:{
-                        printf("Wheel down\n");
+						if (cameraLookFrom->distance < 25) {
+							cameraLookFrom->distance += 1;
+						}
                         break;
                     }
                 }
