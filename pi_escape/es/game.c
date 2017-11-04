@@ -37,12 +37,15 @@ void game_load_level(Game* g, Level* l) {
 
 			int has_door = (current_char == 'D');
 			int has_exit = (current_char == 'E');
-			int has_floor = (current_char != 'D' && current_char != 'W' && current_char != 'E');
-			int has_ceil = (!has_floor && !has_door && !has_exit);
+			int has_connector = current_char == '-';
+			int has_conAnd = current_char == '&';
+			int has_conOr = current_char == '|';
+			int has_floor = (current_char != 'W' && current_char != 'E' && current_char != 'D');
+			int has_ceil = (!has_floor && !has_door && !has_exit && !has_connector);
 			int has_key = (current_char == 'a' || current_char == 'b' || current_char == 'c' || current_char == 'o');
 			int has_player = (current_char == 'P');
 			int has_lock = (current_char == 'A' || current_char == 'B' || current_char == 'C' || current_char == 'O');
-		
+	
 
 			EntityId entity_id = get_new_entity_id(engine);
 
@@ -65,6 +68,80 @@ void game_load_level(Game* g, Level* l) {
 			wall_info->has_wall[S] = wall_under;
 			wall_info->has_wall[W] = wall_left;
 			wall_info->has_wall[E] = wall_right;
+
+
+			if (has_connector || has_lock) {
+				EntityId conn_entity_id = get_new_entity_id(engine);
+
+				GridLocationComponent* gridloc = create_component(engine, conn_entity_id, COMP_GRIDLOCATION);
+				glmc_ivec2_set(gridloc->pos, x, y);
+
+			
+				ConnectorLogicComponent* conn = create_component(engine, conn_entity_id, COMP_CONNECTORLOGIC);
+
+				ActivatableComponent* activatable = create_component(engine, conn_entity_id, COMP_ACTIVATABLE);
+				activatable->active = 1;
+
+				DirectionComponent* directioncomponent = create_component(engine, conn_entity_id, COMP_DIRECTION);
+				directioncomponent->dir = N;
+
+				char above = l->level_description[x - 1][y];
+				char beneath = l->level_description[x + 1][y];
+				char left = l->level_description[x][y - 1];
+				char right = l->level_description[x][y + 1];
+
+
+				if (has_lock) {
+					if (above == '-') {
+						directioncomponent->dir = W;
+					}
+					if (beneath == '-') {
+						directioncomponent->dir = E;
+					}
+					if (left == '-') {
+						directioncomponent->dir = S;
+					}
+					if (right == '-') {
+						directioncomponent->dir = N;
+					}
+				}
+				else {
+
+					EntityId conn2_entity_id = get_new_entity_id(engine);
+
+					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
+					glmc_ivec2_set(gridloc->pos, x, y);
+
+					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
+
+					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
+					activatable2->active = 1;
+
+					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
+					directioncomponent2->dir = N;
+
+					ArtComponent* art2 = create_component(engine, conn2_entity_id, COMP_ART);
+					art2->type = ART_CONNECTOR;
+
+					if (left == '-' || left == 'A' || left == 'B' || left == 'C' || left == 'O' || left == 'D' || left == '|' || left == '&'){
+						directioncomponent->dir = S;
+					}
+					if (above == '-' || above == 'A' || above == 'B' || above == 'C' || above == 'O' || above == 'D' || above == '|' || above == '&') {
+						
+						directioncomponent2->dir = W;
+					}
+					if (right == '-' || right == 'A' || right == 'B' || right == 'C' || right == 'O' || right == 'D' || right == '|' || right == '&') {
+						directioncomponent2->dir = N;
+					}
+					if (beneath == '-' || beneath == 'A' || beneath == 'B' || beneath == 'C' || beneath == 'O' || beneath == 'D' || beneath == '|' || beneath == '&') {
+						directioncomponent->dir = E;
+					}
+				}
+
+				ArtComponent* art = create_component(engine, conn_entity_id, COMP_ART);
+				art->type = ART_CONNECTOR;
+
+			}
 
 			if (has_key) {
 				EntityId key_entity_id = get_new_entity_id(engine);
@@ -125,6 +202,7 @@ void game_load_level(Game* g, Level* l) {
 				ArtComponent* art = create_component(engine, door_entity_id, COMP_ART);
 				art->type = ART_DOOR;
 			}
+			
 			if (has_exit) {
 			
 				EntityId exit_entity_id = get_new_entity_id(engine);
@@ -137,6 +215,7 @@ void game_load_level(Game* g, Level* l) {
 				ArtComponent* art = create_component(engine, exit_entity_id, COMP_ART);
 				art->type = ART_END;
 			}
+
 			if (has_lock) {
 				EntityId lock_entity_id = get_new_entity_id(engine);
 
@@ -162,6 +241,186 @@ void game_load_level(Game* g, Level* l) {
 				}
 				else if (current_char == 'O') {
 					lock->requiredKeyColor = O;
+				}
+			}
+
+			if (has_conAnd) {
+				EntityId conn_entity_id = get_new_entity_id(engine);
+
+				GridLocationComponent* gridloc = create_component(engine, conn_entity_id, COMP_GRIDLOCATION);
+				glmc_ivec2_set(gridloc->pos, x, y);
+
+				ActivatableComponent* activatable = create_component(engine, conn_entity_id, COMP_ACTIVATABLE);
+				activatable->active = 0;
+
+				ArtComponent* art = create_component(engine, conn_entity_id, COMP_ART);
+				art->type = ART_CONNECTOR_AND;
+
+				char above = l->level_description[x - 1][y];
+				char beneath = l->level_description[x + 1][y];
+				char left = l->level_description[x][y - 1];
+				char right = l->level_description[x][y + 1];
+
+				if (above == '-') {
+					EntityId conn2_entity_id = get_new_entity_id(engine);
+
+					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
+					glmc_ivec2_set(gridloc->pos, x, y);
+
+					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
+
+					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
+					activatable2->active = 1;
+
+					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
+					directioncomponent2->dir = W;
+
+					ArtComponent* art2 = create_component(engine, conn2_entity_id, COMP_ART);
+					art2->type = ART_CONNECTOR;
+				}
+
+				if (beneath == '-') {
+					EntityId conn2_entity_id = get_new_entity_id(engine);
+
+					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
+					glmc_ivec2_set(gridloc->pos, x, y);
+
+					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
+
+					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
+					activatable2->active = 1;
+
+					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
+					directioncomponent2->dir = E;
+
+					ArtComponent* art2 = create_component(engine, conn2_entity_id, COMP_ART);
+					art2->type = ART_CONNECTOR;
+				}
+
+				if (left == '-') {
+					EntityId conn2_entity_id = get_new_entity_id(engine);
+
+					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
+					glmc_ivec2_set(gridloc->pos, x, y);
+
+					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
+
+					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
+					activatable2->active = 1;
+
+					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
+					directioncomponent2->dir = S;
+
+					ArtComponent* art2 = create_component(engine, conn2_entity_id, COMP_ART);
+					art2->type = ART_CONNECTOR;
+				}
+
+				if (right == '-') {
+					EntityId conn2_entity_id = get_new_entity_id(engine);
+
+					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
+					glmc_ivec2_set(gridloc->pos, x, y);
+
+					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
+
+					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
+					activatable2->active = 1;
+
+					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
+					directioncomponent2->dir = N;
+
+					ArtComponent* art2 = create_component(engine, conn2_entity_id, COMP_ART);
+					art2->type = ART_CONNECTOR;
+				}
+			}
+
+			if (has_conOr) {
+				EntityId conn_entity_id = get_new_entity_id(engine);
+
+				GridLocationComponent* gridloc = create_component(engine, conn_entity_id, COMP_GRIDLOCATION);
+				glmc_ivec2_set(gridloc->pos, x, y);
+
+				ActivatableComponent* activatable = create_component(engine, conn_entity_id, COMP_ACTIVATABLE);
+				activatable->active = 0;
+
+				ArtComponent* art = create_component(engine, conn_entity_id, COMP_ART);
+				art->type = ART_CONNECTOR_OR;
+
+				char above = l->level_description[x - 1][y];
+				char beneath = l->level_description[x + 1][y];
+				char left = l->level_description[x][y - 1];
+				char right = l->level_description[x][y + 1];
+
+				if (above == '-') {
+					EntityId conn2_entity_id = get_new_entity_id(engine);
+
+					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
+					glmc_ivec2_set(gridloc->pos, x, y);
+
+					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
+
+					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
+					activatable2->active = 1;
+
+					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
+					directioncomponent2->dir = W;
+
+					ArtComponent* art2 = create_component(engine, conn2_entity_id, COMP_ART);
+					art2->type = ART_CONNECTOR;
+				}
+
+				if (beneath == '-') {
+					EntityId conn2_entity_id = get_new_entity_id(engine);
+
+					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
+					glmc_ivec2_set(gridloc->pos, x, y);
+
+					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
+
+					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
+					activatable2->active = 1;
+
+					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
+					directioncomponent2->dir = E;
+
+					ArtComponent* art2 = create_component(engine, conn2_entity_id, COMP_ART);
+					art2->type = ART_CONNECTOR;
+				}
+
+				if (left == '-') {
+					EntityId conn2_entity_id = get_new_entity_id(engine);
+
+					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
+					glmc_ivec2_set(gridloc->pos, x, y);
+
+					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
+
+					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
+					activatable2->active = 1;
+
+					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
+					directioncomponent2->dir = S;
+
+					ArtComponent* art2 = create_component(engine, conn2_entity_id, COMP_ART);
+					art2->type = ART_CONNECTOR;
+				}
+
+				if (right == '-') {
+					EntityId conn2_entity_id = get_new_entity_id(engine);
+
+					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
+					glmc_ivec2_set(gridloc->pos, x, y);
+
+					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
+
+					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
+					activatable2->active = 1;
+
+					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
+					directioncomponent2->dir = N;
+
+					ArtComponent* art2 = create_component(engine, conn2_entity_id, COMP_ART);
+					art2->type = ART_CONNECTOR;
 				}
 			}
 		}
