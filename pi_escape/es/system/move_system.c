@@ -52,7 +52,6 @@ void system_move_update(MoveSystem* system, Engine* engine) {
 				move->x_plus_move = 0;
 			}
 			else if ( move->y_min_move ) {
-				printf("right");
 				char object_under = level.level_description[player_pos_x][player_pos_y + 1];
 				if (object_under != 'W' && object_under != 'D' && player_pos_y + 1 < level.breedte) {
 					loc->pos[1] += 1;
@@ -60,7 +59,6 @@ void system_move_update(MoveSystem* system, Engine* engine) {
 				move->y_min_move = 0;
 			}
 			else if ( move->y_plus_move ) {
-				printf("left");
 				char object_above = level.level_description[player_pos_x][player_pos_y - 1];
 				if (object_above != 'W' && object_above != 'D' && player_pos_y - 1 >= 0) {
 					loc->pos[1] -= 1;
