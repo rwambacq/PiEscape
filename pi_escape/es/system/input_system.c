@@ -33,7 +33,7 @@ static void handleKeyDown(InputSystem* system, Engine* engine, SDL_keysym *keysy
 		case SDLK_KP_ENTER: //fall-through
         case SDLK_RETURN:   //fall-through
         case SDLK_SPACE: {
-            engine->context.demo = !engine->context.demo;
+            //engine->context.demo = !engine->context.demo;
             break;
         }
         default:
