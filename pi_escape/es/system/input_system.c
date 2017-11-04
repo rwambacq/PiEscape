@@ -30,10 +30,10 @@ static void handleKeyDown(InputSystem* system, Engine* engine, SDL_keysym *keysy
         case SDLK_ESCAPE:
             //ignore untile key released
             break;
-        case SDLK_KP_ENTER: //fall-through
+		case SDLK_KP_ENTER: //fall-through
         case SDLK_RETURN:   //fall-through
         case SDLK_SPACE: {
-            engine->context.demo = !engine->context.demo;
+            //engine->context.demo = !engine->context.demo;
             break;
         }
         default:
@@ -80,6 +80,16 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 			move->y_min_move = 1;
             break;
         }
+		case SDLK_KP_ENTER: {
+			//engine->context.demo = !engine->context.demo;
+			ItemActionComponent* action = create_component(engine, player_entity_id, COMP_ITEMACTION);
+			break;
+		}
+		case SDLK_RETURN: {
+			//engine->context.demo = !engine->context.demo;
+			ItemActionComponent* action = create_component(engine, player_entity_id, COMP_ITEMACTION);
+			break;
+		}
         default:
             break;
     }

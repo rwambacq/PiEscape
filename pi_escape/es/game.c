@@ -94,6 +94,9 @@ void game_load_level(Game* g, Level* l) {
 				GridLocationComponent* gridloc = create_component(engine, player_entity_id, COMP_GRIDLOCATION);
 				glmc_ivec2_set(gridloc->pos, x, y);
 
+				ContainerComponent* cont = create_component(engine, player_entity_id, COMP_CONTAINER);
+				cont->contains_something = 0;
+
 				ArtComponent* art = create_component(engine, player_entity_id, COMP_ART);
 				art->type = ART_PLAYER;
 

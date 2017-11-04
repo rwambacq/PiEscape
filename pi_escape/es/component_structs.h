@@ -71,13 +71,14 @@ typedef struct ItemComponent {
 } ItemComponent;
 
 typedef struct InContainerComponent {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	int previous_location_x;
+	int previous_location_y;
+	GridLocationComponent* entity_location;
 } InContainerComponent;
 
 typedef struct ContainerComponent {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	int contains_something;
+	EntityId id;
 } ContainerComponent;
 
 typedef struct ActivationComponent {
