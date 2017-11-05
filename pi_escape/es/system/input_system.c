@@ -165,13 +165,13 @@ void system_input_update(InputSystem* system, Engine* engine) {
 
 
         //demo only, no use in real game
-        EntityIterator it;
+        /*EntityIterator it;
         search_entity_1(engine, COMP_ACTIVATABLE, &it);
         while(next_entity(&it)) {
             EntityId drawable_entity_id = it.entity_id;
             assert(drawable_entity_id != NO_ENTITY);
             ActivatableComponent* activatable = get_component(engine, drawable_entity_id, COMP_ACTIVATABLE);
             activatable->active = engine->context.demo;
-        }
+        }*/
     }
 }

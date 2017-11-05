@@ -4,6 +4,8 @@
 
 #include <stdlib.h>
 
+void checkForLock(Engine* engine, EntityId* key_id);
+
 ActionSystem* system_action_alloc() {
     ActionSystem* res = calloc(1, sizeof(ActionSystem));
     system_action_init(res);
@@ -44,12 +46,14 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					item_incontainer->entity_location = ent_loc;
 					item_incontainer->previous_location_x = ent_loc->pos[0];
 					item_incontainer->previous_location_y = ent_loc->pos[1];
+					checkForLock(engine, &item);
 					break;
 				}
 				else if (container->contains_something && container->id == item ) {
 					EntityId contained = container->id;
 					free_component(engine, contained, COMP_INCONTAINER);
 					container->contains_something = 0;
+					checkForLock(engine, &item);
 				}
 				else {
 					container->id = item;
@@ -58,9 +62,25 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					item_incontainer->previous_location_x = ent_loc->pos[0];
 					item_incontainer->previous_location_y = ent_loc->pos[1];
 					container->contains_something = 1;
+					checkForLock(engine, &item);
 				}
 			}
 		}
 		free_component(engine, ent, COMP_ITEMACTION);
+	}
+}
+
+void checkForLock(Engine* engine, EntityId* key_id) {
+	GridLocationComponent* key_pos = get_component(engine, *key_id, COMP_GRIDLOCATION);
+	EntityIterator it;
+	search_entity_1(engine, COMP_LOCK, &it);
+	while (next_entity(&it)) {
+		EntityId lock = it.entity_id;
+		assert(lock != NO_ENTITY);
+		GridLocationComponent* lock_pos = get_component(engine, lock, COMP_GRIDLOCATION);
+		if (key_pos->pos[0] == lock_pos->pos[0] && key_pos->pos[1] == lock_pos->pos[1]) {
+			create_component(engine, lock, COMP_ACTIVATION);
+			printf("Key placed on lock\n");
+		}
 	}
 }

@@ -80,7 +80,7 @@ void game_load_level(Game* g, Level* l) {
 				ConnectorLogicComponent* conn = create_component(engine, conn_entity_id, COMP_CONNECTORLOGIC);
 
 				ActivatableComponent* activatable = create_component(engine, conn_entity_id, COMP_ACTIVATABLE);
-				activatable->active = 1;
+				activatable->active = 0;
 
 				DirectionComponent* directioncomponent = create_component(engine, conn_entity_id, COMP_DIRECTION);
 				directioncomponent->dir = N;
@@ -115,7 +115,7 @@ void game_load_level(Game* g, Level* l) {
 					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
 
 					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
-					activatable2->active = 1;
+					activatable2->active = 0;
 
 					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
 					directioncomponent2->dir = N;
@@ -273,7 +273,7 @@ void game_load_level(Game* g, Level* l) {
 					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
 
 					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
-					activatable2->active = 1;
+					activatable2->active = 0;
 
 					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
 					directioncomponent2->dir = W;
@@ -291,7 +291,7 @@ void game_load_level(Game* g, Level* l) {
 					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
 
 					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
-					activatable2->active = 1;
+					activatable2->active = 0;
 
 					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
 					directioncomponent2->dir = E;
@@ -309,7 +309,7 @@ void game_load_level(Game* g, Level* l) {
 					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
 
 					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
-					activatable2->active = 1;
+					activatable2->active = 0;
 
 					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
 					directioncomponent2->dir = S;
@@ -327,7 +327,7 @@ void game_load_level(Game* g, Level* l) {
 					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
 
 					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
-					activatable2->active = 1;
+					activatable2->active = 0;
 
 					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
 					directioncomponent2->dir = N;
@@ -363,7 +363,7 @@ void game_load_level(Game* g, Level* l) {
 					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
 
 					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
-					activatable2->active = 1;
+					activatable2->active = 0;
 
 					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
 					directioncomponent2->dir = W;
@@ -381,7 +381,7 @@ void game_load_level(Game* g, Level* l) {
 					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
 
 					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
-					activatable2->active = 1;
+					activatable2->active = 0;
 
 					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
 					directioncomponent2->dir = E;
@@ -399,7 +399,7 @@ void game_load_level(Game* g, Level* l) {
 					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
 
 					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
-					activatable2->active = 1;
+					activatable2->active = 0;
 
 					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
 					directioncomponent2->dir = S;
@@ -417,7 +417,7 @@ void game_load_level(Game* g, Level* l) {
 					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
 
 					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
-					activatable2->active = 1;
+					activatable2->active = 0;
 
 					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
 					directioncomponent2->dir = N;
