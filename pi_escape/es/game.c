@@ -214,6 +214,7 @@ void game_load_level(Game* g, Level* l) {
 				glmc_ivec2_set(gridloc->pos, x, y);
 
 				ExitComponent* exit = create_component(engine, exit_entity_id, COMP_EXIT);
+				exit->done = 0;
 				
 				ArtComponent* art = create_component(engine, exit_entity_id, COMP_ART);
 				art->type = ART_END;

@@ -46,6 +46,7 @@ void system_lock_update(LockSystem* system, Engine* engine) {
 				else {
 					lock_act->active = 0;
 				}
+				break;
 			}
 		}
 		free_component(engine, lock, COMP_ACTIVATION);
