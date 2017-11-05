@@ -133,7 +133,6 @@ typedef struct ArtComponent {
 
 typedef struct ExitComponent {
 	int done;
-	TO_IMPLEMENT_STRUCT;
 } ExitComponent;
 
 #endif //PIESCAPE2_COMPONENTS_H

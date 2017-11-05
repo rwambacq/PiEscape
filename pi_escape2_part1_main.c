@@ -6,17 +6,18 @@
 #include "pi_escape/level/levelloader.h"
 #include "pi_escape/es/game.h"
 
+#include <assert.h>
 #include <SDL.h>
 #undef main //Weird bug on windows where SDL overwrite main definition
 #include <SDL_timer.h>
 
 void fill_level_loader(LevelLoader* level_loader) {
-	strcpy(level_loader->level_paths[0], "pi_escape/level/level_files/game3.lvl");
+	strcpy(level_loader->level_paths[0], "pi_escape/level/level_files/tutorial1.lvl");
 	strcpy(level_loader->level_paths[1], "pi_escape/level/level_files/tutorial2.lvl");
 	strcpy(level_loader->level_paths[2], "pi_escape/level/level_files/tutorial3.lvl");
 	strcpy(level_loader->level_paths[3], "pi_escape/level/level_files/tutorial4.lvl");
 	strcpy(level_loader->level_paths[4], "pi_escape/level/level_files/tutorial5.lvl");
-	strcpy(level_loader->level_paths[5], "pi_escape/level/level_files/tutorial1.lvl");
+	strcpy(level_loader->level_paths[5], "pi_escape/level/level_files/tutorial6.lvl");
 	strcpy(level_loader->level_paths[6], "pi_escape/level/level_files/tutorial7.lvl");
 	strcpy(level_loader->level_paths[7], "pi_escape/level/level_files/game1.lvl");
 	strcpy(level_loader->level_paths[8], "pi_escape/level/level_files/game2.lvl");
@@ -38,7 +39,8 @@ int main() {
     //initialise context, engine and assemblage, and add systems
     Game* pi_escape_2 = game_alloc(graphics);
 
-    Level* level = levelloader_load_level(level_loader, 0);
+	int level_nr = 0;															//THIS NUMBER DECIDES WHICH LEVEL IS LOADED, FOR TESTING, USE THIS!!
+    Level* level = levelloader_load_level(level_loader, level_nr);
     game_load_level(pi_escape_2, level);
 
 	int width = level->breedte;
@@ -56,11 +58,38 @@ int main() {
     long update_count = 0;
 
     while (!pi_escape_2->engine.context.is_exit_game) {
+		
+		EntityIterator level_exit;
+		search_entity_1(&pi_escape_2->engine, COMP_EXIT, &level_exit);
+		next_entity(&level_exit);
+		EntityId exit_id = level_exit.entity_id;
+		assert(exit_id != NO_ENTITY);
+		ExitComponent* exit_comp = get_component(&pi_escape_2->engine, exit_id, COMP_EXIT);
+		if (exit_comp->done && level_nr < 9) {
+			es_memory_manager_init(&(pi_escape_2->engine.es_memory));
+			level_nr++;
+			level = levelloader_load_level(level_loader, level_nr);
+			game_load_level(pi_escape_2, level);
+
+			width = level->breedte;
+			height = level->hoogte;
+
+			int s;
+			for (s = 0; s < height; s++) {
+				printf("%s\n", level->level_description[s]);
+			}
+		}
+		else if (exit_comp->done && level_nr == 9) {
+			pi_escape_2->engine.context.is_exit_game = 1;
+		}
+
         Uint32 cur_time_ms = SDL_GetTicks();
         Uint32 diff_time_ms = cur_time_ms - last_print_time_ms;
 
         engine_update(&pi_escape_2->engine);
         update_count++;
+		
+		
 
         //print performance statistics each second
         if (diff_time_ms > 1000) {
