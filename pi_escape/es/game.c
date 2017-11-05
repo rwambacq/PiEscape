@@ -202,6 +202,9 @@ void game_load_level(Game* g, Level* l) {
 				DirectionComponent* directioncomponent = create_component(engine, door_entity_id, COMP_DIRECTION);
 				directioncomponent->dir = N;
 
+				IsDoorComponent* doorcomponent = create_component(engine, door_entity_id, COMP_ISDOOR);
+				doorcomponent->x = 0;
+
 				ArtComponent* art = create_component(engine, door_entity_id, COMP_ART);
 				art->type = ART_DOOR;
 			}
