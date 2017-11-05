@@ -36,12 +36,21 @@ void* search_first_component(Engine* engine, ComponentId component_id) {
 	if(logging_benchmark){
 		fprintf(benchfile, "search_first_component(Engine*,%d)\n", component_id);
 	}
-    ComponentIterator it;
-    search_component(engine, component_id, &it);
-    if (next_component(&it))
-        return it.comp;
-    else
-        return NULL;
+	if (running_benchmark) {
+		search_component(engine, component_id, bench_comp_it_ptr);
+		if (next_component(bench_comp_it_ptr))
+			return bench_comp_it_ptr -> comp;
+		else
+			return NULL;
+	}
+	else {
+		ComponentIterator it;
+		search_component(engine, component_id, &it);
+		if (next_component(&it))
+			return it.comp;
+		else
+			return NULL;
+	}
 }
 
 
@@ -60,7 +69,7 @@ void search_entity(Engine* engine,
                    uint32_t component_id_filter,
                    EntityIterator* res) {
 	if (logging_benchmark) {
-		fprintf(benchfile, "search_entity(Engine*,%u,EntityIterator*)\n", component_id_filter);
+		fprintf(benchfile, "search_entity(Engine*,%d,EntityIterator*)\n", component_id_filter);
 	}
     res->engine = engine;
     res->component_id_filter = component_id_filter;
@@ -102,15 +111,21 @@ void search_entity_3(Engine* engine,
 }
 
 EntityId search_first_entity_with_mask(Engine *engine, uint32_t component_id_filter) {
-	if (logging_benchmark) {
-		fprintf(benchfile, "search_first_entity_with_mask(Engine*,%u)\n", component_id_filter);
+	if (running_benchmark) {
+		search_entity(engine, component_id_filter, bench_ent_it_ptr);
+		if (next_entity(bench_ent_it_ptr))
+			return bench_ent_it_ptr -> entity_id;
+		else
+			return NO_ENTITY;
 	}
-    EntityIterator it;
-    search_entity(engine, component_id_filter, &it);
-    if (next_entity(&it))
-        return it.entity_id;
-    else
-        return NO_ENTITY;
+	else {
+		EntityIterator it;
+		search_entity(engine, component_id_filter, &it);
+		if (next_entity(&it))
+			return it.entity_id;
+		else
+			return NO_ENTITY;
+	}
 }
 EntityId search_first_entity_1(Engine* engine, ComponentId component_id1) {
 	if (logging_benchmark) {
@@ -160,19 +175,18 @@ int next_entity(EntityIterator* res) {
     return 0;
 }
 
+
+/*
+all functions below this point are optimal and work in constant time, they don't need to be logged to be executed when benchmarking
+the time sensitivity of the program
+*/
 void entitylist_init(int initial_size, EntityList* dest) {
-	if (logging_benchmark) {
-		fprintf(benchfile, "entitylist_init(%d,EntityList*)\n", initial_size);
-	}
     dest->allocated = initial_size < 16 ? 16 : initial_size;
     dest->entity_ids = malloc(dest->allocated * sizeof(EntityId));
     dest->count = 0;
     assert(dest->entity_ids != NULL);
 }
 void entitylist_free(EntityList* dest) {
-	if (logging_benchmark) {
-		fprintf(benchfile, "entitylist_free(EntityList*)\n");
-	}
     free(dest->entity_ids);
     dest->count = 0;
     dest->allocated = 0;
@@ -180,9 +194,6 @@ void entitylist_free(EntityList* dest) {
 }
 
 void entitylist_add(EntityList* dest, EntityId entity_id) {
-	if (logging_benchmark) {
-		fprintf(benchfile, "entitylist_add(EntityList*,%d)\n", entity_id);
-	}
     if (dest->count + 1 == dest->allocated) {
         int new_size = dest->allocated > 0 ? dest->allocated * 2 : 16;
         dest->entity_ids = realloc(dest->entity_ids, new_size * sizeof(EntityId));
@@ -194,9 +205,6 @@ void entitylist_add(EntityList* dest, EntityId entity_id) {
 
 
 void entityqueue_init(EntityQueue* queue, EntityId first_entity_id) {
-	if (logging_benchmark) {
-		fprintf(benchfile, "entityqueue_init(EntityQueue*,%d)\n", first_entity_id);
-	}
     queue->front = malloc(sizeof(EntityQueueLink));
     queue->front->entity_id = first_entity_id;
     queue->front->next = NULL;
@@ -205,23 +213,14 @@ void entityqueue_init(EntityQueue* queue, EntityId first_entity_id) {
     queue->size = 1;
 }
 void entityqueue_free(EntityQueue* queue) {
-	if (logging_benchmark) {
-		fprintf(benchfile, "entityqueue_free(EntityQueue*)\n");
-	}
     while (!entityqueue_is_empty(queue)) {
         entityqueue_pop_front(queue);
     }
 }
 int entityqueue_is_empty(EntityQueue* queue) {
-	if (logging_benchmark) {
-		fprintf(benchfile, "entity_is_empty(EntityQueue*)\n");
-	}
     return queue->size == 0;
 }
 void entityqueue_push_back(EntityQueue* queue, EntityId entity_id) {
-	if (logging_benchmark) {
-		fprintf(benchfile, "entityqueue_push_back(EntityQueue*,%d)\n", entity_id);
-	}
     EntityQueueLink* extra = malloc(sizeof(EntityQueueLink));
     extra->entity_id = entity_id;
     extra->next = NULL;
@@ -234,9 +233,6 @@ void entityqueue_push_back(EntityQueue* queue, EntityId entity_id) {
     queue->size++;
 }
 EntityId entityqueue_pop_front(EntityQueue* queue) {
-	if (logging_benchmark) {
-		fprintf(benchfile, "entity_pop_front(EntityQueue*)\n");
-	}
     if (queue->size < 0)
         fatal("Can't pop empty queue");
     EntityQueueLink* orig_front = queue->front;

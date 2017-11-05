@@ -115,7 +115,7 @@ Uint32 tock(Uint32 tic) {
 }
 
 // do all the dirty work
-void crunch_line(Engine* engine, char* line, EntityIterator* entity_iterator_ptr, ComponentIterator* component_iterator_ptr) {
+void crunch_line(Engine* engine, char* line) {
 	int len = (int) strlen(line);
 	char a_str[10];
 	char b_str[10];
@@ -172,7 +172,7 @@ void crunch_line(Engine* engine, char* line, EntityIterator* entity_iterator_ptr
 		set_int_args_1(line, a_str);
 		//printf("a_str = %s\n", a_str);
 		a = str_to_int(a_str, strlen(a_str));
-		search_entity_1(engine, a, entity_iterator_ptr);
+		search_entity_1(engine, a, bench_ent_it_ptr);
 	}
 	else if (!strncmp("search_entity_2", line, (int) sizeof("search_entity_2") / sizeof(char) - 1)) {
 		line += (int) sizeof("search_entity_2(Engine*") / sizeof(char);
@@ -180,7 +180,7 @@ void crunch_line(Engine* engine, char* line, EntityIterator* entity_iterator_ptr
 		//printf("a_str = %s, b_str = %s\n", a_str, b_str);
 		a = str_to_int(a_str, strlen(a_str));
 		b = str_to_int(b_str, strlen(b_str));
-		search_entity_2(engine, a, b, entity_iterator_ptr);
+		search_entity_2(engine, a, b, bench_ent_it_ptr);
 	}
 	else if (!strncmp("search_entity_3", line, (int) sizeof("search_entity_3") / sizeof(char) - 1)) {
 		line += (int) sizeof("search_entity_3(Engine*") / sizeof(char);
@@ -189,7 +189,34 @@ void crunch_line(Engine* engine, char* line, EntityIterator* entity_iterator_ptr
 		a = str_to_int(a_str, strlen(a_str));
 		b = str_to_int(b_str, strlen(b_str));
 		c = str_to_int(c_str, strlen(c_str));
-		search_entity_3(engine, a, b, c, entity_iterator_ptr);
+		search_entity_3(engine, a, b, c, bench_ent_it_ptr);
+	}
+	else if (!strncmp("next_entity", line, (int) sizeof("next_entity") / sizeof(char) - 1)) {
+		next_entity(bench_ent_it_ptr);
+	}
+	else if (!strncmp("search_entity", line, (int) sizeof("search_entity") / sizeof(char) - 1)) {
+		line += (int) sizeof("search_entity(Engine*") / sizeof(char);
+		set_int_args_1(line, a_str);
+		//printf("a_str = %s\n", a_str);
+		a = str_to_int(a_str, strlen(a_str));
+		search_entity(engine, a, bench_ent_it_ptr);
+	}
+	else if (!strncmp("search_first_component", line, (int) sizeof("search_first_component") / sizeof(char) - 1)) {
+		line += (int) sizeof("search_first_component(Engine*") / sizeof(char);
+		set_int_args_1(line, a_str);
+		//printf("a_str = %s\n", a_str);
+		a = str_to_int(a_str, strlen(a_str));
+		search_first_component(engine, a);
+	}
+	else if (!strncmp("next_component", line, (int) sizeof("next_component") / sizeof(char) - 1)) {
+		next_component(bench_comp_it_ptr);
+	}
+	else if (!strncmp("search_component", line, (int) sizeof("search_component") / sizeof(char) - 1)) {
+		line += (int) sizeof("search_component(Engine*") / sizeof(char);
+		set_int_args_1(line, a_str);
+		//printf("a_str = %s\n", a_str);
+		a = str_to_int(a_str, strlen(a_str));
+		search_component(engine, a, bench_comp_it_ptr);
 	}
 }
 
@@ -199,7 +226,9 @@ int main(int argc, char **argv){
 	Uint32 toc;
 	FILE* f;
 	EntityIterator bench_ent_it;
+	bench_ent_it_ptr = &bench_ent_it;
 	ComponentIterator bench_comp_it;
+	bench_comp_it_ptr = &bench_comp_it;
 	char line[50];
 	LevelLoader* level_loader;
 	Graphics* graphics;
@@ -207,6 +236,7 @@ int main(int argc, char **argv){
 
 
 	printf("Running Benchmarks...\n");
+	running_benchmark = 1;
 
 	int imgFlags = IMG_INIT_PNG;
 	if (!(IMG_Init(imgFlags) & imgFlags)) {
@@ -246,7 +276,7 @@ int main(int argc, char **argv){
 		printf("Executing: ");
 		printf(line);
 		printf("\n");
-		crunch_line(&pi_escape_2->engine, line, &bench_ent_it, &bench_comp_it);
+		crunch_line(&pi_escape_2->engine, line);
 	}
 	toc = tock(tic);
 	printf("Benchmark took %f seconds to execute.\n", toc/1000.0f);

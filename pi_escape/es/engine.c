@@ -8,8 +8,7 @@
 
 Engine* engine_alloc(Graphics* graphics) {
     Engine* res = calloc(1, sizeof(Engine));
-	int i = 0;
-    engine_init(res, graphics, &i);
+    engine_init(res, graphics);
     return res;
 }
 void engine_init(Engine* engine, Graphics* graphics) {
