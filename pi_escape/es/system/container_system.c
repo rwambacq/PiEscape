@@ -35,4 +35,5 @@ void system_container_update(ContainerSystem* system, Engine* engine) {
 			cont->previous_location_y = cont->entity_location->pos[1];
 		}
 	}
+
 }
