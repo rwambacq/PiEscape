@@ -83,7 +83,7 @@ void game_load_level(Game* g, Level* l) {
 				activatable->active = 0;
 
 				DirectionComponent* directioncomponent = create_component(engine, conn_entity_id, COMP_DIRECTION);
-				directioncomponent->dir = N;
+				
 
 				char above = l->level_description[x - 1][y];
 				char beneath = l->level_description[x + 1][y];
@@ -92,16 +92,16 @@ void game_load_level(Game* g, Level* l) {
 
 
 				if (has_lock) {
-					if (above == '-') {
+					if (above == '-' || above == '|' || above == '&') {
 						directioncomponent->dir = W;
 					}
-					if (beneath == '-') {
+					if (beneath == '-' || beneath == '|' || beneath == '&') {
 						directioncomponent->dir = E;
 					}
-					if (left == '-') {
+					if (left == '-' || left == '|' || left == '&') {
 						directioncomponent->dir = S;
 					}
-					if (right == '-') {
+					if (right == '-' || right == '|' || right == '&') {
 						directioncomponent->dir = N;
 					}
 				}
@@ -123,18 +123,39 @@ void game_load_level(Game* g, Level* l) {
 					ArtComponent* art2 = create_component(engine, conn2_entity_id, COMP_ART);
 					art2->type = ART_CONNECTOR;
 
+
+
 					if (left == '-' || left == 'A' || left == 'B' || left == 'C' || left == 'O' || left == 'D' || left == '|' || left == '&'){
-						directioncomponent->dir = S;
+						if (directioncomponent->dir == NULL) {
+							directioncomponent->dir = S;
+						}
+						else {
+							directioncomponent2->dir = S;
+						}
 					}
 					if (above == '-' || above == 'A' || above == 'B' || above == 'C' || above == 'O' || above == 'D' || above == '|' || above == '&') {
-						
-						directioncomponent2->dir = W;
+						if (directioncomponent->dir == NULL) {
+							directioncomponent->dir = W;
+						}
+						else {
+							directioncomponent2->dir = W;
+						}
 					}
 					if (right == '-' || right == 'A' || right == 'B' || right == 'C' || right == 'O' || right == 'D' || right == '|' || right == '&') {
-						directioncomponent2->dir = N;
+						if (directioncomponent->dir == NULL) {
+							directioncomponent->dir = N;
+						}
+						else {
+							directioncomponent2->dir = N;
+						}
 					}
 					if (beneath == '-' || beneath == 'A' || beneath == 'B' || beneath == 'C' || beneath == 'O' || beneath == 'D' || beneath == '|' || beneath == '&') {
-						directioncomponent->dir = E;
+						if (directioncomponent->dir == NULL) {
+							directioncomponent->dir = E;
+						}
+						else {
+							directioncomponent2->dir = E;
+						}
 					}
 				}
 
@@ -197,10 +218,17 @@ void game_load_level(Game* g, Level* l) {
 				glmc_ivec2_set(gridloc->pos, x, y);
 
 				ActivatableComponent* activatable = create_component(engine, door_entity_id, COMP_ACTIVATABLE);
-				activatable->active = 0;
+				activatable->active = 1;
 
 				DirectionComponent* directioncomponent = create_component(engine, door_entity_id, COMP_DIRECTION);
 				directioncomponent->dir = N;
+
+
+				char checkmuur = l->level_description[x-1][y];
+
+				if (checkmuur == 'W') {
+					directioncomponent->dir = E;
+				}
 
 				IsDoorComponent* doorcomponent = create_component(engine, door_entity_id, COMP_ISDOOR);
 				doorcomponent->x = 0;
@@ -268,7 +296,8 @@ void game_load_level(Game* g, Level* l) {
 				char left = l->level_description[x][y - 1];
 				char right = l->level_description[x][y + 1];
 
-				if (above == '-') {
+
+				if (above == '-' || above == '|' || above == '&' || above == 'A' || above == 'B' || above == 'C' || above == 'O' || above == 'D') {
 					EntityId conn2_entity_id = get_new_entity_id(engine);
 
 					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
@@ -286,7 +315,8 @@ void game_load_level(Game* g, Level* l) {
 					art2->type = ART_CONNECTOR;
 				}
 
-				if (beneath == '-') {
+				if (beneath == '-' || beneath == '|' || beneath == '&' || beneath == 'A' || beneath == 'B' || beneath == 'C' || beneath == 'O' || beneath == 'D') {
+
 					EntityId conn2_entity_id = get_new_entity_id(engine);
 
 					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
@@ -304,7 +334,7 @@ void game_load_level(Game* g, Level* l) {
 					art2->type = ART_CONNECTOR;
 				}
 
-				if (left == '-') {
+				if (left == '-' || left == '|' || left == '&' || left == 'A' || left == 'B' || left == 'C' || left == 'O' || left == 'D') {
 					EntityId conn2_entity_id = get_new_entity_id(engine);
 
 					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
@@ -322,7 +352,8 @@ void game_load_level(Game* g, Level* l) {
 					art2->type = ART_CONNECTOR;
 				}
 
-				if (right == '-') {
+				if (right == '-' || right == '|' || right == '&' || right == 'A' || right == 'B' || right == 'C' || right == 'O' || right == 'D') {
+
 					EntityId conn2_entity_id = get_new_entity_id(engine);
 
 					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
@@ -358,7 +389,7 @@ void game_load_level(Game* g, Level* l) {
 				char left = l->level_description[x][y - 1];
 				char right = l->level_description[x][y + 1];
 
-				if (above == '-') {
+				if (above == '-' || above == '|' || above == '&' || above == 'A' || above == 'B' || above == 'C' || above == 'O' || above == 'D') {
 					EntityId conn2_entity_id = get_new_entity_id(engine);
 
 					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
@@ -376,7 +407,7 @@ void game_load_level(Game* g, Level* l) {
 					art2->type = ART_CONNECTOR;
 				}
 
-				if (beneath == '-') {
+				if (beneath == '-' || beneath == '|' || beneath == '&' || beneath == 'A' || beneath == 'B' || beneath == 'C' || beneath == 'O' || beneath == 'D') {
 					EntityId conn2_entity_id = get_new_entity_id(engine);
 
 					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
@@ -394,7 +425,8 @@ void game_load_level(Game* g, Level* l) {
 					art2->type = ART_CONNECTOR;
 				}
 
-				if (left == '-') {
+				if (left == '-' || left == '|' || left == '&' || left == 'A' || left == 'B' || left == 'C' || left == 'O' || left == 'D') {
+
 					EntityId conn2_entity_id = get_new_entity_id(engine);
 
 					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
@@ -412,7 +444,7 @@ void game_load_level(Game* g, Level* l) {
 					art2->type = ART_CONNECTOR;
 				}
 
-				if (right == '-') {
+				if (right == '-' || right == '|' || right == '&' || right == 'A' || right == 'B' || right == 'C' || right == 'O' || right == 'D') {
 					EntityId conn2_entity_id = get_new_entity_id(engine);
 
 					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
