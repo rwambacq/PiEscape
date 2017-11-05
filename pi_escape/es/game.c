@@ -218,7 +218,7 @@ void game_load_level(Game* g, Level* l) {
 				glmc_ivec2_set(gridloc->pos, x, y);
 
 				ActivatableComponent* activatable = create_component(engine, door_entity_id, COMP_ACTIVATABLE);
-				activatable->active = 1;
+				activatable->active = 0;
 
 				DirectionComponent* directioncomponent = create_component(engine, door_entity_id, COMP_DIRECTION);
 				directioncomponent->dir = N;

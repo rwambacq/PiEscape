@@ -48,12 +48,27 @@ static void handleKeyDown(InputSystem* system, Engine* engine, SDL_keysym *keysy
 static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym, EntityId inputReceiverEntity)
 {
 	EntityIterator player_it;
+	EntityIterator itdoor;
 	search_entity_2(engine, COMP_GRIDLOCATION, COMP_INPUTRECEIVER, &player_it);
 	next_entity(&player_it);
 	EntityId player_entity_id = player_it.entity_id;
 	assert(player_entity_id != NO_ENTITY);
     switch( keysym->sym ) {
-        case SDLK_ESCAPE:
+		case SDLK_o:
+			//key die deuren opent of sluit, handig voor debug
+			search_entity_3(engine, COMP_ART, COMP_ISDOOR, COMP_DIRECTION, &itdoor);
+			while (next_entity(&itdoor)) {
+				EntityId door = itdoor.entity_id;
+				assert(door != NO_ENTITY);
+				ActivatableComponent* xx = get_component(engine, door, COMP_ACTIVATABLE);
+				if (xx->active == 0) 
+				{ xx->active = 1; } 
+				else {
+					xx->active = 0;
+				}
+			}
+			break;
+		case SDLK_ESCAPE:
             engine->context.is_exit_game = 1;
             break;
         case SDLK_UP:{

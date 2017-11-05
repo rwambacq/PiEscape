@@ -65,7 +65,10 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					item_incontainer->previous_location_x = ent_loc->pos[0];
 					item_incontainer->previous_location_y = ent_loc->pos[1];
 					container->contains_something = 1;
-					checkForLock(engine);
+
+					ItemComponent* ok = get_component(engine, container->id, COMP_ITEM);
+					printf("%d", (int)ok->color);
+					checkForLock(engine, &item);
 				}
 			}
 		}
