@@ -35,6 +35,10 @@ typedef struct MoveActionComponent {
 	int y_min_move;
 } MoveActionComponent;
 
+typedef struct IsDoorComponent{
+	int x;
+} IsDoorComponent;
+
 typedef struct GridLocationComponent {
     t_ivec2 pos;
 } GridLocationComponent;
