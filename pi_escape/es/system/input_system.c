@@ -53,7 +53,8 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 	next_entity(&player_it);
 	EntityId player_entity_id = player_it.entity_id;
 	assert(player_entity_id != NO_ENTITY);
-    switch( keysym->sym ) {
+	if (!has_component(engine, player_entity_id, COMP_BLOCKING)) {
+		switch (keysym->sym) {
 		case SDLK_o:
 			//key die deuren opent of sluit, handig voor debug
 			search_entity_3(engine, COMP_ART, COMP_ISDOOR, COMP_DIRECTION, &itdoor);
@@ -61,40 +62,36 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 				EntityId door = itdoor.entity_id;
 				assert(door != NO_ENTITY);
 				ActivatableComponent* xx = get_component(engine, door, COMP_ACTIVATABLE);
-				if (xx->active == 0) 
-				{ xx->active = 1; } 
-				else {
-					xx->active = 0;
-				}
+				xx->active = !xx->active;
 			}
 			break;
 		case SDLK_ESCAPE:
-            engine->context.is_exit_game = 1;
-            break;
-        case SDLK_UP:{
-            //engine->context.demo = !engine->context.demo;
+			engine->context.is_exit_game = 1;
+			break;
+		case SDLK_UP: {
+			//engine->context.demo = !engine->context.demo;
 			MoveActionComponent* move = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
 			move->x_min_move = 1;
 			break;
-        }
-        case SDLK_DOWN:{
-            //engine->context.demo = !engine->context.demo;
+		}
+		case SDLK_DOWN: {
+			//engine->context.demo = !engine->context.demo;
 			MoveActionComponent* move = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
 			move->x_plus_move = 1;
 			break;
-        }
-        case SDLK_LEFT:{
-            //engine->context.demo = !engine->context.demo;
+		}
+		case SDLK_LEFT: {
+			//engine->context.demo = !engine->context.demo;
 			MoveActionComponent* move = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
 			move->y_plus_move = 1;
-            break;
-        }
-        case SDLK_RIGHT:{
-            //engine->context.demo = !engine->context.demo;
+			break;
+		}
+		case SDLK_RIGHT: {
+			//engine->context.demo = !engine->context.demo;
 			MoveActionComponent* move = create_component(engine, player_entity_id, COMP_MOVE_ACTION);
 			move->y_min_move = 1;
-            break;
-        }
+			break;
+		}
 		case SDLK_KP_ENTER: {
 			//engine->context.demo = !engine->context.demo;
 			ItemActionComponent* action = create_component(engine, player_entity_id, COMP_ITEMACTION);
@@ -104,9 +101,10 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 			ItemActionComponent* action = create_component(engine, player_entity_id, COMP_ITEMACTION);
 			break;
 		}
-        default:
-            break;
-    }
+		default:
+			break;
+		}
+	}
     
     
 }
@@ -114,7 +112,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 void system_input_update(InputSystem* system, Engine* engine) {
     EntityId input_recv_entity_id = search_first_entity_1(engine, COMP_INPUTRECEIVER);
 	CameraLookFromComponent* cameraLookFrom = search_first_component(engine, COMP_CAMERA_LOOK_FROM);
-
+	
     SDL_Event event;
     memset(&event, 0, sizeof(SDL_Event));
     /* Grab all the events off the queue. */

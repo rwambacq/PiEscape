@@ -48,6 +48,10 @@ void system_lock_update(LockSystem* system, Engine* engine) {
 				}
 				break;
 			}
+			else if (has_component(engine, key, COMP_INCONTAINER) && (lock_color->requiredKeyColor == key_color->color || lock_color->requiredKeyColor == O || key_color->color == O)) {
+				lock_act->active = 0;
+				break;
+			}
 		}
 		free_component(engine, lock, COMP_ACTIVATION);
 	}
