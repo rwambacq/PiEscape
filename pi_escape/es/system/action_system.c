@@ -4,7 +4,7 @@
 
 #include <stdlib.h>
 
-void checkForLock(Engine* engine, EntityId* key_id);
+void checkForLock(Engine* engine);
 
 ActionSystem* system_action_alloc() {
     ActionSystem* res = calloc(1, sizeof(ActionSystem));
@@ -47,7 +47,7 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					item_incontainer->entity_location = ent_loc;
 					item_incontainer->previous_location_x = ent_loc->pos[0];
 					item_incontainer->previous_location_y = ent_loc->pos[1];
-					checkForLock(engine, &item);
+					checkForLock(engine);
 					break;
 				}
 				else if (container->contains_something && container->id == item ) {
@@ -55,7 +55,7 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					EntityId contained = container->id;
 					free_component(engine, contained, COMP_INCONTAINER);
 					container->contains_something = 0;
-					checkForLock(engine, &item);
+					checkForLock(engine);
 				}
 				else {
 					//Pick up key
@@ -65,12 +65,13 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					item_incontainer->previous_location_x = ent_loc->pos[0];
 					item_incontainer->previous_location_y = ent_loc->pos[1];
 					container->contains_something = 1;
-					checkForLock(engine, &item);
+					checkForLock(engine);
 				}
 			}
 		}
 		free_component(engine, ent, COMP_ITEMACTION);
 	}
+	checkForLock(engine);
 }
 
 void checkForLock(Engine* engine) {
