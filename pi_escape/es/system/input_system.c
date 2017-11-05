@@ -54,7 +54,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 	assert(player_entity_id != NO_ENTITY);
     switch( keysym->sym ) {
         case SDLK_ESCAPE:
-            //engine->context.is_exit_game = 1;
+            engine->context.is_exit_game = 1;
             break;
         case SDLK_UP:{
             //engine->context.demo = !engine->context.demo;
