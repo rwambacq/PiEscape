@@ -6,7 +6,7 @@
 #include <stdint.h>
 #include <string.h>
 #include "../../util/rgb_triple.h"
-#if !defined(WIN32)
+#if defined(RPI)
 #include "util/lampen/lampenunix.h"
 #else
 #include "../../util/lampenwindows.h"
@@ -15,6 +15,7 @@
 
 int showColor(int kleurtje)
 {
+	printf("%d", kleurtje);
 	SPGM_RGBTRIPLE bl = { 0,0,0 };
 	SPGM_RGBTRIPLE g = { 0,250,0 };
 	SPGM_RGBTRIPLE r = { 250,0,0 };
