@@ -32,6 +32,10 @@ void display_ledgrid(SPGM_RGBTRIPLE* ledgrid, const char* framebuffer) {
 	map =
 		mmap(NULL, FILESIZE, PROT_READ | PROT_WRITE, MAP_SHARED, fbfd, 0);
 
+	if (ledgrid == NULL) {
+		close(fbfd);
+	}
+	else {}
 	p = map;
 	memset(map, 0, FILESIZE);
 
@@ -42,5 +46,6 @@ void display_ledgrid(SPGM_RGBTRIPLE* ledgrid, const char* framebuffer) {
 			((31 * (kleur.rgbBlue + 4)) / 255);
 		*(p + i) = Uint16_value;
 	}
+}
 
 }

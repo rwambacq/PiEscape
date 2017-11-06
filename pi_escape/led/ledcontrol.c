@@ -35,6 +35,9 @@ int showColor(int kleurtje)
 		display_ledgrid(gridgroen, "/dev/fb1");
 
 	}
+	else if (kleurtje == 5) {
+		display_ledgrid(NULL, "/dev/fb1");
+	}
 	else if (kleurtje == 1) {
 
 		SPGM_RGBTRIPLE gridblauw[] =
