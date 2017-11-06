@@ -67,7 +67,8 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					container->contains_something = 1;
 
 					ItemComponent* ok = get_component(engine, container->id, COMP_ITEM);
-					printf("%d", (int)ok->color);
+					int x = (int)ok->color;
+					showColor(x);
 					checkForLock(engine, &item);
 				}
 			}
