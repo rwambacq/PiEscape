@@ -53,7 +53,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 	next_entity(&player_it);
 	EntityId player_entity_id = player_it.entity_id;
 	assert(player_entity_id != NO_ENTITY);
-	if (!has_component(engine, player_entity_id, COMP_BLOCKING)) {
+	//if (!has_component(engine, player_entity_id, COMP_BLOCKING)) {
 		switch (keysym->sym) {
 		case SDLK_o:
 			//key die deuren opent of sluit, handig voor debug
@@ -104,9 +104,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 		default:
 			break;
 		}
-	}
-    
-    
+	//}
 }
 
 void system_input_update(InputSystem* system, Engine* engine) {
