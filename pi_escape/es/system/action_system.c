@@ -73,7 +73,7 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					ItemComponent* ok = get_component(engine, container->id, COMP_ITEM);
 					int x = (int)ok->color;
 					showColor(x);
-					checkForLock(engine, &item);
+					checkForLock(engine);
 				}
 			}
 		}
