@@ -9,6 +9,8 @@ typedef struct EndLevelSystem {
 
 #include "../engine.h"
 
+#include "../../led/ledcontrol.h"
+
 #define EXIT_ANIMATION_DURATION_MS 1500
 
 void system_endlevel_init(EndLevelSystem*);
