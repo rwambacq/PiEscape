@@ -74,7 +74,7 @@ int main() {
 		ExitComponent* exit_comp = get_component(&pi_escape_2->engine, exit_id, COMP_EXIT);
 		if (exit_comp->done && level_nr < 9) {
 			create_component(&pi_escape_2->engine, player_entity_id, COMP_BLOCKING);
-			sleep_ms(500);
+			sleep_ms(EXIT_ANIMATION_DURATION_MS);
 			es_memory_manager_init(&(pi_escape_2->engine.es_memory));
 			level_nr++;
 			level = levelloader_load_level(level_loader, level_nr);
