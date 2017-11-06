@@ -39,6 +39,11 @@ typedef struct IsDoorComponent{
 	int x;
 } IsDoorComponent;
 
+typedef struct IsConnectorComponent {
+	int x;
+} IsConnectorComponent;
+
+
 typedef struct GridLocationComponent {
     t_ivec2 pos;
 } GridLocationComponent;

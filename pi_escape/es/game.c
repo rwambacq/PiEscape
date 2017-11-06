@@ -84,6 +84,8 @@ void game_load_level(Game* g, Level* l) {
 
 				DirectionComponent* directioncomponent = create_component(engine, conn_entity_id, COMP_DIRECTION);
 				
+				
+
 
 				char above = l->level_description[x - 1][y];
 				char beneath = l->level_description[x + 1][y];
@@ -464,4 +466,7 @@ void game_load_level(Game* g, Level* l) {
 			}
 		}
 	}
+
+
+
 }

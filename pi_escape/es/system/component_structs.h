@@ -35,6 +35,10 @@ typedef struct MoveActionComponent {
 	int y_min_move;
 } MoveActionComponent;
 
+typedef struct IsConnectorComponent {
+	int x;
+} IsDoorComponent;
+
 typedef struct IsDoorComponent{
 	int x;
 } IsDoorComponent;
