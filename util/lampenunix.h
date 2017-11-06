@@ -35,18 +35,17 @@ void display_ledgrid(SPGM_RGBTRIPLE* ledgrid, const char* framebuffer) {
 	if (ledgrid == NULL) {
 		close(fbfd);
 	}
-	else {
-		p = map;
-		memset(map, 0, FILESIZE);
+	else {}
+	p = map;
+	memset(map, 0, FILESIZE);
 
-		for (i = 0; i < NUM_WORDS; i++) {
-			SPGM_RGBTRIPLE kleur = ledgrid[i];
-			int Uint16_value = (((31 * (kleur.rgbRed + 4)) / 255) << 11) |
-				(((63 * (kleur.rgbGreen + 2)) / 255) << 5) |
-				((31 * (kleur.rgbBlue + 4)) / 255);
-			*(p + i) = Uint16_value;
-		}
+	for (i = 0; i < NUM_WORDS; i++) {
+		SPGM_RGBTRIPLE kleur = ledgrid[i];
+		int Uint16_value = (((31 * (kleur.rgbRed + 4)) / 255) << 11) |
+			(((63 * (kleur.rgbGreen + 2)) / 255) << 5) |
+			((31 * (kleur.rgbBlue + 4)) / 255);
+		*(p + i) = Uint16_value;
 	}
 }
 
-
+}
