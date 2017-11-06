@@ -7,7 +7,7 @@
 #include <string.h>
 #include "../../util/rgb_triple.h"
 #if defined(RPI)
-#include "util/lampen/lampenunix.h"
+#include "../../util/lampenunix.h"
 #else
 #include "../../util/lampenwindows.h"
 #endif
