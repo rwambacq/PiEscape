@@ -2,7 +2,6 @@
 
 
 #include <stdlib.h>
-
 #include <stdio.h>
 #include <assert.h>
 
@@ -39,5 +38,6 @@ void system_endlevel_update(EndLevelSystem* system, Engine* engine) {
 
 	if (exit_pos->pos[0] == player_pos->pos[0] && exit_pos->pos[1] == player_pos->pos[1]) {
 		exit_comp->done = 1;
+		showColor(6);
 	}
 }
