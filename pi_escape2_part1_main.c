@@ -70,11 +70,13 @@ int main() {
 		next_entity(&player_it);
 		EntityId player_entity_id = player_it.entity_id;
 		assert(player_entity_id != NO_ENTITY);
+		Uint32 timer_exit = 0;
 
 		ExitComponent* exit_comp = get_component(&pi_escape_2->engine, exit_id, COMP_EXIT);
 		if (exit_comp->done && level_nr < 9) {
 			create_component(&pi_escape_2->engine, player_entity_id, COMP_BLOCKING);
-			sleep_ms(EXIT_ANIMATION_DURATION_MS);
+			sleep_ms(500);
+			free_component(&pi_escape_2->engine, player_entity_id, COMP_BLOCKING);
 			es_memory_manager_init(&(pi_escape_2->engine.es_memory));
 			level_nr++;
 			level = levelloader_load_level(level_loader, level_nr);
