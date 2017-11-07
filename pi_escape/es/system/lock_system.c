@@ -6,6 +6,9 @@
 
 #include <assert.h>
 
+
+void checkForActivasion(Engine* engine, EntityId lock,int x);
+
 LockSystem* system_lock_alloc() {
     LockSystem* res = calloc(1, sizeof(LockSystem));
     system_lock_init(res);
@@ -42,18 +45,48 @@ void system_lock_update(LockSystem* system, Engine* engine) {
 			if (key_pos->pos[0] == lock_pos->pos[0] && key_pos->pos[1] == lock_pos->pos[1] && (!has_component(engine, key, COMP_INCONTAINER))) {
 				if (( ! has_component(engine, key, COMP_INCONTAINER) ) && (lock_color->requiredKeyColor == key_color->color || lock_color->requiredKeyColor == O || key_color->color == O)) {
 					lock_act->active = 1;
-
+					checkForActivasion(engine, lock, 0);
 				}
 				else {
 					lock_act->active = 0;
+					checkForActivasion(engine, lock, 1);
 				}
 				break;
 			}
 			else if (has_component(engine, key, COMP_INCONTAINER) && (lock_color->requiredKeyColor == key_color->color || lock_color->requiredKeyColor == O || key_color->color == O)) {
 				lock_act->active = 0;
+				checkForActivasion(engine, lock, 1);
 				break;
 			}
 		}
 		free_component(engine, lock, COMP_ACTIVATION);
 	}
 }
+
+
+void checkForActivasion(Engine* engine, EntityId lock, int x) {
+
+	ActivatableComponent* aan = get_component(engine, lock, COMP_ACTIVATABLE);
+	ConnectionsComponent* naast = get_component(engine, lock, COMP_CONNECTIONS);
+	ActivatableComponent* aans = get_component(engine, naast->prev, COMP_ACTIVATABLE);
+
+	printf("%d", aan->active);
+
+	if (x==0) {
+		ConnectionsComponent* nieuwpath = get_component(engine, lock, COMP_CONNECTIONS);
+		EntityId volgende = nieuwpath->next;
+		ActivationComponent* activatie = create_component(engine, volgende, COMP_ACTIVATION);
+		activatie->currenttime = 100;
+		activatie->getto = 0;
+	}
+	else if (x) {
+		ConnectionsComponent* nieuwpath = get_component(engine, lock, COMP_CONNECTIONS);
+		EntityId volgende = nieuwpath->prev;
+		ActivationComponent* activatie = create_component(engine, volgende, COMP_ACTIVATION);
+		activatie->currenttime = 50;
+		activatie->getto = 0;
+	}
+
+
+}
+

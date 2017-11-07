@@ -23,7 +23,7 @@ void usleep(__int64 usec)
 
 
 void checkForLock(Engine* engine);
-void checkForActivasion(Engine* engine, EntityId lock);
+
 
 ActionSystem* system_action_alloc() {
     ActionSystem* res = calloc(1, sizeof(ActionSystem));
@@ -124,29 +124,4 @@ void checkForLock(Engine* engine) {
 		}
 
 	}
-}
-void checkForActivasion(Engine* engine, EntityId lock) {
-
-	ActivatableComponent* aan = get_component(engine, lock, COMP_ACTIVATABLE);
-	ConnectionsComponent* naast = get_component(engine, lock, COMP_CONNECTIONS);
-	ActivatableComponent* aans = get_component(engine, naast->prev, COMP_ACTIVATABLE);
-
-	printf("%d", aan->active);
-
-	if (aan->active == 0) {
-		ConnectionsComponent* nieuwpath = get_component(engine, lock, COMP_CONNECTIONS);
-		EntityId volgende = nieuwpath->next;
-		ActivationComponent* activatie = create_component(engine, volgende, COMP_ACTIVATION);
-		activatie->currenttime = 100;
-		activatie->getto = 0;
-	}
-	else if (aan->active== 1){
-		ConnectionsComponent* nieuwpath = get_component(engine, lock, COMP_CONNECTIONS);
-		EntityId volgende = nieuwpath->prev;
-		ActivationComponent* activatie = create_component(engine, volgende, COMP_ACTIVATION);
-		activatie->currenttime = 50;
-		activatie->getto = 0;
-	}
-	
-
 }
