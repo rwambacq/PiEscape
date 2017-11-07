@@ -91,8 +91,8 @@ typedef struct ContainerComponent {
 } ContainerComponent;
 
 typedef struct ActivationComponent {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	int currenttime;
+	int getto;
 } ActivationComponent;
 
 typedef struct ActivatableComponent {

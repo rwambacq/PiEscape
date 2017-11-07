@@ -42,6 +42,7 @@ void system_lock_update(LockSystem* system, Engine* engine) {
 			if (key_pos->pos[0] == lock_pos->pos[0] && key_pos->pos[1] == lock_pos->pos[1] && (!has_component(engine, key, COMP_INCONTAINER))) {
 				if (( ! has_component(engine, key, COMP_INCONTAINER) ) && (lock_color->requiredKeyColor == key_color->color || lock_color->requiredKeyColor == O || key_color->color == O)) {
 					lock_act->active = 1;
+
 				}
 				else {
 					lock_act->active = 0;

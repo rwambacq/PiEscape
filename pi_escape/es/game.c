@@ -539,8 +539,47 @@ void game_load_level(Game* g, Level* l) {
 				y += 1;
 				curr = 4;
 			}
+
 			else {
-				printf("hak");
+				printf("\neinde\n");
+				int xloc = x;
+				int yloc = y;
+
+				if (above == 'D') {
+					xloc -= 1;
+				}
+				else if (beneath == 'D') {
+					xloc += 1;
+				}
+				else if (left == 'D') {
+					y -= 1;
+				}
+				else if (right == 'D') {
+					y += 1;
+				}
+
+				printf("%d  %d",xloc,yloc );
+
+
+				EntityIterator itdoor;
+				search_entity_3(engine, COMP_ART, COMP_ISDOOR, COMP_DIRECTION, &itdoor);
+				while (next_entity(&itdoor)) {
+					EntityId door = itdoor.entity_id;
+					assert(door != NO_ENTITY);
+					GridLocationComponent* positie = get_component(engine, door, COMP_GRIDLOCATION);
+					if (positie->pos[0] == xloc && positie->pos[1] == yloc) {
+						printf("ok");
+						ConnectionsComponent* nieuwpath = get_component(engine, last, COMP_CONNECTIONS);
+						nieuwpath->next = door;
+						ConnectionsComponent* oldpath = create_component(engine, door, COMP_CONNECTIONS);
+						oldpath->next = NULL;
+						oldpath->prev = last;
+						ConnectionsComponent* sleuteldeur = create_component(engine, lockje, COMP_CONNECTIONS);
+						sleuteldeur->prev = door;
+						
+					}
+				}
+
 				break;
 			}
 
@@ -605,20 +644,6 @@ void game_load_level(Game* g, Level* l) {
 							printf("aaa");
 						}
 					}
-
-					if (xdir->dir == S) {
-							printf("ZUID");
-						}
-					if (xdir->dir == N) {
-							printf("NOORD");
-					}
-					
-					if (xdir->dir == W) {
-						printf("WEST");
-					}
-					if (xdir->dir == E) {
-							printf("OOST");
-						}
 					
 				}
 			}
@@ -639,6 +664,8 @@ void game_load_level(Game* g, Level* l) {
 			right = l->level_description[x][y + 1];
 
 		}
+
+
 	}
 
 }

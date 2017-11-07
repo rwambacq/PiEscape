@@ -4,6 +4,21 @@
 #include "../../../util/sleep.h"
 #include <stdlib.h>
 #include<stdio.h>
+#include <windows.h>
+#include <sys\timeb.h> 
+
+void usleep(__int64 usec)
+{
+	HANDLE timer;
+	LARGE_INTEGER ft;
+
+	ft.QuadPart = -(10 * usec); // Convert to 100 nanosecond interval, negative value indicates relative time
+
+	timer = CreateWaitableTimer(NULL, TRUE, NULL);
+	SetWaitableTimer(timer, &ft, 0, NULL, NULL, 0);
+	WaitForSingleObject(timer, INFINITE);
+	CloseHandle(timer);
+}
 
 
 
@@ -26,6 +41,7 @@ void system_action_free(ActionSystem* system) {
 }
 
 void system_action_update(ActionSystem* system, Engine* engine) {
+	
 	EntityIterator it;
 	search_entity_2(engine, COMP_CONTAINER, COMP_ITEMACTION, &it);
 	while (next_entity(&it)) {
@@ -83,6 +99,7 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 		}
 		free_component(engine, ent, COMP_ITEMACTION);
 	}
+	
 }
 
 void checkForLock(Engine* engine) {
@@ -101,31 +118,35 @@ void checkForLock(Engine* engine) {
 			GridLocationComponent* lock_pos = get_component(engine, lock, COMP_GRIDLOCATION);
 			if (key_pos->pos[0] == lock_pos->pos[0] && key_pos->pos[1] == lock_pos->pos[1]) {
 				if (!get_component(engine, lock, COMP_ACTIVATION)) {
-					create_component(engine, lock, COMP_ACTIVATION);
-					
+					ActivationComponent* x = create_component(engine, lock, COMP_ACTIVATION);
 				}
-				checkForActivasion(engine,lock);
 			}
 		}
+
 	}
 }
 void checkForActivasion(Engine* engine, EntityId lock) {
-	ConnectionsComponent* nieuwpath = get_component(engine, lock, COMP_CONNECTIONS);
-	EntityId volgende = nieuwpath->next;
 
-	//printf("ok");
+	ActivatableComponent* aan = get_component(engine, lock, COMP_ACTIVATABLE);
+	ConnectionsComponent* naast = get_component(engine, lock, COMP_CONNECTIONS);
+	ActivatableComponent* aans = get_component(engine, naast->prev, COMP_ACTIVATABLE);
 
-	//aansteken
-	ActivatableComponent* xyx = get_component(engine, volgende, COMP_ACTIVATABLE);
-	xyx->active = 1;
-	
-	//nieuw
-	ConnectionsComponent* nieuwpath1 = get_component(engine, volgende, COMP_CONNECTIONS);
-	EntityId volgende2 = nieuwpath1->next;
-	
+	printf("%d", aan->active);
+
+	if (aan->active == 0) {
+		ConnectionsComponent* nieuwpath = get_component(engine, lock, COMP_CONNECTIONS);
+		EntityId volgende = nieuwpath->next;
+		ActivationComponent* activatie = create_component(engine, volgende, COMP_ACTIVATION);
+		activatie->currenttime = 100;
+		activatie->getto = 0;
+	}
+	else if (aan->active== 1){
+		ConnectionsComponent* nieuwpath = get_component(engine, lock, COMP_CONNECTIONS);
+		EntityId volgende = nieuwpath->prev;
+		ActivationComponent* activatie = create_component(engine, volgende, COMP_ACTIVATION);
+		activatie->currenttime = 50;
+		activatie->getto = 0;
+	}
 	
 
-	ActivatableComponent* xx = get_component(engine, volgende2, COMP_ACTIVATABLE);
-	xx->active = 1;
-	
 }
