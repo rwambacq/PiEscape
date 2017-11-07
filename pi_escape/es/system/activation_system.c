@@ -27,7 +27,7 @@ void system_activation_update(ActivationSystem* system, Engine* engine) {
 	EntityIterator itlock;
 	search_entity_3(engine, COMP_ACTIVATABLE, COMP_ART, COMP_ACTIVATION, &itlock);
 
-	while (next_entity(&itlock)) {
+	if(next_entity(&itlock)) {
 		EntityId lockje = itlock.entity_id;
 		assert(lockje != NO_ENTITY);
 		ActivationComponent* aanmaken = get_component(engine, lockje, COMP_ACTIVATION);
