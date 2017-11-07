@@ -515,7 +515,7 @@ void game_load_level(Game* g, Level* l) {
 
 		
 
-		int hasnext = above == '-' | beneath == '-' | left == '-' | right == '=';
+		int hasnext = above == '-' | beneath == '-' | left == '-' | right == '-';
 		curr = 0;
 		while (hasnext == 1) {
 			if (above == '-' && curr != 2) {
@@ -541,6 +541,7 @@ void game_load_level(Game* g, Level* l) {
 			}
 
 			else {
+
 				printf("\neinde\n");
 				int xloc = x;
 				int yloc = y;
@@ -552,14 +553,13 @@ void game_load_level(Game* g, Level* l) {
 					xloc += 1;
 				}
 				else if (left == 'D') {
-					y -= 1;
+					yloc -= 1;
 				}
 				else if (right == 'D') {
-					y += 1;
+					yloc += 1;
 				}
 
 				printf("%d  %d",xloc,yloc );
-
 
 				EntityIterator itdoor;
 				search_entity_3(engine, COMP_ART, COMP_ISDOOR, COMP_DIRECTION, &itdoor);

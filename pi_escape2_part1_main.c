@@ -12,7 +12,7 @@
 #include <SDL_timer.h>
 
 void fill_level_loader(LevelLoader* level_loader) {
-	strcpy(level_loader->level_paths[0], "pi_escape/level/level_files/tutorial3.lvl");
+	strcpy(level_loader->level_paths[0], "pi_escape/level/level_files/tutorial1.lvl");
 	strcpy(level_loader->level_paths[1], "pi_escape/level/level_files/tutorial2.lvl");
 	strcpy(level_loader->level_paths[2], "pi_escape/level/level_files/tutorial3.lvl");
 	strcpy(level_loader->level_paths[3], "pi_escape/level/level_files/tutorial4.lvl");
@@ -39,7 +39,7 @@ int main() {
     //initialise context, engine and assemblage, and add systems
     Game* pi_escape_2 = game_alloc(graphics);
 
-	int level_nr = 0;															//THIS NUMBER DECIDES WHICH LEVEL IS LOADED, FOR TESTING, USE THIS!!
+	int level_nr = 8;															//THIS NUMBER DECIDES WHICH LEVEL IS LOADED, FOR TESTING, USE THIS!!
     Level* level = levelloader_load_level(level_loader, level_nr);
     game_load_level(pi_escape_2, level);
 
