@@ -22,7 +22,7 @@ void usleep(__int64 usec)
 
 
 
-void checkForLock(Engine* engine, EntityId key);
+void checkForLock(Engine* engine);
 
 
 ActionSystem* system_action_alloc() {
@@ -70,7 +70,7 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					ItemComponent* ok = get_component(engine, container->id, COMP_ITEM);
 					int x = (int)ok->color;
 					showColor(x);
-					checkForLock(engine, item);
+					checkForLock(engine);
 					break;
 				}
 				else if (container->contains_something && container->id == item ) {
@@ -79,7 +79,7 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					free_component(engine, contained, COMP_INCONTAINER);
 					container->contains_something = 0;
 					showColor(6);
-					checkForLock(engine, item);
+					checkForLock(engine);
 				}
 				else if(!container->contains_something) {
 					//Pick up key
@@ -93,16 +93,23 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					ItemComponent* ok = get_component(engine, container->id, COMP_ITEM);
 					int x = (int)ok->color;
 					showColor(x);
-					checkForLock(engine, item);
+					checkForLock(engine);
 				}
 			}
 		}
 		free_component(engine, ent, COMP_ITEMACTION);
 	}
+	
 }
 
-void checkForLock(Engine* engine, EntityId key) {
-	GridLocationComponent* key_pos = get_component(engine, key, COMP_GRIDLOCATION);
+void checkForLock(Engine* engine) {
+	EntityIterator key_it;
+	search_entity_1(engine, COMP_ITEM, &key_it);
+	while (next_entity(&key_it)) {
+		EntityId key_id = key_it.entity_id;
+		assert(key_id != NO_ENTITY);
+		GridLocationComponent* key_pos = get_component(engine, key_id, COMP_GRIDLOCATION);
+
 		EntityIterator it;
 		search_entity_1(engine, COMP_LOCK, &it);
 		while (next_entity(&it)) {
@@ -115,4 +122,6 @@ void checkForLock(Engine* engine, EntityId key) {
 				}
 			}
 		}
+
+	}
 }
