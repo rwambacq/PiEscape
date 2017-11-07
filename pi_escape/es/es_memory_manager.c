@@ -56,7 +56,6 @@ void free_component(Engine* engine, EntityId entity_id, ComponentId component_id
     assert(entity_id < MAX_ENTITIES);
     assert(component_id >= 0);
     assert(component_id < COMPONENT_ID_SIZE);
-    
     assert(!engine->es_memory.components[component_id][entity_id].free);
     engine->es_memory.components[component_id][entity_id].free = 1;
 }
