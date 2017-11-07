@@ -100,8 +100,8 @@ typedef struct ActivatableComponent {
 } ActivatableComponent;
 
 typedef struct ConnectionsComponent {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	EntityId prev;
+	EntityId next;
 } ConnectionsComponent;
 
 typedef struct LockComponent {

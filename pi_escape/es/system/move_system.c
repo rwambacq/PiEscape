@@ -35,8 +35,6 @@ void system_move_update(MoveSystem* system, Engine* engine) {
 			EntityIterator itdoor;
 			search_entity_3(engine, COMP_ART, COMP_ISDOOR, COMP_DIRECTION, &itdoor);
 
-
-
 			if ( move->x_min_move ) {
 				EntityId doorused = NULL;
 				while (next_entity(&itdoor)) {

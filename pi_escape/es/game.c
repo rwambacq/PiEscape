@@ -1,6 +1,7 @@
 #include "game.h"
-
+#include <assert.h>
 #include <stdlib.h>
+#include "../../util/sleep.h"
 
 void game_init(Game* game, Graphics* graphics) {
     game->graphics = graphics;
@@ -84,8 +85,8 @@ void game_load_level(Game* g, Level* l) {
 
 				DirectionComponent* directioncomponent = create_component(engine, conn_entity_id, COMP_DIRECTION);
 				
-				
-
+				IsConnectorComponent* conne = create_component(engine, conn_entity_id, COMP_ISCONNECTOR);
+				conne->x = 0;
 
 				char above = l->level_description[x - 1][y];
 				char beneath = l->level_description[x + 1][y];
@@ -121,6 +122,9 @@ void game_load_level(Game* g, Level* l) {
 
 					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
 					directioncomponent2->dir = N;
+
+					IsConnectorComponent* conne2 = create_component(engine, conn2_entity_id, COMP_ISCONNECTOR);
+					conne2->x = 0;
 
 					ArtComponent* art2 = create_component(engine, conn2_entity_id, COMP_ART);
 					art2->type = ART_CONNECTOR;
@@ -468,5 +472,173 @@ void game_load_level(Game* g, Level* l) {
 	}
 
 
+	EntityIterator itlock;
+	search_entity_3(engine, COMP_ACTIVATABLE,COMP_ART,COMP_LOCK, &itlock);
+
+	while (next_entity(&itlock)) {
+		EntityId lockje = itlock.entity_id;
+		assert(lockje != NO_ENTITY);
+		ActivatableComponent* xx = get_component(engine, lockje, COMP_ACTIVATABLE);
+		GridLocationComponent* locs = get_component(engine, lockje, COMP_GRIDLOCATION);
+
+		int x = locs->pos[0];
+		int y = locs->pos[1];
+
+		char above = l->level_description[x - 1][y];
+		char beneath = l->level_description[x + 1][y];
+		char left = l->level_description[x][y - 1];
+		char right = l->level_description[x][y + 1];
+		int plaatsje;
+		int curr;
+		EntityIterator itdoor;
+		EntityId last;
+		search_entity_3(engine, COMP_ISCONNECTOR, COMP_ACTIVATABLE, COMP_DIRECTION, &itdoor);
+		while (next_entity(&itdoor)) {
+			EntityId door = itdoor.entity_id;
+			assert(door != NO_ENTITY);
+			GridLocationComponent* plaats = get_component(engine, door, COMP_GRIDLOCATION);
+
+			int plaatsx = plaats->pos[0];
+			int plaatsy = plaats->pos[1];
+			
+			if (plaatsx == x && plaatsy == y) {
+				ConnectionsComponent* nextje = create_component(engine, lockje, COMP_CONNECTIONS);
+				nextje->next = door;
+				nextje->prev = NULL;
+				ActivatableComponent* xx = get_component(engine, nextje->next, COMP_ACTIVATABLE);
+				//xx->active = !xx->active;
+				ConnectionsComponent* nextpathje = create_component(engine, door, COMP_CONNECTIONS);
+				nextpathje->prev = lockje;
+				last = door;
+			}
+		}
+
+		
+
+		int hasnext = above == '-' | beneath == '-' | left == '-' | right == '=';
+		curr = 0;
+		while (hasnext == 1) {
+			if (above == '-' && curr != 2) {
+				printf("boven\n");
+				x -= 1;
+				curr = 1;
+
+			}
+			else if (beneath == '-' && curr!=1) {
+				printf("beneden\n");
+				x += 1;
+				curr = 2;
+			}
+			else if (left == '-' && curr!=4 ) {
+				printf("links\n");
+				y -= 1;
+				curr = 3;
+			}
+			else if (right == '-' && curr!=3) {
+				printf("rechts\n");
+				y += 1;
+				curr = 4;
+			}
+			else {
+				printf("hak");
+				break;
+			}
+
+
+			EntityIterator itdoor;
+			EntityId een;
+			EntityId twee;
+			search_entity_3(engine, COMP_ISCONNECTOR, COMP_ACTIVATABLE, COMP_DIRECTION, &itdoor);
+			while (next_entity(&itdoor)) {
+				EntityId door = itdoor.entity_id;
+				assert(door != NO_ENTITY);
+				GridLocationComponent* plaats = get_component(engine, door, COMP_GRIDLOCATION);
+
+				int plaatsx = plaats->pos[0];
+				int plaatsy = plaats->pos[1];
+
+				if (plaatsx == x && plaatsy == y) {
+					ActivatableComponent* xx = get_component(engine, door, COMP_ACTIVATABLE);
+					//xx->active = !xx->active;
+
+					DirectionComponent* xdir = get_component(engine, door, COMP_DIRECTION);
+					plaatsje = curr;
+					printf("%d\n", plaatsje);
+					
+					if (plaatsje == 1) {
+						if (xdir->dir == E) {
+							een = door;
+							printf("o");
+						}
+						else {
+							twee = door;
+							printf("aaa");
+						}
+					}
+					else if (plaatsje == 2) {
+						if (xdir->dir == W) {
+							een = door;
+							printf("o");
+						}
+						else {
+							twee = door;
+							printf("aaa");
+						}
+					}
+					else if (plaatsje == 3) {
+						if (xdir->dir == N) {
+							een = door;
+							printf("o");
+						}
+						else {
+							twee = door;
+							printf("aaa");
+						}
+					}
+					else if (plaatsje == 4) {
+						if (xdir->dir == S) {
+							een = door;
+							printf("o");
+						}
+						else {
+							twee = door;
+							printf("aaa");
+						}
+					}
+
+					if (xdir->dir == S) {
+							printf("ZUID");
+						}
+					if (xdir->dir == N) {
+							printf("NOORD");
+					}
+					
+					if (xdir->dir == W) {
+						printf("WEST");
+					}
+					if (xdir->dir == E) {
+							printf("OOST");
+						}
+					
+				}
+			}
+			ConnectionsComponent* nieuwpath = get_component(engine, last, COMP_CONNECTIONS);
+			nieuwpath->next = een;
+			ConnectionsComponent* nieuwpath1 = create_component(engine, een, COMP_CONNECTIONS);
+			nieuwpath1->prev = last;
+			nieuwpath1->next = twee;
+			ConnectionsComponent* nieuwpath2 = create_component(engine, twee, COMP_CONNECTIONS);
+			nieuwpath2->prev = een;
+			last = twee;
+
+			ActivatableComponent* xyx = get_component(engine, een, COMP_ACTIVATABLE); //eerste
+			//xyx->active = !xyx->active;
+			above = l->level_description[x - 1][y];
+			beneath = l->level_description[x + 1][y];
+			left = l->level_description[x][y - 1];
+			right = l->level_description[x][y + 1];
+
+		}
+	}
 
 }

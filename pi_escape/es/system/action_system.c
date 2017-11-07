@@ -1,10 +1,14 @@
 #include "action_system.h"
 
 #include <assert.h>
-
+#include "../../../util/sleep.h"
 #include <stdlib.h>
+#include<stdio.h>
+
+
 
 void checkForLock(Engine* engine);
+void checkForActivasion(Engine* engine, EntityId lock);
 
 ActionSystem* system_action_alloc() {
     ActionSystem* res = calloc(1, sizeof(ActionSystem));
@@ -61,7 +65,7 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					showColor(6);
 					checkForLock(engine);
 				}
-				else {
+				else if(!container->contains_something) {
 					//Pick up key
 					container->id = item;
 					InContainerComponent* item_incontainer = create_component(engine, item, COMP_INCONTAINER);
@@ -79,7 +83,6 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 		}
 		free_component(engine, ent, COMP_ITEMACTION);
 	}
-	checkForLock(engine);
 }
 
 void checkForLock(Engine* engine) {
@@ -97,10 +100,32 @@ void checkForLock(Engine* engine) {
 			assert(lock != NO_ENTITY);
 			GridLocationComponent* lock_pos = get_component(engine, lock, COMP_GRIDLOCATION);
 			if (key_pos->pos[0] == lock_pos->pos[0] && key_pos->pos[1] == lock_pos->pos[1]) {
-				if (!has_component(engine, lock, COMP_ACTIVATION)) {
+				if (!get_component(engine, lock, COMP_ACTIVATION)) {
 					create_component(engine, lock, COMP_ACTIVATION);
+					
 				}
+				checkForActivasion(engine,lock);
 			}
 		}
 	}
+}
+void checkForActivasion(Engine* engine, EntityId lock) {
+	ConnectionsComponent* nieuwpath = get_component(engine, lock, COMP_CONNECTIONS);
+	EntityId volgende = nieuwpath->next;
+
+	//printf("ok");
+
+	//aansteken
+	ActivatableComponent* xyx = get_component(engine, volgende, COMP_ACTIVATABLE);
+	xyx->active = 1;
+	
+	//nieuw
+	ConnectionsComponent* nieuwpath1 = get_component(engine, volgende, COMP_CONNECTIONS);
+	EntityId volgende2 = nieuwpath1->next;
+	
+	
+
+	ActivatableComponent* xx = get_component(engine, volgende2, COMP_ACTIVATABLE);
+	xx->active = 1;
+	
 }

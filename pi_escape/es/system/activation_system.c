@@ -22,5 +22,5 @@ void system_activation_free(ActivationSystem* system) {
 
 
 void system_activation_update(ActivationSystem* system, Engine* engine) {
-    //TODO
+	//printf("ok");
 }
