@@ -15,7 +15,8 @@ RealSensorsSystem* system_real_sensors_alloc() {
 }
 
 void system_real_sensors_init(RealSensorsSystem* system) {
-    //TODO
+	lps25h_init(1);
+	hts221_init(1);
 }
 
 
@@ -24,5 +25,7 @@ void system_real_sensors_free(RealSensorsSystem* system) {
 }
 
 void system_real_sensors_update(RealSensorsSystem* system, Engine* engine) {
-    //TODO
+	engine->context.airPressure = lps25h_read_pressure();
+	engine->context.temperature = lps25h_read_temperature();
+	engine->context.humidity = hts221_read_humidity();
 }
