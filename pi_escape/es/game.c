@@ -392,7 +392,7 @@ void game_load_level(Game* g, Level* l) {
 
 				ConnectorOr* ok = create_component(engine, conn_entity_id, COMP_CONNOR);
 				ok->current = 0;
-				ok->needed = 60; 
+				ok->needed = 1; 
 
 				ArtComponent* art = create_component(engine, conn_entity_id, COMP_ART);
 				art->type = ART_CONNECTOR_OR;
@@ -548,7 +548,7 @@ void game_load_level(Game* g, Level* l) {
 					y -= 1;
 					curr = 3;
 				}
-				else if ((right == '-' || right == '|' )&& curr != 4 && voorgaand != 1 && voorgaand != 4 && voorgaand != 2) {
+				else if ((right == '-' || right == '|' ) && curr != 3 && voorgaand != 1 && voorgaand != 4 && voorgaand != 2) {
 					y += 1;
 					curr = 4;
 				}

@@ -41,63 +41,76 @@ void system_action_free(ActionSystem* system) {
 }
 
 void system_action_update(ActionSystem* system, Engine* engine) {
-	
-	EntityIterator it;
-	search_entity_2(engine, COMP_CONTAINER, COMP_ITEMACTION, &it);
-	while (next_entity(&it)) {
-		EntityId ent = it.entity_id;
-		assert(ent != NO_ENTITY);
-		GridLocationComponent* ent_loc = get_component(engine, ent, COMP_GRIDLOCATION);
-		ContainerComponent* container = get_component(engine, ent, COMP_CONTAINER);
+	EntityIterator itlock;
+	search_entity_3(engine, COMP_ACTIVATABLE, COMP_ART, COMP_ACTIVATION, &itlock);
+	int next = 1;
+	if (next_entity(&itlock)) {
+		EntityId lockje = itlock.entity_id;
+		assert(lockje != NO_ENTITY);
+		ActivationComponent* aanmaken = get_component(engine, lockje, COMP_ACTIVATION);
+		if (aanmaken->currenttime == 50 || aanmaken->currenttime == 100) {
+			//printf("oie");
+			next = 0;
+		}
+	}
+	if (next){
+		EntityIterator it;
+		search_entity_2(engine, COMP_CONTAINER, COMP_ITEMACTION, &it);
+		while (next_entity(&it)) {
+			EntityId ent = it.entity_id;
+			assert(ent != NO_ENTITY);
+			GridLocationComponent* ent_loc = get_component(engine, ent, COMP_GRIDLOCATION);
+			ContainerComponent* container = get_component(engine, ent, COMP_CONTAINER);
 
-		EntityIterator item_it;
-		search_entity_1(engine, COMP_ITEM, &item_it);
-		while (next_entity(&item_it)) {
-			EntityId item = item_it.entity_id;
-			assert(item != NO_ENTITY);
+			EntityIterator item_it;
+			search_entity_1(engine, COMP_ITEM, &item_it);
+			while (next_entity(&item_it)) {
+				EntityId item = item_it.entity_id;
+				assert(item != NO_ENTITY);
 
-			GridLocationComponent* item_loc = get_component(engine, item, COMP_GRIDLOCATION);
-			if (item_loc->pos[0] == ent_loc->pos[0] && item_loc->pos[1] == ent_loc->pos[1]) {
-				if (container->contains_something && container->id != item) {
-					//Switch key
-					EntityId contained = container->id;
-					container->id = item;
-					free_component(engine, contained, COMP_INCONTAINER);
-					InContainerComponent* item_incontainer = create_component(engine, item, COMP_INCONTAINER);
-					item_incontainer->entity_location = ent_loc;
-					item_incontainer->previous_location_x = ent_loc->pos[0];
-					item_incontainer->previous_location_y = ent_loc->pos[1];
-					ItemComponent* ok = get_component(engine, container->id, COMP_ITEM);
-					int x = (int)ok->color;
-					showColor(x);
-					checkForLock(engine, item);
-					break;
-				}
-				else if (container->contains_something && container->id == item ) {
-					//Drop key
-					EntityId contained = container->id;
-					free_component(engine, contained, COMP_INCONTAINER);
-					container->contains_something = 0;
-					showColor(6);
-					checkForLock(engine, item);
-				}
-				else if(!container->contains_something) {
-					//Pick up key
-					container->id = item;
-					InContainerComponent* item_incontainer = create_component(engine, item, COMP_INCONTAINER);
-					item_incontainer->entity_location = ent_loc;
-					item_incontainer->previous_location_x = ent_loc->pos[0];
-					item_incontainer->previous_location_y = ent_loc->pos[1];
-					container->contains_something = 1;
+				GridLocationComponent* item_loc = get_component(engine, item, COMP_GRIDLOCATION);
+				if (item_loc->pos[0] == ent_loc->pos[0] && item_loc->pos[1] == ent_loc->pos[1]) {
+					if (container->contains_something && container->id != item) {
+						//Switch key
+						EntityId contained = container->id;
+						container->id = item;
+						free_component(engine, contained, COMP_INCONTAINER);
+						InContainerComponent* item_incontainer = create_component(engine, item, COMP_INCONTAINER);
+						item_incontainer->entity_location = ent_loc;
+						item_incontainer->previous_location_x = ent_loc->pos[0];
+						item_incontainer->previous_location_y = ent_loc->pos[1];
+						ItemComponent* ok = get_component(engine, container->id, COMP_ITEM);
+						int x = (int)ok->color;
+						showColor(x);
+						checkForLock(engine, item);
+						break;
+					}
+					else if (container->contains_something && container->id == item) {
+						//Drop key
+						EntityId contained = container->id;
+						free_component(engine, contained, COMP_INCONTAINER);
+						container->contains_something = 0;
+						showColor(6);
+						checkForLock(engine, item);
+					}
+					else if (!container->contains_something) {
+						//Pick up key
+						container->id = item;
+						InContainerComponent* item_incontainer = create_component(engine, item, COMP_INCONTAINER);
+						item_incontainer->entity_location = ent_loc;
+						item_incontainer->previous_location_x = ent_loc->pos[0];
+						item_incontainer->previous_location_y = ent_loc->pos[1];
+						container->contains_something = 1;
 
-					ItemComponent* ok = get_component(engine, container->id, COMP_ITEM);
-					int x = (int)ok->color;
-					showColor(x);
-					checkForLock(engine, item);
+						ItemComponent* ok = get_component(engine, container->id, COMP_ITEM);
+						int x = (int)ok->color;
+						showColor(x);
+						checkForLock(engine, item);
+					}
 				}
 			}
+			free_component(engine, ent, COMP_ITEMACTION);
 		}
-		free_component(engine, ent, COMP_ITEMACTION);
 	}
 	
 }

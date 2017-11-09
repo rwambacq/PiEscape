@@ -94,6 +94,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 		}
 		case SDLK_KP_ENTER: {
 			//engine->context.demo = !engine->context.demo;
+
 			ItemActionComponent* action = create_component(engine, player_entity_id, COMP_ITEMACTION);
 		}
 		case SDLK_RETURN: {

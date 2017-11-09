@@ -39,7 +39,7 @@ int main() {
     //initialise context, engine and assemblage, and add systems
     Game* pi_escape_2 = game_alloc(graphics);
 
-	int level_nr = 1;															//THIS NUMBER DECIDES WHICH LEVEL IS LOADED, FOR TESTING, USE THIS!!
+	int level_nr = 0;															//THIS NUMBER DECIDES WHICH LEVEL IS LOADED, FOR TESTING, USE THIS!!
     Level* level = levelloader_load_level(level_loader, level_nr);
     game_load_level(pi_escape_2, level);
 
