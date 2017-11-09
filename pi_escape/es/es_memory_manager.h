@@ -1,6 +1,31 @@
 #ifndef PIESCAPE2_ES_MEMORY_MANAGER_H
 #define PIESCAPE2_ES_MEMORY_MANAGER_H
 
+#ifndef STDIO_INCLUDED
+#include <stdio.h>
+#define STDIO_INCLUDED
+#endif
+
+#include "es_memory_manager_collections.h"
+
+#ifndef BENCH_INCLUDED
+#define BENCH_INCLUDED
+#ifdef  BENCH
+int logging_benchmark = 0;
+int running_benchmark = 0;
+ComponentIterator* bench_comp_it_ptr;
+EntityIterator* bench_ent_it_ptr;
+FILE* benchfile;
+#else
+extern int logging_benchmark;
+extern int running_benchmark;
+extern ComponentIterator* bench_comp_it_ptr;
+extern EntityIterator* bench_ent_it_ptr;
+extern FILE* benchfile;
+#endif
+#endif
+
+
 #include "entity.h"
 #define MAX_ENTITIES 500u
 
