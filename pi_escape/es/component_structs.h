@@ -20,6 +20,9 @@ typedef struct CameraLookFromComponent {
     float distance;
     float XYdegees;
     float Zdegrees;
+	float prev_dist;
+	float prev_XY;
+	float prev_Z;
 } CameraLookFromComponent;
 
 typedef struct CameraLookAtComponent {
