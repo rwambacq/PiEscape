@@ -5,6 +5,7 @@
 #include <assert.h>
 
 #include <stdio.h>
+#include <math.h>
 
 CameraSystem* system_camera_alloc() {
     CameraSystem* res = calloc(1, sizeof(CameraSystem));
@@ -22,5 +23,30 @@ void system_camera_free(CameraSystem* system) {
 }
 
 void system_camera_update(CameraSystem* system, Engine* engine) {
-    //TODO
+
+	CameraLookFromComponent* cameraLookFrom = search_first_component(engine, COMP_CAMERA_LOOK_FROM);
+	CameraLookAtComponent* cameraLookAt = search_first_component(engine, COMP_CAMERA_LOOK_AT);
+	MoveActionComponent* movement = search_first_component(engine, COMP_MOVE_ACTION);
+
+	float xy_degrees = cameraLookFrom->XYdegees;
+	float z_degrees = cameraLookFrom->Zdegrees;
+
+	float xy_radians = xy_degrees*(M_PI / 180);
+	float z_radians = z_degrees*(M_PI / 180);
+
+	float dist = cameraLookFrom->distance;
+
+	float player_x = movement->player_x;
+	float player_y = movement->player_y;
+	float player_z = movement->player_z;
+
+	float camera_x;
+	float camera_y;
+	float camera_z;
+
+	camera_x = player_x + (dist * cos(xy_radians) * sin(z_radians));
+	camera_y = player_y + (dist * sin(xy_radians) * sin(z_radians));
+	camera_z = player_z + (dist * cos(z_radians));
+
+	glmc_vec3_set(cameraLookFrom->pos, camera_x, camera_y, camera_z);
 }

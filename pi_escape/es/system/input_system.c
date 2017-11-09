@@ -56,7 +56,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
             break;
         }
         case SDLK_DOWN:{
-            engine->context.demo = !engine->context.demo;
+			engine->context.demo = !engine->context.demo;
             break;
         }
         case SDLK_LEFT:{
@@ -83,11 +83,12 @@ void system_input_update(InputSystem* system, Engine* engine) {
     while( SDL_PollEvent( &event ) ) {
         switch( event.type ) {
             case SDL_KEYDOWN:
-                /* Handle key presses. */
+				printf("up");
                 handleKeyDown(system, engine, &event.key.keysym, input_recv_entity_id);
                 break;
             case SDL_KEYUP:
                 /* Handle key release. */
+				printf("tis ne graptje ");
                 handleKeyUp(system, engine, &event.key.keysym, input_recv_entity_id);
                 break;
             case SDL_QUIT:
@@ -108,7 +109,12 @@ void system_input_update(InputSystem* system, Engine* engine) {
                     int buttonDown = mouseMotionEvent->state & SDL_BUTTON_LEFT;
                     
                     if (buttonDown) {
-                        printf("Mouse dragged %f %f\n", mouseMotionEvent->xrel * 1.0f, mouseMotionEvent->yrel * 1.0f);
+						float x_move = mouseMotionEvent->xrel * 1.0f;
+						float y_move = mouseMotionEvent->yrel * 1.0f;
+                        printf("Mouse dragged %f %f\n", x_move, y_move);
+						CameraLookFromComponent* cameraLookFrom = search_first_component(engine, COMP_CAMERA_LOOK_FROM);
+						cameraLookFrom->XYdegees -= x_move;
+						cameraLookFrom->Zdegrees -= y_move;
                     } else {
                         //printf("Mouse moved %f %f\n", mouseMotionEvent->xrel * 1.0f, mouseMotionEvent->yrel * 1.0f);
                     }
