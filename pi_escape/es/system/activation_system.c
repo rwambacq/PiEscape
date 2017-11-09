@@ -41,7 +41,6 @@ void system_activation_update(ActivationSystem* system, Engine* engine) {
 
 				ConnectionsComponent* nieuwpath = get_component(engine, lockje, COMP_CONNECTIONS);
 				EntityId volgende = nieuwpath->next;
-
 				ActivationComponent* activatie = create_component(engine, volgende, COMP_ACTIVATION);
 
 				activatie->getto = 0;

@@ -58,6 +58,11 @@ typedef struct MoveAnimationComponent {
 	float progress;
 } MoveAnimationComponent;
 
+typedef struct ConnectorOr {
+	int needed;
+	int current;
+}ConnectorOr;
+
 typedef struct WalkComponent {
     //TODO	
 	TO_IMPLEMENT_STRUCT;
@@ -108,9 +113,13 @@ typedef struct LockComponent {
     ItemColor requiredKeyColor;
 } LockComponent;
 
+typedef struct AndOrIn {
+	int x;
+}AndOrIn;
+
 typedef struct ConnectorLogicComponent {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	EntityId andor;
+	EntityId deelaanor;
 } ConnectorLogicComponent;
 
 typedef struct InputReceiverComponent {
