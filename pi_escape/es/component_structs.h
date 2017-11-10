@@ -84,6 +84,12 @@ typedef struct ItemComponent {
     //TODO
 } ItemComponent;
 
+typedef struct LockDoorComponent {
+	EntityId door;
+	//TODO
+} LockDoorComponent;
+
+
 typedef struct InContainerComponent {
 	int previous_location_x;
 	int previous_location_y;

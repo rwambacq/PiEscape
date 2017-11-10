@@ -51,9 +51,10 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 		if (aanmaken->currenttime == 50 || aanmaken->currenttime == 100) {
 			//printf("oie");
 			next = 0;
+
 		}
 	}
-	if (next){
+	if (1){
 		EntityIterator it;
 		search_entity_2(engine, COMP_CONTAINER, COMP_ITEMACTION, &it);
 		while (next_entity(&it)) {
@@ -126,7 +127,11 @@ void checkForLock(Engine* engine, EntityId key) {
 		GridLocationComponent* lock_pos = get_component(engine, lock, COMP_GRIDLOCATION);
 		if (key_pos->pos[0] == lock_pos->pos[0] && key_pos->pos[1] == lock_pos->pos[1]) {
 			if (!get_component(engine, lock, COMP_ACTIVATION)) {
+				printf("EEEN");
 				ActivationComponent* x = create_component(engine, lock, COMP_ACTIVATION);
+			}
+			else {
+				free_component(engine, lock, COMP_ACTIVATION);
 			}
 		}
 	}

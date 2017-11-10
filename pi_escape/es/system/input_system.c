@@ -94,12 +94,39 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 		}
 		case SDLK_KP_ENTER: {
 			//engine->context.demo = !engine->context.demo;
+			EntityIterator itlock;
+			search_entity_3(engine, COMP_ACTIVATABLE, COMP_ART, COMP_ACTIVATION, &itlock);
+			int next = 1;
+			if (next_entity(&itlock)) {
+				EntityId lockje = itlock.entity_id;
+				assert(lockje != NO_ENTITY);
+				ActivationComponent* aanmaken = get_component(engine, lockje, COMP_ACTIVATION);
+				if (aanmaken->currenttime == 50 || aanmaken->currenttime == 100) {
+					next = 0;
 
-			ItemActionComponent* action = create_component(engine, player_entity_id, COMP_ITEMACTION);
+				}
+			}
+			if (next) {
+				ItemActionComponent* action = create_component(engine, player_entity_id, COMP_ITEMACTION);
+			}
 		}
 		case SDLK_RETURN: {
 			//engine->context.demo = !engine->context.demo;
-			ItemActionComponent* action = create_component(engine, player_entity_id, COMP_ITEMACTION);
+			EntityIterator itlock;
+			search_entity_3(engine, COMP_ACTIVATABLE, COMP_ART, COMP_ACTIVATION, &itlock);
+			int next = 1;
+			if (next_entity(&itlock)) {
+				EntityId lockje = itlock.entity_id;
+				assert(lockje != NO_ENTITY);
+				ActivationComponent* aanmaken = get_component(engine, lockje, COMP_ACTIVATION);
+				if (aanmaken->currenttime == 50 || aanmaken->currenttime == 100) {
+					next = 0;
+
+				}
+			}
+			if (next) {
+				ItemActionComponent* action = create_component(engine, player_entity_id, COMP_ITEMACTION);
+			}
 			break;
 		}
 		default:

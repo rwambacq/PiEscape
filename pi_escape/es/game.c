@@ -294,6 +294,13 @@ void game_load_level(Game* g, Level* l) {
 				ActivatableComponent* activatable = create_component(engine, conn_entity_id, COMP_ACTIVATABLE);
 				activatable->active = 0;
 
+				IsConnectorComponent* conne = create_component(engine, conn_entity_id, COMP_ISCONNECTOR);
+				conne->x = 0;
+
+				ConnectorOr* ok = create_component(engine, conn_entity_id, COMP_CONNOR);
+				ok->current = 0;
+				ok->needed = -1;
+
 				ArtComponent* art = create_component(engine, conn_entity_id, COMP_ART);
 				art->type = ART_CONNECTOR_AND;
 
@@ -302,14 +309,13 @@ void game_load_level(Game* g, Level* l) {
 				char left = l->level_description[x][y - 1];
 				char right = l->level_description[x][y + 1];
 
-
 				if (above == '-' || above == '|' || above == '&' || above == 'A' || above == 'B' || above == 'C' || above == 'O' || above == 'D') {
 					EntityId conn2_entity_id = get_new_entity_id(engine);
 
+					ok->needed += 1;
 					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
 					glmc_ivec2_set(gridloc->pos, x, y);
 
-					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
 
 					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
 					activatable2->active = 0;
@@ -317,21 +323,24 @@ void game_load_level(Game* g, Level* l) {
 					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
 					directioncomponent2->dir = W;
 
+					IsConnectorComponent* conne = create_component(engine, conn2_entity_id, COMP_ISCONNECTOR);
+					conne->x = 0;
+
 					ArtComponent* art2 = create_component(engine, conn2_entity_id, COMP_ART);
 					art2->type = ART_CONNECTOR;
 				}
 
 				if (beneath == '-' || beneath == '|' || beneath == '&' || beneath == 'A' || beneath == 'B' || beneath == 'C' || beneath == 'O' || beneath == 'D') {
-
 					EntityId conn2_entity_id = get_new_entity_id(engine);
-
+					ok->needed += 1;
 					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
 					glmc_ivec2_set(gridloc->pos, x, y);
 
-					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
-
 					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
 					activatable2->active = 0;
+
+					IsConnectorComponent* conne = create_component(engine, conn2_entity_id, COMP_ISCONNECTOR);
+					conne->x = 0;
 
 					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
 					directioncomponent2->dir = E;
@@ -341,15 +350,17 @@ void game_load_level(Game* g, Level* l) {
 				}
 
 				if (left == '-' || left == '|' || left == '&' || left == 'A' || left == 'B' || left == 'C' || left == 'O' || left == 'D') {
+
 					EntityId conn2_entity_id = get_new_entity_id(engine);
 
 					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
 					glmc_ivec2_set(gridloc->pos, x, y);
-
-					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
-
+					ok->needed += 1;
 					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
 					activatable2->active = 0;
+
+					IsConnectorComponent* conne = create_component(engine, conn2_entity_id, COMP_ISCONNECTOR);
+					conne->x = 0;
 
 					DirectionComponent* directioncomponent2 = create_component(engine, conn2_entity_id, COMP_DIRECTION);
 					directioncomponent2->dir = S;
@@ -359,14 +370,15 @@ void game_load_level(Game* g, Level* l) {
 				}
 
 				if (right == '-' || right == '|' || right == '&' || right == 'A' || right == 'B' || right == 'C' || right == 'O' || right == 'D') {
-
 					EntityId conn2_entity_id = get_new_entity_id(engine);
 
 					GridLocationComponent* gridloc = create_component(engine, conn2_entity_id, COMP_GRIDLOCATION);
 					glmc_ivec2_set(gridloc->pos, x, y);
 
-					ConnectorLogicComponent* conn2 = create_component(engine, conn2_entity_id, COMP_CONNECTORLOGIC);
+					IsConnectorComponent* conne = create_component(engine, conn2_entity_id, COMP_ISCONNECTOR);
+					conne->x = 0;
 
+					ok->needed += 1;
 					ActivatableComponent* activatable2 = create_component(engine, conn2_entity_id, COMP_ACTIVATABLE);
 					activatable2->active = 0;
 
@@ -535,20 +547,20 @@ void game_load_level(Game* g, Level* l) {
 
 		curr = 0;
 		while (1) {
-				if ((above == '-' || above == '|') && curr != 2 && voorgaand != 2 && voorgaand != 3 && voorgaand != 4) {
+				if ((above == '-' || above == '|' || above == '&') && curr != 2 && voorgaand != 2 && voorgaand != 3 && voorgaand != 4) {
 					x -= 1;
 					curr = 1;
 
 				}
-				else if ((beneath == '-' || beneath == '|') && curr != 1 && voorgaand != 1 && voorgaand != 3 && voorgaand != 4) {
+				else if ((beneath == '-' || beneath == '|' || beneath == '&') && curr != 1 && voorgaand != 1 && voorgaand != 3 && voorgaand != 4) {
 					x += 1;
 					curr = 2;
 				}
-				else if ((left == '-' || left == '|') && curr != 4 && voorgaand != 1 && voorgaand != 3 && voorgaand != 2) {
+				else if ((left == '-' || left == '|' || left == '&') && curr != 4 && voorgaand != 1 && voorgaand != 3 && voorgaand != 2) {
 					y -= 1;
 					curr = 3;
 				}
-				else if ((right == '-' || right == '|' ) && curr != 3 && voorgaand != 1 && voorgaand != 4 && voorgaand != 2) {
+				else if ((right == '-' || right == '|' || right == '&') && curr != 3 && voorgaand != 1 && voorgaand != 4 && voorgaand != 2) {
 					y += 1;
 					curr = 4;
 				}
@@ -584,10 +596,13 @@ void game_load_level(Game* g, Level* l) {
 							oldpath->prev = last;
 							ConnectionsComponent* sleuteldeur = get_component(engine, lockje, COMP_CONNECTIONS);
 							sleuteldeur->prev = door;
-
+							if (has_component(engine, lockje, COMP_CONNECTORLOGIC)) {
+								ConnectorLogicComponent* xxx = get_component(engine, lockje, COMP_CONNECTORLOGIC);
+								LockDoorComponent* deurie = create_component(engine, xxx->andor, COMP_LOCKDOOR);
+								deurie->door = door;
+							}
 						}
 					}
-
 					break;
 				}
 
@@ -717,6 +732,9 @@ void game_load_level(Game* g, Level* l) {
 				ConnectionsComponent* nieuwpath2;
 				nieuwpath2 = create_component(engine, drie, COMP_CONNECTIONS);
 				nieuwpath2->prev = een;
+				ConnectorLogicComponent* connlo = create_component(engine, lockje, COMP_CONNECTORLOGIC);
+				connlo->andor = drie;
+				connlo->deelaanor = een;
 				if (gewoonweg) {
 					ConnectionsComponent* rar = create_component(engine, misschien, COMP_CONNECTIONS);
 					rar->prev = drie;
@@ -750,6 +768,7 @@ void game_load_level(Game* g, Level* l) {
 			}
 
 			else {
+
 				ConnectionsComponent* nieuwpath1 = create_component(engine, een, COMP_CONNECTIONS);
 				nieuwpath1->prev = last;
 				nieuwpath1->next = twee;
