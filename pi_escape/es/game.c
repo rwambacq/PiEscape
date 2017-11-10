@@ -497,6 +497,9 @@ void game_load_level(Game* g, Level* l) {
 	}
 
 
+
+	//hier worden de paden aan elkaar gelinkt + al dan niet and or connectors etc...
+
 	EntityIterator itlock;
 	search_entity_3(engine, COMP_ACTIVATABLE,COMP_ART,COMP_LOCK, &itlock);
 
@@ -509,18 +512,19 @@ void game_load_level(Game* g, Level* l) {
 		int x = locs->pos[0];
 		int y = locs->pos[1];
 		int voorgaand = 100;
-		int laterx = x;
-		int latery = y;
-		int lockx = x;
-		int locky = x;
+	
+
 		char above = l->level_description[x - 1][y];
 		char beneath = l->level_description[x + 1][y];
 		char left = l->level_description[x][y - 1];
 		char right = l->level_description[x][y + 1];
+
 		int plaatsje;
 		int curr;
+
 		EntityIterator itdoor;
 		EntityId last;
+
 		search_entity_3(engine, COMP_ISCONNECTOR, COMP_ACTIVATABLE, COMP_DIRECTION, &itdoor);
 		while (next_entity(&itdoor)) {
 			EntityId door = itdoor.entity_id;
@@ -534,23 +538,19 @@ void game_load_level(Game* g, Level* l) {
 				ConnectionsComponent* nextje = create_component(engine, lockje, COMP_CONNECTIONS);
 				nextje->next = door;
 				nextje->prev = NULL;
-				ActivatableComponent* xx = get_component(engine, nextje->next, COMP_ACTIVATABLE);
-				//xx->active = !xx->active;
 				ConnectionsComponent* nextpathje = create_component(engine, door, COMP_CONNECTIONS);
 				nextpathje->prev = lockje;
 				last = door;
 			}
 		}
 
-		
-		int hasnext = above == '-' | beneath == '-' | left == '-' | right == '-';
-
 		curr = 0;
+
+		//oneindig tot we een deur tegenkomen of deel van and or
 		while (1) {
 				if ((above == '-' || above == '|' || above == '&') && curr != 2 && voorgaand != 2 && voorgaand != 3 && voorgaand != 4) {
 					x -= 1;
 					curr = 1;
-
 				}
 				else if ((beneath == '-' || beneath == '|' || beneath == '&') && curr != 1 && voorgaand != 1 && voorgaand != 3 && voorgaand != 4) {
 					x += 1;
@@ -565,10 +565,8 @@ void game_load_level(Game* g, Level* l) {
 					curr = 4;
 				}
 				else {
-					printf("pfffffff");
 					int xloc = x;
 					int yloc = y;
-
 					if (above == 'D') {
 						xloc -= 1;
 					}
@@ -591,13 +589,11 @@ void game_load_level(Game* g, Level* l) {
 						if (positie->pos[0] == xloc && positie->pos[1] == yloc) {
 							ConnectionsComponent* nieuwpath = get_component(engine, last, COMP_CONNECTIONS);
 							nieuwpath->next = door;
-
 							if (has_component(engine, door, COMP_CONNECTIONS)) {
 								ConnectionsComponent* oldpath = get_component(engine, door, COMP_CONNECTIONS);
 								DoubleDoor* deurt = create_component(engine, door, COMP_DOUBLEDOOR);
 								deurt->een = oldpath->prev;
 								deurt->twee = last;
-								printf("ALLLOOOOOO");
 							}
 							ConnectionsComponent* oldpath = create_component(engine, door, COMP_CONNECTIONS);
 							oldpath->next = NULL;
@@ -624,7 +620,7 @@ void game_load_level(Game* g, Level* l) {
 					break;
 				}
 
-				voorgaand = 0;
+			voorgaand = 0;
 			EntityIterator itdoor;
 			EntityId een = NULL;
 			EntityId twee = NULL;
@@ -641,9 +637,6 @@ void game_load_level(Game* g, Level* l) {
 				int plaatsy = plaats->pos[1];
 
 				if (plaatsx == x && plaatsy == y) {
-					ActivatableComponent* xx = get_component(engine, door, COMP_ACTIVATABLE);
-					//xx->active = !xx->active;
-
 					DirectionComponent* xdir = get_component(engine, door, COMP_DIRECTION);
 					plaatsje = curr;
 					if (xdir != NULL) {
@@ -699,10 +692,7 @@ void game_load_level(Game* g, Level* l) {
 					else {
 						gewoonweg = 0;
 						drie = door;
-						ActivatableComponent* opl = get_component(engine, drie, COMP_ACTIVATABLE);
-						//opl->active = 1;
 					}
-					
 				}
 			}
 			EntityId misschien  = NULL;
@@ -732,10 +722,7 @@ void game_load_level(Game* g, Level* l) {
 			}
 
 			if (aantalok == 1) {
-				printf("\n\nhalle\n\n");
 				ActivatableComponent* opl = get_component(engine, misschien, COMP_ACTIVATABLE);
-				
-				//twee = misschien;
 				gewoonweg = 1;
 			}
 
@@ -759,7 +746,6 @@ void game_load_level(Game* g, Level* l) {
 					rar->next = NULL;
 					nieuwpath2->next = misschien;
 					DirectionComponent* bijna = create_component(engine, misschien, COMP_DIRECTION);
-
 					if (bijna->dir == N) {
 						voorgaand = 3;
 					}
@@ -772,21 +758,14 @@ void game_load_level(Game* g, Level* l) {
 					if (bijna->dir == W) {
 						voorgaand = 1;
 					}
-
-
-
 					last = misschien;
 				}
 				else {
 					nieuwpath2->next = NULL;
 					break;
 				}
-				
-
 			}
-
 			else {
-
 				ConnectionsComponent* nieuwpath1 = create_component(engine, een, COMP_CONNECTIONS);
 				nieuwpath1->prev = last;
 				nieuwpath1->next = twee;
@@ -795,15 +774,10 @@ void game_load_level(Game* g, Level* l) {
 				last = twee;
 			}
 
-
-
-			
 			above = l->level_description[x - 1][y];
 			beneath = l->level_description[x + 1][y];
 			left = l->level_description[x][y - 1];
 			right = l->level_description[x][y + 1];
-
 		}
-	
 	}
 }
