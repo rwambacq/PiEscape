@@ -39,7 +39,7 @@ int main() {
     //initialise context, engine and assemblage, and add systems
     Game* pi_escape_2 = game_alloc(graphics);
 
-	int level_nr = 8;															//THIS NUMBER DECIDES WHICH LEVEL IS LOADED, FOR TESTING, USE THIS!!
+	int level_nr = 0;															//THIS NUMBER DECIDES WHICH LEVEL IS LOADED, FOR TESTING, USE THIS!!
     Level* level = levelloader_load_level(level_loader, level_nr);
     game_load_level(pi_escape_2, level);
 
@@ -79,6 +79,7 @@ int main() {
 			free_component(&pi_escape_2->engine, player_entity_id, COMP_BLOCKING);
 			es_memory_manager_init(&(pi_escape_2->engine.es_memory));
 			level_nr++;
+			levelloader_free_level(level);
 			level = levelloader_load_level(level_loader, level_nr);
 			game_load_level(pi_escape_2, level);
 
