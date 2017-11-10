@@ -159,4 +159,8 @@ typedef struct ExitComponent {
 	int done;
 } ExitComponent;
 
+typedef struct inUse {
+	int done;
+} inUse;
+
 #endif //PIESCAPE2_COMPONENTS_H

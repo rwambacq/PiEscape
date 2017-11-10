@@ -32,7 +32,7 @@ void system_activation_update(ActivationSystem* system, Engine* engine) {
 		assert(lockje != NO_ENTITY);
 		ActivationComponent* aanmaken = get_component(engine, lockje, COMP_ACTIVATION);
 		//naar deur toe stream
-		if (aanmaken->currenttime == 100) {
+		if (aanmaken->currenttime == 25) {
 			int uit = 0;
 			//teller die volgt tot aan een bepaald getal, bepaald onze snelheid
 			if (aanmaken->getto == aanmaken->currenttime) {
@@ -70,19 +70,25 @@ void system_activation_update(ActivationSystem* system, Engine* engine) {
 				free_component(engine, lockje, COMP_ACTIVATION);
 			}
 		}
-		else if (aanmaken->currenttime == 50) {
+		else if (aanmaken->currenttime == 10) {
 			int uit = 0;
 			if (aanmaken->getto == aanmaken->currenttime) {
+
+
 				uit = 1;
 				ActivatableComponent* licht = get_component(engine, lockje, COMP_ACTIVATABLE);
 				ConnectionsComponent* nieuwpath = get_component(engine, lockje, COMP_CONNECTIONS);
-				licht->active = 0;
-				ConnectionsComponent* nieuwpath = get_component(engine, lockje, COMP_CONNECTIONS);
-				EntityId volgende = nieuwpath->prev;
-				ActivationComponent* activatie = create_component(engine, volgende, COMP_ACTIVATION);
-				activatie->getto = 0;
-				activatie->currenttime = aanmaken->currenttime;
-				free_component(engine, lockje, COMP_ACTIVATION);
+				if (licht->active == 0) {
+					free_component(engine, lockje, COMP_ACTIVATION);
+				}
+				else {
+					licht->active = 0;
+					EntityId volgende = nieuwpath->prev;
+					ActivationComponent* activatie = create_component(engine, volgende, COMP_ACTIVATION);
+					activatie->getto = 0;
+					activatie->currenttime = aanmaken->currenttime;
+					free_component(engine, lockje, COMP_ACTIVATION);
+				}
 			}
 			else {
 				aanmaken->getto += 1;

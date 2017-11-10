@@ -101,9 +101,8 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 				EntityId lockje = itlock.entity_id;
 				assert(lockje != NO_ENTITY);
 				ActivationComponent* aanmaken = get_component(engine, lockje, COMP_ACTIVATION);
-				if (aanmaken->currenttime == 50 || aanmaken->currenttime == 100) {
+				if (aanmaken->currenttime == 50 || aanmaken->currenttime == 25) {
 					next = 0;
-
 				}
 			}
 			if (next) {
@@ -119,9 +118,8 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 				EntityId lockje = itlock.entity_id;
 				assert(lockje != NO_ENTITY);
 				ActivationComponent* aanmaken = get_component(engine, lockje, COMP_ACTIVATION);
-				if (aanmaken->currenttime == 50 || aanmaken->currenttime == 100) {
+				if (aanmaken->currenttime == 25 || aanmaken->currenttime == 10) {
 					next = 0;
-
 				}
 			}
 			if (next) {
