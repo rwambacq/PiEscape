@@ -579,6 +579,7 @@ void game_load_level(Game* g, Level* l) {
 					else if (right == 'D') {
 						yloc += 1;
 					}
+					//stel we komen een deur tegen...
 
 					EntityIterator itdoor;
 					search_entity_3(engine, COMP_ART, COMP_ISDOOR, COMP_DIRECTION, &itdoor);
@@ -639,6 +640,7 @@ void game_load_level(Game* g, Level* l) {
 				if (plaatsx == x && plaatsy == y) {
 					DirectionComponent* xdir = get_component(engine, door, COMP_DIRECTION);
 					plaatsje = curr;
+					//checken of we een and or hebben
 					if (xdir != NULL) {
 						if (plaatsje == 1) {
 							if (xdir->dir == E) {
@@ -695,6 +697,9 @@ void game_load_level(Game* g, Level* l) {
 					}
 				}
 			}
+
+			// uitleg over volgende code vind je vanonder
+
 			EntityId misschien  = NULL;
 			int aantalok = 0;
 			if (!gewoonweg) {
@@ -781,3 +786,8 @@ void game_load_level(Game* g, Level* l) {
 		}
 	}
 }
+
+/*  Elke keer dat ik aan een and or kom, check ik of dit de laatste nog niet ingevulde ingang naar and or is.
+	Indien dit niet het geval is, roep ik een brake op
+	wanneer dit wel het geval is, weet ik ook direct welke de uitgang is, waarna ik de rest aan elkaar koppel
+*/
