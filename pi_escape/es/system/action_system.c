@@ -127,7 +127,6 @@ void checkForLock(Engine* engine, EntityId key) {
 		GridLocationComponent* lock_pos = get_component(engine, lock, COMP_GRIDLOCATION);
 		if (key_pos->pos[0] == lock_pos->pos[0] && key_pos->pos[1] == lock_pos->pos[1]) {
 			if (!get_component(engine, lock, COMP_ACTIVATION)) {
-				printf("EEEN");
 				ActivationComponent* x = create_component(engine, lock, COMP_ACTIVATION);
 			}
 			else {
