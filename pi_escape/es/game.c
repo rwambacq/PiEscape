@@ -591,14 +591,32 @@ void game_load_level(Game* g, Level* l) {
 						if (positie->pos[0] == xloc && positie->pos[1] == yloc) {
 							ConnectionsComponent* nieuwpath = get_component(engine, last, COMP_CONNECTIONS);
 							nieuwpath->next = door;
+
+							if (has_component(engine, door, COMP_CONNECTIONS)) {
+								ConnectionsComponent* oldpath = get_component(engine, door, COMP_CONNECTIONS);
+								DoubleDoor* deurt = create_component(engine, door, COMP_DOUBLEDOOR);
+								deurt->een = oldpath->prev;
+								deurt->twee = last;
+								printf("ALLLOOOOOO");
+							}
 							ConnectionsComponent* oldpath = create_component(engine, door, COMP_CONNECTIONS);
 							oldpath->next = NULL;
 							oldpath->prev = last;
+
+							WalkComponent* voorlaatst = create_component(engine, lockje, COMP_WALKABLE);
+							voorlaatst->lastconn = last;
 							ConnectionsComponent* sleuteldeur = get_component(engine, lockje, COMP_CONNECTIONS);
-							sleuteldeur->prev = door;
+							sleuteldeur->prev = NULL;
+
 							if (has_component(engine, lockje, COMP_CONNECTORLOGIC)) {
 								ConnectorLogicComponent* xxx = get_component(engine, lockje, COMP_CONNECTORLOGIC);
 								LockDoorComponent* deurie = create_component(engine, xxx->andor, COMP_LOCKDOOR);
+								WalkComponent* nieuwtje = create_component(engine, xxx->andor, COMP_WALKABLE);
+								nieuwtje->lastconn = last;
+								deurie->door = door;
+							}
+							else {
+								LockDoorComponent* deurie = create_component(engine, lockje, COMP_LOCKDOOR);
 								deurie->door = door;
 							}
 						}

@@ -30,6 +30,7 @@ typedef enum ComponentId {
 	COMP_INCONTAINER,
 	COMP_EXIT, //22
 	COMP_LOCKDOOR,
+	COMP_DOUBLEDOOR,
     
     COMPONENT_ID_SIZE
 } ComponentId;

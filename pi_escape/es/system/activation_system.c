@@ -80,7 +80,7 @@ void system_activation_update(ActivationSystem* system, Engine* engine) {
 				ActivatableComponent* licht = get_component(engine, lockje, COMP_ACTIVATABLE);
 				ConnectionsComponent* nieuwpath = get_component(engine, lockje, COMP_CONNECTIONS);
 
-				if (licht->active == 0) {
+				if (0){//licht->active == 0) {
 					printf("oei");
 					free_component(engine, lockje, COMP_ACTIVATION);
 					uit = 0;

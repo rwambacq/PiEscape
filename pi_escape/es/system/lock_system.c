@@ -87,6 +87,7 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 			activatie->getto = 0;
 	}
 	else if (x) {
+
 		if (has_component(engine, lock, COMP_CONNECTORLOGIC)) {
 			ConnectorLogicComponent *xje = get_component(engine, lock, COMP_CONNECTORLOGIC);
 			ConnectorOr* x = get_component(engine, xje->andor, COMP_CONNOR);
@@ -113,15 +114,45 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 				//EntityId volgende = nieuwpath->prev;
 				ActivationComponent* activatie;
 				ActivatableComponent* pfkzientbeu = get_component(engine, deurie->door, COMP_ACTIVATABLE);
+
 				if (pfkzientbeu->active == 1) {
-					activatie = create_component(engine, deurie->door, COMP_ACTIVATION);
+					if (has_component(engine, deurie->door, COMP_DOUBLEDOOR)) {
+						DoubleDoor* deutj = get_component(engine, deurie->door, COMP_DOUBLEDOOR);
+						ActivatableComponent* eentje = get_component(engine, deutj->een, COMP_ACTIVATABLE);
+						ActivatableComponent* tweetje = get_component(engine, deutj->twee, COMP_ACTIVATABLE);
+						printf("\neen : %d \n twee: %d\n", eentje->active, tweetje->active);
+
+						if (eentje->active == 1 && tweetje->active == 1) {
+							WalkComponent* nieuwpath = get_component(engine, x->andor, COMP_WALKABLE);
+							ActivationComponent* activatie = create_component(engine, nieuwpath->lastconn, COMP_ACTIVATION);
+							activatie->currenttime = 50;
+							activatie->getto = 0;
+						}
+						else {
+							WalkComponent* nieuwpath = get_component(engine, x->andor, COMP_WALKABLE);
+							if (eentje->active || tweetje->active) {
+								ActivatableComponent* lamp = get_component(engine, nieuwpath->lastconn, COMP_ACTIVATABLE);
+								if (lamp->active == 1) {
+									ActivatableComponent* act = get_component(engine, deurie->door, COMP_ACTIVATABLE);
+									act->active = 0;
+								}
+							}
+							ActivationComponent* activatie = create_component(engine, nieuwpath->lastconn, COMP_ACTIVATION);
+							activatie->currenttime = 50;
+							activatie->getto = 0;
+						}
+					}
+
+
 				}
 				else {
+					printf("\nhahahhah\n");
 					printf("doe dit");
 					activatie = create_component(engine, xje->deelaanor, COMP_ACTIVATION);
+					activatie->currenttime = 50;
+					activatie->getto = 0;
 				}
-				activatie->currenttime = 50;
-				activatie->getto = 0;
+				
 
 				
 			}
@@ -135,17 +166,38 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 				pffff->active = 0;
 			}
 			else {
+				LockDoorComponent* deurie = get_component(engine, lock, COMP_LOCKDOOR);
+				EntityId volgende = deurie->door;
+				if (has_component(engine, volgende, COMP_DOUBLEDOOR)) {
+					DoubleDoor* deutj = get_component(engine, volgende, COMP_DOUBLEDOOR);
+					ActivatableComponent* eentje = get_component(engine, deutj->een, COMP_ACTIVATABLE);
+					ActivatableComponent* tweetje = get_component(engine, deutj->twee, COMP_ACTIVATABLE);
+					printf("\neen : %d \n twee: %d\n", eentje->active, tweetje->active);
+					if (eentje->active && tweetje->active) {
+						WalkComponent* nieuwpath = get_component(engine, lock, COMP_WALKABLE);
+						ActivationComponent* activatie = create_component(engine, nieuwpath->lastconn, COMP_ACTIVATION);
+						activatie->currenttime = 50;
+						activatie->getto = 0;
+					}
+					else {
 
-				ConnectionsComponent* nieuwpath = get_component(engine, lock, COMP_CONNECTIONS);
-				EntityId volgende = nieuwpath->prev;
-				ActivationComponent* activatie = create_component(engine, volgende, COMP_ACTIVATION);
-				activatie->currenttime = 50;
-				activatie->getto = 0;
+						ActivatableComponent* act = get_component(engine, volgende, COMP_ACTIVATABLE);
+						act->active = 0;
+						WalkComponent* nieuwpath = get_component(engine, lock, COMP_WALKABLE);
+						ActivationComponent* activatie = create_component(engine, nieuwpath->lastconn, COMP_ACTIVATION);
+						activatie->currenttime = 50;
+						activatie->getto = 0;
+					}
+				}
+				else {
+					printf("\n oei neen");
+					ActivationComponent* activatie = create_component(engine, volgende, COMP_ACTIVATION);
+					activatie->currenttime = 50;
+					activatie->getto = 0;
+				}
 			}
 		}
 	}
 
 
 }
-
-///VERDER WERRKEN AAN INPUT BLOCK

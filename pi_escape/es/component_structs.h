@@ -63,9 +63,13 @@ typedef struct ConnectorOr {
 	int current;
 }ConnectorOr;
 
+typedef struct DoubleDoor {
+	EntityId een;
+	EntityId twee;
+} DoubleDoor;
+
 typedef struct WalkComponent {
-    //TODO	
-	TO_IMPLEMENT_STRUCT;
+	EntityId lastconn;
 } WalkComponent;
 
 typedef struct WallArtComponent {
