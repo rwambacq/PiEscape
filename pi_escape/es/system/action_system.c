@@ -16,11 +16,12 @@ ActionSystem* system_action_alloc() {
 }
 
 void system_action_init(ActionSystem* system) {
-	
+	//TODO
 }
 
 
 void system_action_free(ActionSystem* system) {
+	//TODO
 }
 
 void system_action_update(ActionSystem* system, Engine* engine) {

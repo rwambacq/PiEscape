@@ -11,11 +11,12 @@ MoveSystem* system_move_alloc() {
 }
 
 void system_move_init(MoveSystem* system) {
-
+    //TODO
 }
 
 
 void system_move_free(MoveSystem* system) {
+    //TODO
 }
 
 void system_move_update(MoveSystem* system, Engine* engine) {

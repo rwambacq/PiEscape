@@ -14,10 +14,12 @@ AnimationSystem* system_animation_alloc() {
 }
 
 void system_animation_init(AnimationSystem* system) {
+    //TODO
 }
 
 
 void system_animation_free(AnimationSystem* system) {
+    //TODO
 }
 
 

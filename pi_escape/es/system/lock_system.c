@@ -22,11 +22,12 @@ LockSystem* system_lock_alloc() {
 }
 
 void system_lock_init(LockSystem* system) {
-	
+	//TODO
 }
 
 
 void system_lock_free(LockSystem* system) {
+	//TODO
 }
 
 

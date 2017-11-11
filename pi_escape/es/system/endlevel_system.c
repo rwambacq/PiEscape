@@ -12,10 +12,12 @@ EndLevelSystem* system_endlevel_alloc() {
 }
 
 void system_endlevel_init(EndLevelSystem* system) {
+    //TODO
 }
 
 
 void system_endlevel_free(EndLevelSystem* system) {
+    //TODO
 }
 
 void system_endlevel_update(EndLevelSystem* system, Engine* engine) {
