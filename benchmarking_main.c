@@ -227,6 +227,8 @@ int main(int argc, char **argv){
 	// variable declarations;
 	Uint32 tic;
 	Uint32 toc;
+	unsigned long line_count = 0;
+	unsigned long i = 1;
 	FILE* f;
 	EntityIterator bench_ent_it;
 	bench_ent_it_ptr = &bench_ent_it;
@@ -267,19 +269,34 @@ int main(int argc, char **argv){
 	f = fopen(*(argv + 1), "r");
 	if (f == NULL) {
 		printf("Error when reading provided file!\nQuitting benchmark...\n");
+		exit(2);
 	}
 	else {
 		printf("File opened successfully\nNow running all function calls\n");
 	}
+
+	while (!feof(f)) {
+		fscanf(f, "%s", line);
+		line_count++;
+	}
+	fclose(f);
+	
+	f = fopen(*(argv + 1), "r");
 
 	// run function calls being read from benchlog file sequentially
 	tic = tick();
 	while (!feof(f)) {
 		fscanf(f, "%s", line);
 		crunch_line(&pi_escape_2->engine, line);
+		i++;
+		if (!(i % 100)) {
+			+printf("Running...%.2f%%\n", roundf((float)i / (float)line_count * 10000) / 100);
+		}
 	}
 	toc = tock(tic);
-	printf("Benchmark took %f seconds to execute.\n", toc/1000.0f);
+	printf("Program took %f seconds to execute under synthetic load.\n", toc / 1000.0f);
+	printf("The application took up %u bytes of space in the system memory.\n", sizeof(AllComponent)*COMPONENT_ID_SIZE*curr_max_entities + sizeof(int));
+	printf("sizeof(AllComponent)=%u\n", sizeof(AllComponent));
 
 	fclose(f);
 	
