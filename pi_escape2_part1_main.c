@@ -93,6 +93,9 @@ int main(int argc, char **argv) {
 
 		ExitComponent* exit_comp = get_component(&pi_escape_2->engine, exit_id, COMP_EXIT);
 		if (exit_comp->done && level_nr < 9) {
+			if (logging_benchmark) {
+				fprintf(benchfile, "init\n");
+			}
 			create_component(&pi_escape_2->engine, player_entity_id, COMP_BLOCKING);
 			sleep_ms(500);
 			free_component(&pi_escape_2->engine, player_entity_id, COMP_BLOCKING);

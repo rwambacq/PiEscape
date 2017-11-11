@@ -128,6 +128,9 @@ void crunch_line(Engine* engine, char* line) {
 	if (!strncmp("get_new_entity_id", line, (int) sizeof("get_new_entity_id") / sizeof(char) - 1)) {
 		get_new_entity_id(engine);		
 	}
+	else if (!strncmp("init", line, (int) sizeof("init") / sizeof(char) - 1)) {
+		es_memory_manager_init(&engine->es_memory);
+	}
 	else if (!strncmp("create_component", line, (int) sizeof("create_component") / sizeof(char) - 1)) {
 		line += (int) sizeof("create_component(Engine*") / sizeof(char);		
 		set_int_args_2(line, a_str, b_str);
@@ -273,9 +276,6 @@ int main(int argc, char **argv){
 	tic = tick();
 	while (!feof(f)) {
 		fscanf(f, "%s", line);
-		printf("Executing: ");
-		printf(line);
-		printf("\n");
 		crunch_line(&pi_escape_2->engine, line);
 	}
 	toc = tock(tic);
