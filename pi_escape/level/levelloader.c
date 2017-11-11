@@ -17,7 +17,7 @@ Level* level_alloc() {
 }
 
 void levelloader_free_level(Level* l) {
-    //TODO
+	free(l);
 }
 
 

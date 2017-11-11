@@ -27,9 +27,8 @@ extern FILE* benchfile;
 
 
 #include "entity.h"
-#define MAX_ENTITIES 500u
-
 #include "component_structs.h"
+#define MAX_ENTITIES 500u
 
 typedef struct AllComponent {
     int free;

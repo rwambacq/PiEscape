@@ -8,6 +8,8 @@ typedef struct ActionSystem {
 
 #include "../engine.h"
 
+#include "../../led/ledcontrol.h"
+
 void system_action_init(ActionSystem*);
 ActionSystem* system_action_alloc();
 void system_action_update(ActionSystem*, Engine*);

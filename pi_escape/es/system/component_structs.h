@@ -20,9 +20,6 @@ typedef struct CameraLookFromComponent {
     float distance;
     float XYdegees;
     float Zdegrees;
-	float prev_dist;
-	float prev_XY;
-	float prev_Z;
 } CameraLookFromComponent;
 
 typedef struct CameraLookAtComponent {
@@ -38,13 +35,17 @@ typedef struct MoveActionComponent {
 	int y_min_move;
 } MoveActionComponent;
 
+typedef struct IsConnectorComponent {
+	int x;
+} IsDoorComponent;
+
 typedef struct IsDoorComponent{
 	int x;
 } IsDoorComponent;
 
-typedef struct IsConnectorComponent {
+typedef struct ConnectorOr {
 	int x;
-} IsConnectorComponent;
+} ConnectorOr;
 
 
 typedef struct GridLocationComponent {
@@ -61,18 +62,9 @@ typedef struct MoveAnimationComponent {
 	float progress;
 } MoveAnimationComponent;
 
-typedef struct ConnectorOr {
-	int needed;
-	int current;
-}ConnectorOr;
-
-typedef struct DoubleDoor {
-	EntityId een;
-	EntityId twee;
-} DoubleDoor;
-
 typedef struct WalkComponent {
-	EntityId lastconn;
+    //TODO	
+	TO_IMPLEMENT_STRUCT;
 } WalkComponent;
 
 typedef struct WallArtComponent {
@@ -91,12 +83,6 @@ typedef struct ItemComponent {
     //TODO
 } ItemComponent;
 
-typedef struct LockDoorComponent {
-	EntityId door;
-	//TODO
-} LockDoorComponent;
-
-
 typedef struct InContainerComponent {
 	int previous_location_x;
 	int previous_location_y;
@@ -109,8 +95,8 @@ typedef struct ContainerComponent {
 } ContainerComponent;
 
 typedef struct ActivationComponent {
-	double currenttime;
-	double getto;
+    //TODO
+	TO_IMPLEMENT_STRUCT;
 } ActivationComponent;
 
 typedef struct ActivatableComponent {
@@ -118,21 +104,17 @@ typedef struct ActivatableComponent {
 } ActivatableComponent;
 
 typedef struct ConnectionsComponent {
-	EntityId prev;
-	EntityId next;
+    //TODO
+	TO_IMPLEMENT_STRUCT;
 } ConnectionsComponent;
 
 typedef struct LockComponent {
     ItemColor requiredKeyColor;
 } LockComponent;
 
-typedef struct AndOrIn {
-	int x;
-}AndOrIn;
-
 typedef struct ConnectorLogicComponent {
-	EntityId andor;
-	EntityId deelaanor;
+    //TODO
+	TO_IMPLEMENT_STRUCT;
 } ConnectorLogicComponent;
 
 typedef struct InputReceiverComponent {
@@ -161,9 +143,5 @@ typedef struct ArtComponent {
 typedef struct ExitComponent {
 	int done;
 } ExitComponent;
-
-typedef struct inUse {
-	int done;
-} inUse;
 
 #endif //PIESCAPE2_COMPONENTS_H
