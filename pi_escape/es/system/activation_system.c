@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
-#include <sys\timeb.h> 
 
 ActivationSystem* system_activation_alloc() {
     ActivationSystem* res = calloc(1, sizeof(ActivationSystem));
