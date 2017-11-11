@@ -7,7 +7,7 @@
 #include <assert.h>
 #if defined(RPI)
 double snel = 0.5;
-double beneden = 0.25;
+double beneden = 0.0;
 #else
 int snel = 5;
 int beneden = 2;

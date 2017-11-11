@@ -6,7 +6,7 @@
 #include <stdio.h>
 #if defined(RPI)
 double snel1 = 0.5;
-double beneden1 = 0.25;
+double beneden1 = 0;
 #else
 int snel1 = 5;
 int beneden1 = 2;
