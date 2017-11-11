@@ -19,20 +19,18 @@ ActivationSystem* system_activation_alloc() {
 }
 
 void system_activation_init(ActivationSystem* system) {
-    //TODO
+ 
 }
 
 
 void system_activation_free(ActivationSystem* system) {
-    //TODO
 }
 
 
 void system_activation_update(ActivationSystem* system, Engine* engine) {
 
 	EntityIterator itlock;
-	search_entity_3(engine, COMP_ACTIVATABLE, COMP_ART, COMP_ACTIVATION, &itlock);
-
+	search_entity(engine, COMP_ACTIVATION, &itlock);
 	if (next_entity(&itlock)) {
 		EntityId lockje = itlock.entity_id;
 		assert(lockje != NO_ENTITY);

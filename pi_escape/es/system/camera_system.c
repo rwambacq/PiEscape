@@ -47,7 +47,7 @@ void system_camera_update(CameraSystem* system, Engine* engine) {
 		float player_x = player_grid_comp->pos[0];
 		float player_y = player_grid_comp->pos[1];
 		float player_z = 0.0;
-
+		
 		glmc_vec3_set(cameraLookAt->pos, player_x, player_y, player_z);
 
 		float camera_x;

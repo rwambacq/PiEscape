@@ -13,12 +13,10 @@ ContainerSystem* system_container_alloc() {
 }
 
 void system_container_init(ContainerSystem* system) {
-    //TODO
 }
 
 
 void system_container_free(ContainerSystem* system) {
-    //TODO
 }
 
 void system_container_update(ContainerSystem* system, Engine* engine) {
