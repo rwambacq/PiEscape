@@ -32,6 +32,19 @@ So, in short, only log actual arguments like Id's, in order to be able to replic
 void es_memory_manager_init(ESMemory* mem) {
 	mem->next_entity_id = 0;
 	mem->components = (AllComponent**)malloc(COMPONENT_ID_SIZE * sizeof(AllComponent*)); // allocate space for COMPONENT_ID_SIZE (23) AllComponent pointers
+	curr_max_entities = START_AMOUNT_ENTITIES;
+	for (ComponentId comp_id = (ComponentId)0; comp_id < COMPONENT_ID_SIZE; comp_id++) {
+		mem->components[comp_id] = (AllComponent*)malloc(curr_max_entities * sizeof(AllComponent)); // allocate space for curr_max_entities (50-100-200-...) AllComponents
+		for (EntityId ent_id = 0; ent_id < curr_max_entities; ent_id++) {
+			memset(&mem->components[comp_id][ent_id], 0, sizeof(AllComponent));
+			mem->components[comp_id][ent_id].free = 1;
+		}
+	}
+}
+
+void es_memory_manager_reinit(ESMemory* mem) {
+	mem->next_entity_id = 0;
+	mem->components = (AllComponent**)malloc(COMPONENT_ID_SIZE * sizeof(AllComponent*)); // allocate space for COMPONENT_ID_SIZE (23) AllComponent pointers
 	for (ComponentId comp_id = (ComponentId)0; comp_id < COMPONENT_ID_SIZE; comp_id++) {
 		mem->components[comp_id] = (AllComponent*)malloc(curr_max_entities * sizeof(AllComponent)); // allocate space for curr_max_entities (50-100-200-...) AllComponents
 		for (EntityId ent_id = 0; ent_id < curr_max_entities; ent_id++) {
@@ -155,7 +168,7 @@ EntityId get_new_entity_id(Engine* engine) {
 void change_es_memory_size(Engine* engine, AllComponent** old_components_ptr) {
 	curr_max_entities *= 2;
 	int nex = engine->es_memory.next_entity_id;
-	es_memory_manager_init(&engine->es_memory); // allocate new memory (in heap memory) for new bigger matrix (curr_max_entities has doubled)
+	es_memory_manager_reinit(&engine->es_memory); // allocate new memory (in heap memory) for new bigger matrix (curr_max_entities has doubled)
 	engine->es_memory.next_entity_id = nex; // reset to correct value, because a call to es_memory_manager_init makes next_entity_id equal 0 again.
 											// copy all old AllComponents into new memory
 	for (ComponentId comp_id = (ComponentId)0; comp_id < COMPONENT_ID_SIZE; comp_id++) {
