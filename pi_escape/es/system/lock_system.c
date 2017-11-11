@@ -45,17 +45,14 @@ void system_lock_update(LockSystem* system, Engine* engine) {
 			GridLocationComponent* key_pos = get_component(engine, key, COMP_GRIDLOCATION);
 			ItemComponent* key_color = get_component(engine, key, COMP_ITEM);
 			if (0) {
-				printf("oei jammer");
 			}
 			else {
 				if (key_pos->pos[0] == lock_pos->pos[0] && key_pos->pos[1] == lock_pos->pos[1] && (!has_component(engine, key, COMP_INCONTAINER))) {
 					if ((!has_component(engine, key, COMP_INCONTAINER)) && (lock_color->requiredKeyColor == key_color->color || lock_color->requiredKeyColor == O || key_color->color == O)) {
-						printf("\neen");
 						x = 1;
 					}
 					else {
 						x = 2;
-						printf("\ntwee");
 						lock_act->active = 0;
 						checkForActivation(engine, lock, 1);
 					}
@@ -67,7 +64,6 @@ void system_lock_update(LockSystem* system, Engine* engine) {
 			}
 		}
 		if (y == 1 && x == 0) {
-			printf("\ndrie okokokok");
 			if (lock_act->active != 0) {
 				lock_act->active = 0;
 			}
@@ -95,9 +91,10 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 			ConnectorLogicComponent *xje = get_component(engine, lock, COMP_CONNECTORLOGIC);
 			ConnectorOr* x = get_component(engine, xje->andor, COMP_CONNOR);
 			ActivatableComponent* lamptest = get_component(engine, nieuwpath->next, COMP_ACTIVATABLE);
-			if (lamptest->active != 1) {
+			if (lamptest->active == 0) {
 				x->current += 1;
 			}
+
 		}
 			EntityId volgende = nieuwpath->next;
 			ActivationComponent* activatie = create_component(engine, volgende, COMP_ACTIVATION);
@@ -110,10 +107,8 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 			ConnectorLogicComponent *xje = get_component(engine, lock, COMP_CONNECTORLOGIC);
 			ConnectorOr* xi = get_component(engine, xje->andor, COMP_CONNOR);
 			xi->current -= 1;
-			printf("\n nodig : %d  : %d", xi->needed, xi->current);
 
 			if (xi->current >= xi->needed) {
-				printf("a");
 				ConnectorLogicComponent* xje = get_component(engine, lock, COMP_CONNECTORLOGIC);
 				lock = xje->deelaanor;
 				EntityId volgende = lock;
@@ -122,8 +117,6 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 				activatie->getto = 0;
 			}
 			else {
-				printf("oe");
-
 				ConnectorLogicComponent *x = get_component(engine, lock, COMP_CONNECTORLOGIC);
 				LockDoorComponent* deurie = get_component(engine, x->andor, COMP_LOCKDOOR);
 				
@@ -138,11 +131,9 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 				if (pfkzientbeu->active == 1) {
 					if (has_component(engine, deurie->door, COMP_DOUBLEDOOR)) {
 
-						printf("zou niet mogen");
 						DoubleDoor* deutj = get_component(engine, deurie->door, COMP_DOUBLEDOOR);
 						ActivatableComponent* eentje = get_component(engine, deutj->een, COMP_ACTIVATABLE);
 						ActivatableComponent* tweetje = get_component(engine, deutj->twee, COMP_ACTIVATABLE);
-						printf("\neen : %d \n twee: %d\n", eentje->active, tweetje->active);
 
 						if (eentje->active == 1 && tweetje->active == 1) {
 							WalkComponent* nieuwpath = get_component(engine, x->andor, COMP_WALKABLE);
@@ -151,7 +142,6 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 							activatie->getto = 0;
 						}
 						else {
-							printf("test1");
 							WalkComponent* nieuwpath = get_component(engine, x->andor, COMP_WALKABLE);
 							if (eentje->active || tweetje->active) {
 								ActivatableComponent* lamp = get_component(engine, nieuwpath->lastconn, COMP_ACTIVATABLE);
@@ -174,23 +164,25 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 						}
 					}
 					else {
-						printf("\nhahahhah\n");
-						printf("doe da");
+					
 						ActivatableComponent *al = get_component(engine, xje->deelaanor, COMP_ACTIVATABLE);
 						if (al->active == 0) {
 							xi->current += 1;
+								WalkComponent* nieuwpath = get_component(engine, x->andor, COMP_WALKABLE);
+								activatie = create_component(engine, x->deelaanor, COMP_ACTIVATION);
+								activatie->currenttime = 10;
+								activatie->getto = 0;
 						}
-						activatie = create_component(engine, deurie->door, COMP_ACTIVATION);
-						activatie->currenttime = 10;
-						activatie->getto = 0;
+						else {
+							activatie = create_component(engine, deurie->door, COMP_ACTIVATION);
+							activatie->currenttime = 10;
+							activatie->getto = 0;
+						}
 					}
 
 
 				}
 				else {
-				
-					printf("\nhahahhah\n");
-					printf("doe dit");
 					ActivatableComponent *al = get_component(engine, xje->deelaanor, COMP_ACTIVATABLE);
 					if (al->active == 0) {
 						xi->current += 1;
@@ -219,7 +211,6 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 					DoubleDoor* deutj = get_component(engine, volgende, COMP_DOUBLEDOOR);
 					ActivatableComponent* eentje = get_component(engine, deutj->een, COMP_ACTIVATABLE);
 					ActivatableComponent* tweetje = get_component(engine, deutj->twee, COMP_ACTIVATABLE);
-					printf("\neen : %d \n twee: %d\n", eentje->active, tweetje->active);
 					if (eentje->active && tweetje->active) {
 						WalkComponent* nieuwpath = get_component(engine, lock, COMP_WALKABLE);
 						ActivationComponent* activatie = create_component(engine, nieuwpath->lastconn, COMP_ACTIVATION);
@@ -237,7 +228,6 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 					}
 				}
 				else {
-					printf("\n oei neen");
 					ActivationComponent* activatie = create_component(engine, volgende, COMP_ACTIVATION);
 					activatie->currenttime = 10;
 					activatie->getto = 0;

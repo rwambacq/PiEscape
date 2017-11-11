@@ -71,7 +71,6 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					int x = (int)ok->color;
 					showColor(x);
 					if (oud->color == ok->color || oud->color == O) {
-						printf("JAJAJJA");
 					}
 					else {
 						checkForLock(engine, item);
@@ -80,7 +79,6 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 				}
 				else if (container->contains_something && container->id == item) {
 					//Drop key
-					printf("drop");
 					EntityId contained = container->id;
 					free_component(engine, contained, COMP_INCONTAINER);
 					container->contains_something = 0;
