@@ -76,7 +76,7 @@ void system_activation_update(ActivationSystem* system, Engine* engine) {
 				free_component(engine, lockje, COMP_ACTIVATION);
 			}
 		}
-		else if (aanmaken->currenttime == 10) {
+		else if (aanmaken->currenttime == beneden1) {
 			int uit = 0;
 			if (aanmaken->getto == beneden1) {
 
