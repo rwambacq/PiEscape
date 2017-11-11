@@ -39,7 +39,7 @@ int main() {
     //initialise context, engine and assemblage, and add systems
     Game* pi_escape_2 = game_alloc(graphics);
 
-	int level_nr = 5;															//THIS NUMBER DECIDES WHICH LEVEL IS LOADED, FOR TESTING, USE THIS!!
+	int level_nr = 0;															//THIS NUMBER DECIDES WHICH LEVEL IS LOADED, FOR TESTING, USE THIS!!
     Level* level = levelloader_load_level(level_loader, level_nr);
     game_load_level(pi_escape_2, level);
 
@@ -47,9 +47,6 @@ int main() {
 	int height = level->hoogte;
 
 	int s;
-	for (s = 0; s < height; s++) {
-		printf("%s\n", level->level_description[s]);
-	}
 
     //TODO: support playing all levels in sequence
 
@@ -86,9 +83,7 @@ int main() {
 			height = level->hoogte;
 
 			int s;
-			for (s = 0; s < height; s++) {
-				printf("%s\n", level->level_description[s]);
-			}
+			
 		}
 		else if (exit_comp->done && level_nr == 9) {
 			pi_escape_2->engine.context.is_exit_game = 1;
