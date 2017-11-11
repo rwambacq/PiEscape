@@ -24,6 +24,8 @@
 #endif
 #include "../graphics/opengl_game_renderer.h"
 
+int player_blocked;
+
 typedef struct Game {
     Graphics* graphics;
     Engine engine;

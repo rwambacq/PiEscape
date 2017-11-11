@@ -26,7 +26,7 @@ void system_move_update(MoveSystem* system, Engine* engine) {
 	EntityId player_entity_id = player_it.entity_id;
 	assert(player_entity_id != NO_ENTITY);
 	Level level = engine->level;
-	if (!has_component(engine, player_entity_id, COMP_MOVE_ANIMATION)) {
+
 		if (has_component(engine, player_entity_id, COMP_MOVE_ACTION)) {
 			MoveActionComponent* move = get_component(engine, player_entity_id, COMP_MOVE_ACTION);
 			GridLocationComponent* loc = get_component(engine, player_entity_id, COMP_GRIDLOCATION);
@@ -145,10 +145,10 @@ void system_move_update(MoveSystem* system, Engine* engine) {
 			}
 
 
-
+			create_component(engine, player_entity_id, COMP_MOVE_ANIMATION);
 			free_component(engine, player_entity_id, COMP_MOVE_ACTION);
 		}
-	} else if (has_component(engine, player_entity_id, COMP_MOVE_ACTION)) {
+	if (has_component(engine, player_entity_id, COMP_MOVE_ACTION)) {
 		free_component(engine, player_entity_id, COMP_MOVE_ACTION);
 	}
 

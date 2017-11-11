@@ -25,6 +25,7 @@ void fill_level_loader(LevelLoader* level_loader) {
 }
 
 int main() {
+	player_blocked = 1;
     int imgFlags = IMG_INIT_PNG;
     if(!(IMG_Init(imgFlags) & imgFlags)) {
         fatal("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
@@ -42,7 +43,7 @@ int main() {
 	int level_nr = 0;															//THIS NUMBER DECIDES WHICH LEVEL IS LOADED, FOR TESTING, USE THIS!!
     Level* level = levelloader_load_level(level_loader, level_nr);
     game_load_level(pi_escape_2, level);
-
+	
 	int width = level->breedte;
 	int height = level->hoogte;
 
@@ -57,6 +58,9 @@ int main() {
     Uint32 last_print_time_ms = start_time_ms;
     long update_count = 0;
 
+	//PLAY THE LEVEL INTRO SCENE
+	pi_escape_2->engine.animation_system->intro_playing = 1;
+
     while (!pi_escape_2->engine.context.is_exit_game) {
 		
 		EntityIterator level_exit;
@@ -70,13 +74,13 @@ int main() {
 		next_entity(&player_it);
 		EntityId player_entity_id = player_it.entity_id;
 		assert(player_entity_id != NO_ENTITY);
+
 		Uint32 timer_exit = 0;
 
 		ExitComponent* exit_comp = get_component(&pi_escape_2->engine, exit_id, COMP_EXIT);
 		if (exit_comp->done && level_nr < 9) {
-			create_component(&pi_escape_2->engine, player_entity_id, COMP_BLOCKING);
+			player_blocked = 1;
 			sleep_ms(500);
-			free_component(&pi_escape_2->engine, player_entity_id, COMP_BLOCKING);
 			es_memory_manager_init(&(pi_escape_2->engine.es_memory));
 			level_nr++;
 			levelloader_free_level(level);
@@ -85,6 +89,9 @@ int main() {
 
 			width = level->breedte;
 			height = level->hoogte;
+
+			//PLAY THE LEVEL INTRO SCENE
+			pi_escape_2->engine.animation_system->intro_playing = 1;
 
 			int s;
 			for (s = 0; s < height; s++) {
