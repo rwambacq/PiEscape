@@ -60,10 +60,6 @@ void system_move_update(MoveSystem* system, Engine* engine) {
 				move->x_min_move = 0;
 			}
 
-
-
-
-
 			else if (move->x_plus_move) {
 				EntityId doorused = NULL;
 				while (next_entity(&itdoor)) {
@@ -142,9 +138,6 @@ void system_move_update(MoveSystem* system, Engine* engine) {
 				}
 				move->y_plus_move = 0;
 			}
-
-
-
 			free_component(engine, player_entity_id, COMP_MOVE_ACTION);
 		}
 	} else if (has_component(engine, player_entity_id, COMP_MOVE_ACTION)) {
