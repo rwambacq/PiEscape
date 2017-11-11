@@ -146,12 +146,10 @@ void system_input_update(InputSystem* system, Engine* engine) {
     while( SDL_PollEvent( &event ) ) {
         switch( event.type ) {
             case SDL_KEYDOWN:
-				printf("up");
                 handleKeyDown(system, engine, &event.key.keysym, input_recv_entity_id);
                 break;
             case SDL_KEYUP:
                 /* Handle key release. */
-				printf("tis ne graptje ");
                 handleKeyUp(system, engine, &event.key.keysym, input_recv_entity_id);
                 break;
             case SDL_QUIT:
