@@ -151,4 +151,77 @@ void system_move_update(MoveSystem* system, Engine* engine) {
 	} else if (has_component(engine, player_entity_id, COMP_MOVE_ACTION)) {
 		free_component(engine, player_entity_id, COMP_MOVE_ACTION);
 	}
+
+	//UPDATE CAMERA AT PLAYER MOVEMENT
+
+	CameraLookFromComponent* cameraLookFrom = search_first_component(engine, COMP_CAMERA_LOOK_FROM);
+	CameraLookAtComponent* cameraLookAt = search_first_component(engine, COMP_CAMERA_LOOK_AT);
+
+	GridLocationComponent* player_grid_comp = get_component(engine, player_entity_id, COMP_GRIDLOCATION);
+
+	float xy_degrees = cameraLookFrom->XYdegees;
+	float z_degrees = cameraLookFrom->Zdegrees;
+
+	float xy_radians = xy_degrees*(M_PI / 180);
+	float z_radians = z_degrees*(M_PI / 180);
+
+	float dist = cameraLookFrom->distance;
+
+	float player_x = player_grid_comp->pos[0];
+	float player_y = player_grid_comp->pos[1];
+	float player_z = 0.0;
+
+	float camera_x;
+	float camera_y;
+	float camera_z;
+
+	camera_x = player_x + (dist * cos(xy_radians) * sin(z_radians));
+	camera_y = player_y + (dist * sin(xy_radians) * sin(z_radians));
+	camera_z = player_z + (dist * cos(z_radians));
+
+	//CAMERALOOKFROM
+
+	if (cameraLookFrom->pos[0] < camera_x - 0.005) {
+		cameraLookFrom->pos[0] += 0.005;
+	}
+	else if (cameraLookFrom->pos[0] > camera_x + 0.005) {
+		cameraLookFrom->pos[0] -= 0.005;
+	}
+
+	if (cameraLookFrom->pos[1] < camera_y - 0.005) {
+		cameraLookFrom->pos[1] += 0.005;
+	}
+	else if (cameraLookFrom->pos[1] > camera_y + 0.005) {
+		cameraLookFrom->pos[1] -= 0.005;
+	}
+
+	if (cameraLookFrom->pos[2] < camera_z - 0.005) {
+		cameraLookFrom->pos[2] += 0.005;
+	}
+	else if (cameraLookFrom->pos[2] > camera_z + 0.005) {
+		cameraLookFrom->pos[2] -= 0.005;
+	}
+
+	//CAMERALOOKAT
+
+	if (cameraLookAt->pos[0] < player_x - 0.005) {
+		cameraLookAt->pos[0] += 0.005;
+	}
+	else if (cameraLookAt->pos[0] > player_x + 0.005) {
+		cameraLookAt->pos[0] -= 0.005;
+	}
+
+	if (cameraLookAt->pos[1] < player_y - 0.005) {
+		cameraLookAt->pos[1] += 0.005;
+	}
+	else if (cameraLookAt->pos[1] > player_y + 0.005) {
+		cameraLookAt->pos[1] -= 0.005;
+	}
+
+	if (cameraLookAt->pos[2] < player_z - 0.005) {
+		cameraLookAt->pos[2] += 0.005;
+	}
+	else if (cameraLookAt->pos[2] > player_z + 0.005) {
+		cameraLookAt->pos[2] -= 0.005;
+	}
 }
