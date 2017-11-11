@@ -16,7 +16,6 @@
 
 int showColor(int kleurtje)
 {
-	printf("%d", kleurtje);
 	SPGM_RGBTRIPLE bl = { 0,0,0 };
 	SPGM_RGBTRIPLE g = { 0,250,0 };
 	SPGM_RGBTRIPLE r = { 250,0,0 };
@@ -24,14 +23,14 @@ int showColor(int kleurtje)
 
 	if (kleurtje == 2) {
 		SPGM_RGBTRIPLE gridgroen[] =
-		{ g,g,g,g,g,g,g,g,
-			g,g,g,g,g,g,g,g,
-			g,g,g,g,g,g,g,g,
-			g,g,g,g,g,g,g,g,
-			g,g,g,g,g,g,g,g,
-			g,g,g,g,g,g,g,g,
-			g,g,g,g,g,g,g,g,
-			g,g,g,g,g,g,g,g };
+		  { bl,bl,bl,bl,bl,bl,bl,bl,
+			bl,bl,bl,bl,bl,bl,bl,bl,
+			bl,g,g,g,bl,bl,bl,bl,
+			g,bl,bl,g,g,g,g,g,
+			g,bl,bl,g,bl,g,bl,g,
+			bl,g,g,bl,bl,g,bl,g,
+			bl,bl,bl,bl,bl,bl,bl,bl,
+			bl,bl,bl,bl,bl,bl,bl,bl, };
 
 		display_ledgrid(gridgroen, "/dev/fb1");
 
@@ -42,26 +41,26 @@ int showColor(int kleurtje)
 	else if (kleurtje == 1) {
 
 		SPGM_RGBTRIPLE gridblauw[] =
-		{ b,b,b,b,b,b,b,b,
-			b,b,b,b,b,b,b,b,
-			b,b,b,b,b,b,b,b,
-			b,b,b,b,b,b,b,b,
-			b,b,b,b,b,b,b,b,
-			b,b,b,b,b,b,b,b,
-			b,b,b,b,b,b,b,b,
-			b,b,b,b,b,b,b,b };
+		{ bl,bl,bl,bl,bl,bl,bl,bl,
+			bl,bl,bl,bl,bl,bl,bl,bl,
+			bl,b,b,b,bl,bl,bl,bl,
+			b,bl,bl,b,b,b,b,b,
+			b,bl,bl,b,bl,b,bl,b,
+			bl,b,b,bl,bl,b,bl,b,
+			bl,bl,bl,bl,bl,bl,bl,bl,
+			bl,bl,bl,bl,bl,bl,bl,bl, };
 		display_ledgrid(gridblauw, "/dev/fb1");
 	}
 	else if (kleurtje == 3) {
-		SPGM_RGBTRIPLE gridrood[] = {
-			r,r,r,r,r,r,r,r,
-			r,r,r,r,r,r,r,r,
-			r,r,r,r,r,r,r,r,
-			r,r,r,r,r,r,r,r,
-			r,r,r,r,r,r,r,r,
-			r,r,r,r,r,r,r,r,
-			r,r,r,r,r,r,r,r,
-			r,r,r,r,r,r,r,r };
+		SPGM_RGBTRIPLE gridrood[] = 
+			{ bl,bl,bl,bl,bl,bl,bl,bl,
+			bl,bl,bl,bl,bl,bl,bl,bl,
+			bl,r,r,r,bl,bl,bl,bl,
+			r,bl,bl,r,r,r,r,r,
+			r,bl,bl,r,bl,r,bl,r,
+			bl,r,r,bl,bl,r,bl,r,
+			bl,bl,bl,bl,bl,bl,bl,bl,
+			bl,bl,bl,bl,bl,bl,bl,bl, };
 		display_ledgrid(gridrood, "/dev/fb1");
 	}
 	else if (kleurtje == 0) {
