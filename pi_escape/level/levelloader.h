@@ -9,7 +9,7 @@ typedef enum ItemType { KEY } ItemType;
 typedef enum ItemColor { O, A, B, C } ItemColor;
 
 typedef struct Level {
-	char level_description[64][64]; /* Since there is no way to dynamically allocate a size to the 2D array, I gave it a fixed size of 64x64 */
+	char level_description[32][32]; /* 32 x 32 want ja, ik ben wel een informaticus eh, 30 is voor plebs */
 	int hoogte;
 	int breedte;
 	int nr;

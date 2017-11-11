@@ -30,9 +30,6 @@ void system_animation_init(AnimationSystem* system) {
 	system->look_right_1 = 0;
 	system->look_right_1_timer = 0.0f;
 	system->intro_wait_counter = 0;
-
-	system->outro_playing = 0;
-	system->zoom_timer = 0.0f;
 }
 
 

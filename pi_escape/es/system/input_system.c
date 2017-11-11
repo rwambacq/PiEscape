@@ -129,13 +129,10 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 	}
 
 
-
-}
-
 void system_input_update(InputSystem* system, Engine* engine) {
 	EntityId input_recv_entity_id = search_first_entity_1(engine, COMP_INPUTRECEIVER);
 	CameraLookFromComponent* cameraLookFrom = search_first_component(engine, COMP_CAMERA_LOOK_FROM);
-	if (! player_blocked) {
+	if (!player_blocked) {
 		SDL_Event event;
 		memset(&event, 0, sizeof(SDL_Event));
 		/* Grab all the events off the queue. */
@@ -164,38 +161,39 @@ void system_input_update(InputSystem* system, Engine* engine) {
 					) {
 					//                    SDL_WarpMouse(screenMidX, screenMidY);
 
-				int buttonDown = mouseMotionEvent->state & SDL_BUTTON_LEFT;
+					int buttonDown = mouseMotionEvent->state & SDL_BUTTON_LEFT;
 
-				if (buttonDown) {
-					float x_move = mouseMotionEvent->xrel * 1.0f;
-					float y_move = mouseMotionEvent->yrel * 1.0f;
-					cameraLookFrom->XYdegees -= x_move;
-					cameraLookFrom->Zdegrees -= y_move;
-				}
-				else {
-					//printf("Mouse moved %f %f\n", mouseMotionEvent->xrel * 1.0f, mouseMotionEvent->yrel * 1.0f);
-				}
-			}
-			break;
-		}
-		case SDL_MOUSEBUTTONUP: {
-			//SDL 1.2 handles the wheel in a silly way
-			switch (event.button.button) {
-			case SDL_BUTTON_WHEELUP: {
-				if (cameraLookFrom->distance > 5) {
-					cameraLookFrom->distance -= 1;
+					if (buttonDown) {
+						float x_move = mouseMotionEvent->xrel * 1.0f;
+						float y_move = mouseMotionEvent->yrel * 1.0f;
+						cameraLookFrom->XYdegees -= x_move;
+						cameraLookFrom->Zdegrees -= y_move;
+					}
+					else {
+						//printf("Mouse moved %f %f\n", mouseMotionEvent->xrel * 1.0f, mouseMotionEvent->yrel * 1.0f);
+					}
 				}
 				break;
 			}
-			case SDL_BUTTON_WHEELDOWN: {
-				if (cameraLookFrom->distance < 25) {
-					cameraLookFrom->distance += 1;
+			case SDL_MOUSEBUTTONUP: {
+				//SDL 1.2 handles the wheel in a silly way
+				switch (event.button.button) {
+				case SDL_BUTTON_WHEELUP: {
+					if (cameraLookFrom->distance > 5) {
+						cameraLookFrom->distance -= 1;
+					}
+					break;
+				}
+				case SDL_BUTTON_WHEELDOWN: {
+					if (cameraLookFrom->distance < 25) {
+						cameraLookFrom->distance += 1;
+					}
+					break;
+				}
 				}
 				break;
 			}
 			}
-			break;
-		}
 		}
 	}
 }
