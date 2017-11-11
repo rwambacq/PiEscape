@@ -101,9 +101,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 				EntityId lockje = itlock.entity_id;
 				assert(lockje != NO_ENTITY);
 				ActivationComponent* aanmaken = get_component(engine, lockje, COMP_ACTIVATION);
-				if (aanmaken->currenttime == 50 || aanmaken->currenttime == 25) {
-					next = 0;
-				}
+				next = 0;
 			}
 			if (next) {
 				ItemActionComponent* action = create_component(engine, player_entity_id, COMP_ITEMACTION);
@@ -118,9 +116,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 				EntityId lockje = itlock.entity_id;
 				assert(lockje != NO_ENTITY);
 				ActivationComponent* aanmaken = get_component(engine, lockje, COMP_ACTIVATION);
-				if (aanmaken->currenttime == 25 || aanmaken->currenttime == 10) {
-					next = 0;
-				}
+				next = 0;
 			}
 			if (next) {
 				ItemActionComponent* action = create_component(engine, player_entity_id, COMP_ITEMACTION);
@@ -146,12 +142,10 @@ void system_input_update(InputSystem* system, Engine* engine) {
     while( SDL_PollEvent( &event ) ) {
         switch( event.type ) {
             case SDL_KEYDOWN:
-				printf("up");
                 handleKeyDown(system, engine, &event.key.keysym, input_recv_entity_id);
                 break;
             case SDL_KEYUP:
                 /* Handle key release. */
-				printf("tis ne graptje ");
                 handleKeyUp(system, engine, &event.key.keysym, input_recv_entity_id);
                 break;
             case SDL_QUIT:
