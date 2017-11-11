@@ -4,6 +4,13 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <stdio.h>
+#if defined(RPI)
+int snel1 = 3;
+int beneden1 = 1;
+#else
+int snel1 = 25;
+int beneden1 = 10;
+#endif
 
 ActivationSystem* system_activation_alloc() {
     ActivationSystem* res = calloc(1, sizeof(ActivationSystem));
@@ -31,7 +38,7 @@ void system_activation_update(ActivationSystem* system, Engine* engine) {
 		assert(lockje != NO_ENTITY);
 		ActivationComponent* aanmaken = get_component(engine, lockje, COMP_ACTIVATION);
 		//naar deur toe stream
-		if (aanmaken->currenttime == 25) {
+		if (aanmaken->currenttime == snel1) {
 			int uit = 0;
 			//teller die volgt tot aan een bepaald getal, bepaald onze snelheid
 			if (aanmaken->getto == aanmaken->currenttime) {
@@ -71,7 +78,7 @@ void system_activation_update(ActivationSystem* system, Engine* engine) {
 		}
 		else if (aanmaken->currenttime == 10) {
 			int uit = 0;
-			if (aanmaken->getto == aanmaken->currenttime) {
+			if (aanmaken->getto == beneden1) {
 
 
 				uit = 1;

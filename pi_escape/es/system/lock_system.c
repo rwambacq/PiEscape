@@ -5,7 +5,13 @@
 #include <stdio.h>
 
 #include <assert.h>
-
+#if defined(RPI)
+int snel = 3;
+int beneden = 1;
+#else
+int snel = 25;
+int beneden = 10;
+#endif
 
 void checkForActivation(Engine* engine, EntityId lock, int x);
 
@@ -98,7 +104,7 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 		}
 			EntityId volgende = nieuwpath->next;
 			ActivationComponent* activatie = create_component(engine, volgende, COMP_ACTIVATION);
-			activatie->currenttime = 25;
+			activatie->currenttime = snel;
 			activatie->getto = 0;
 	}
 	else if (x) {
@@ -113,7 +119,7 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 				lock = xje->deelaanor;
 				EntityId volgende = lock;
 				ActivationComponent* activatie = create_component(engine, volgende, COMP_ACTIVATION);
-				activatie->currenttime = 10;
+				activatie->currenttime = beneden;
 				activatie->getto = 0;
 			}
 			else {
@@ -153,12 +159,12 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 							ActivatableComponent* orand = get_component(engine, x->andor, COMP_ACTIVATABLE);
 							if (orand->active == 1) {
 								ActivationComponent* activatie = create_component(engine, nieuwpath->lastconn, COMP_ACTIVATION);
-								activatie->currenttime = 10;
+								activatie->currenttime = beneden;
 								activatie->getto = 0;
 							}
 							else {
 								ActivationComponent* activatie = create_component(engine, x->deelaanor, COMP_ACTIVATION);
-								activatie->currenttime = 10;
+								activatie->currenttime = beneden;
 								activatie->getto = 0;
 							}
 						}
@@ -170,12 +176,12 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 							xi->current += 1;
 								WalkComponent* nieuwpath = get_component(engine, x->andor, COMP_WALKABLE);
 								activatie = create_component(engine, x->deelaanor, COMP_ACTIVATION);
-								activatie->currenttime = 10;
+								activatie->currenttime = beneden;
 								activatie->getto = 0;
 						}
 						else {
 							activatie = create_component(engine, deurie->door, COMP_ACTIVATION);
-							activatie->currenttime = 10;
+							activatie->currenttime = beneden;
 							activatie->getto = 0;
 						}
 					}
@@ -188,7 +194,7 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 						xi->current += 1;
 					}
 					activatie = create_component(engine, xje->deelaanor, COMP_ACTIVATION);
-					activatie->currenttime = 10;
+					activatie->currenttime = beneden;
 					activatie->getto = 0;
 				}
 				
@@ -214,7 +220,7 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 					if (eentje->active && tweetje->active) {
 						WalkComponent* nieuwpath = get_component(engine, lock, COMP_WALKABLE);
 						ActivationComponent* activatie = create_component(engine, nieuwpath->lastconn, COMP_ACTIVATION);
-						activatie->currenttime = 10;
+						activatie->currenttime = beneden;
 						activatie->getto = 0;
 					}
 					else {
@@ -223,13 +229,13 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 						act->active = 0;
 						WalkComponent* nieuwpath = get_component(engine, lock, COMP_WALKABLE);
 						ActivationComponent* activatie = create_component(engine, nieuwpath->lastconn, COMP_ACTIVATION);
-						activatie->currenttime = 10;
+						activatie->currenttime = beneden;
 						activatie->getto = 0;
 					}
 				}
 				else {
 					ActivationComponent* activatie = create_component(engine, volgende, COMP_ACTIVATION);
-					activatie->currenttime = 10;
+					activatie->currenttime = beneden;
 					activatie->getto = 0;
 				}
 			}
