@@ -56,8 +56,8 @@ Level* levelloader_load_level(LevelLoader* ll, int level_nr) {
 
 	int p, q;
 
-	for (p = 0; p < 64; p++) {
-		for (q = 0; q < 64; q++) {
+	for (p = 0; p < 32; p++) {
+		for (q = 0; q < 32; q++) {
 			level->level_description[p][q] = NULL; /* Alle elementen van de 2D array op NULL zetten om garbage values te vermijden*/
 		}
 	}
