@@ -61,9 +61,18 @@ typedef struct MoveAnimationComponent {
 	float progress;
 } MoveAnimationComponent;
 
+typedef struct ConnectorOr {
+	int needed;
+	int current;
+}ConnectorOr;
+
+typedef struct DoubleDoor {
+	EntityId een;
+	EntityId twee;
+} DoubleDoor;
+
 typedef struct WalkComponent {
-    //TODO	
-	TO_IMPLEMENT_STRUCT;
+	EntityId lastconn;
 } WalkComponent;
 
 typedef struct WallArtComponent {
@@ -82,6 +91,12 @@ typedef struct ItemComponent {
     //TODO
 } ItemComponent;
 
+typedef struct LockDoorComponent {
+	EntityId door;
+	//TODO
+} LockDoorComponent;
+
+
 typedef struct InContainerComponent {
 	int previous_location_x;
 	int previous_location_y;
@@ -94,8 +109,8 @@ typedef struct ContainerComponent {
 } ContainerComponent;
 
 typedef struct ActivationComponent {
-	int currenttime;
-	int getto;
+	double currenttime;
+	double getto;
 } ActivationComponent;
 
 typedef struct ActivatableComponent {
@@ -111,9 +126,13 @@ typedef struct LockComponent {
     ItemColor requiredKeyColor;
 } LockComponent;
 
+typedef struct AndOrIn {
+	int x;
+}AndOrIn;
+
 typedef struct ConnectorLogicComponent {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	EntityId andor;
+	EntityId deelaanor;
 } ConnectorLogicComponent;
 
 typedef struct InputReceiverComponent {
@@ -142,5 +161,9 @@ typedef struct ArtComponent {
 typedef struct ExitComponent {
 	int done;
 } ExitComponent;
+
+typedef struct inUse {
+	int done;
+} inUse;
 
 #endif //PIESCAPE2_COMPONENTS_H

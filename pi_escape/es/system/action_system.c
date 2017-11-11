@@ -4,44 +4,28 @@
 #include "../../../util/sleep.h"
 #include <stdlib.h>
 #include<stdio.h>
-#include <windows.h>
-#include <sys\timeb.h> 
-
-void usleep(__int64 usec)
-{
-	HANDLE timer;
-	LARGE_INTEGER ft;
-
-	ft.QuadPart = -(10 * usec); // Convert to 100 nanosecond interval, negative value indicates relative time
-
-	timer = CreateWaitableTimer(NULL, TRUE, NULL);
-	SetWaitableTimer(timer, &ft, 0, NULL, NULL, 0);
-	WaitForSingleObject(timer, INFINITE);
-	CloseHandle(timer);
-}
 
 
 
 void checkForLock(Engine* engine, EntityId key);
 
-
 ActionSystem* system_action_alloc() {
-    ActionSystem* res = calloc(1, sizeof(ActionSystem));
-    system_action_init(res);
-    return res;
+	ActionSystem* res = calloc(1, sizeof(ActionSystem));
+	system_action_init(res);
+	return res;
 }
 
 void system_action_init(ActionSystem* system) {
-    //TODO
+	//TODO
 }
 
 
 void system_action_free(ActionSystem* system) {
-    //TODO
+	//TODO
 }
 
 void system_action_update(ActionSystem* system, Engine* engine) {
-	
+
 	EntityIterator it;
 	search_entity_2(engine, COMP_CONTAINER, COMP_ITEMACTION, &it);
 	while (next_entity(&it)) {
@@ -55,11 +39,12 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 		while (next_entity(&item_it)) {
 			EntityId item = item_it.entity_id;
 			assert(item != NO_ENTITY);
-
+	
 			GridLocationComponent* item_loc = get_component(engine, item, COMP_GRIDLOCATION);
 			if (item_loc->pos[0] == ent_loc->pos[0] && item_loc->pos[1] == ent_loc->pos[1]) {
 				if (container->contains_something && container->id != item) {
 					//Switch key
+					ItemComponent* oud = get_component(engine, container->id, COMP_ITEM);
 					EntityId contained = container->id;
 					container->id = item;
 					free_component(engine, contained, COMP_INCONTAINER);
@@ -70,10 +55,14 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					ItemComponent* ok = get_component(engine, container->id, COMP_ITEM);
 					int x = (int)ok->color;
 					showColor(x);
-					checkForLock(engine, item);
+					if (oud->color == ok->color || oud->color == O) {
+					}
+					else {
+						checkForLock(engine, item);
+					}
 					break;
 				}
-				else if (container->contains_something && container->id == item ) {
+				else if (container->contains_something && container->id == item) {
 					//Drop key
 					EntityId contained = container->id;
 					free_component(engine, contained, COMP_INCONTAINER);
@@ -81,7 +70,7 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					showColor(6);
 					checkForLock(engine, item);
 				}
-				else if(!container->contains_something) {
+				else if (!container->contains_something) {
 					//Pick up key
 					container->id = item;
 					InContainerComponent* item_incontainer = create_component(engine, item, COMP_INCONTAINER);
@@ -99,7 +88,7 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 		}
 		free_component(engine, ent, COMP_ITEMACTION);
 	}
-	
+
 }
 
 void checkForLock(Engine* engine, EntityId key) {
@@ -112,8 +101,8 @@ void checkForLock(Engine* engine, EntityId key) {
 		assert(lock != NO_ENTITY);
 		GridLocationComponent* lock_pos = get_component(engine, lock, COMP_GRIDLOCATION);
 		if (key_pos->pos[0] == lock_pos->pos[0] && key_pos->pos[1] == lock_pos->pos[1]) {
-			if (!get_component(engine, lock, COMP_ACTIVATION)) {
-				ActivationComponent* x = create_component(engine, lock, COMP_ACTIVATION);
+			if (!get_component(engine, lock, COMP_INUSE)) {
+				inUse* x = create_component(engine, lock, COMP_INUSE);
 			}
 		}
 	}

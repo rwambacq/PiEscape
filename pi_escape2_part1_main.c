@@ -1,12 +1,22 @@
 #define __STDC_FORMAT_MACROS
 #include <inttypes.h>
+
+#ifndef STDIO_INCLUDED
 #include <stdio.h>
+#define STDIO_INCLUDED
+#endif
+
+
 #include "util/sleep.h"
 #include "pi_escape/graphics/opengl_game_renderer.h"
 #include "pi_escape/level/levelloader.h"
 #include "pi_escape/es/game.h"
 
 #include <assert.h>
+
+#include "pi_escape/es/es_memory_manager.h"
+#define BENCHLOG_FILE_PATH "benchmarks/benchlog.txt"
+
 #include <SDL.h>
 #undef main //Weird bug on windows where SDL overwrite main definition
 #include <SDL_timer.h>
@@ -23,16 +33,27 @@ void fill_level_loader(LevelLoader* level_loader) {
 	strcpy(level_loader->level_paths[8], "pi_escape/level/level_files/game2.lvl");
 	strcpy(level_loader->level_paths[9], "pi_escape/level/level_files/game3.lvl");
 }
-
-int main() {
+int main(int argc, char **argv) {
 	player_blocked = 1;
+	// if you call the main game with more than one argument, assume it is benchmarking.
+	if (argc > 1) {
+		printf("benchmark mode\n\n%d\n", logging_benchmark);
+		logging_benchmark = 1;
+		benchfile = fopen(BENCHLOG_FILE_PATH, "w");
+		if (benchfile == NULL) { printf("Error when opening file!\nCalls to memory mgmt will not be logged!\n"); exit(1); }
+		else { printf("benchmark file is: %s\n", BENCHLOG_FILE_PATH); }
+	}
+	else {
+		printf("normal mode\n\n");
+	}
+
     int imgFlags = IMG_INIT_PNG;
     if(!(IMG_Init(imgFlags) & imgFlags)) {
         fatal("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
     }
 
-    struct LevelLoader* level_loader = levelloader_alloc();
-	fill_level_loader(level_loader);
+    LevelLoader* level_loader = levelloader_alloc();
+	  fill_level_loader(level_loader);
 
     //init the graphics system
     Graphics* graphics = graphics_alloc(0, 0);
@@ -48,9 +69,6 @@ int main() {
 	int height = level->hoogte;
 
 	int s;
-	for (s = 0; s < height; s++) {
-		printf("%s\n", level->level_description[s]);
-	}
 
     //TODO: support playing all levels in sequence
 
@@ -94,9 +112,7 @@ int main() {
 			pi_escape_2->engine.animation_system->intro_playing = 1;
 
 			int s;
-			for (s = 0; s < height; s++) {
-				printf("%s\n", level->level_description[s]);
-			}
+			
 		}
 		else if (exit_comp->done && level_nr == 9) {
 			pi_escape_2->engine.context.is_exit_game = 1;
@@ -122,13 +138,17 @@ int main() {
     }
 
     game_free(pi_escape_2);
-    free(pi_escape_2);
+	free(pi_escape_2);
 
     graphics_free(graphics);
     free(graphics);
 
     levelloader_free(level_loader);
     free(level_loader);
+
+	if (logging_benchmark) {
+		fclose(benchfile);
+	}
 
     return 0;
 }
