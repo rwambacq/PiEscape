@@ -5,8 +5,8 @@
 #include <assert.h>
 #include <stdio.h>
 #if defined(RPI)
-int snel1 = 2;
-int beneden1 = 2;
+int snel1 = 3;
+int beneden1 = 3;
 #else
 int snel1 = 25;
 int beneden1 = 10;
