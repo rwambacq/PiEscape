@@ -16,6 +16,7 @@
 
 int showColor(int kleurtje)
 {
+	printf("%d", kleurtje);
 	SPGM_RGBTRIPLE bl = { 0,0,0 };
 	SPGM_RGBTRIPLE g = { 0,250,0 };
 	SPGM_RGBTRIPLE r = { 250,0,0 };
