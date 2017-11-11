@@ -6,10 +6,10 @@
 #include <stdio.h>
 #if defined(RPI)
 int snel1 = 3;
-int beneden1 = 3;
+int beneden1 = 2;
 #else
-int snel1 = 25;
-int beneden1 = 10;
+int snel1 = 24;
+int beneden1 = 9;
 #endif
 
 ActivationSystem* system_activation_alloc() {

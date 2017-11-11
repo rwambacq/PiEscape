@@ -7,10 +7,10 @@
 #include <assert.h>
 #if defined(RPI)
 int snel = 3;
-int beneden = 3;
+int beneden = 2;
 #else
-int snel = 25;
-int beneden = 10;
+int snel = 24;
+int beneden = 9;
 #endif
 
 void checkForActivation(Engine* engine, EntityId lock, int x);
