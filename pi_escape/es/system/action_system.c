@@ -54,11 +54,12 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 		while (next_entity(&item_it)) {
 			EntityId item = item_it.entity_id;
 			assert(item != NO_ENTITY);
-
+	
 			GridLocationComponent* item_loc = get_component(engine, item, COMP_GRIDLOCATION);
 			if (item_loc->pos[0] == ent_loc->pos[0] && item_loc->pos[1] == ent_loc->pos[1]) {
 				if (container->contains_something && container->id != item) {
 					//Switch key
+					ItemComponent* oud = get_component(engine, container->id, COMP_ITEM);
 					EntityId contained = container->id;
 					container->id = item;
 					free_component(engine, contained, COMP_INCONTAINER);
@@ -69,11 +70,15 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					ItemComponent* ok = get_component(engine, container->id, COMP_ITEM);
 					int x = (int)ok->color;
 					showColor(x);
-					checkForLock(engine, item);
+					if (oud->color != ok->color) {
+						checkForLock(engine, item);
+
+					}
 					break;
 				}
 				else if (container->contains_something && container->id == item) {
 					//Drop key
+					printf("drop");
 					EntityId contained = container->id;
 					free_component(engine, contained, COMP_INCONTAINER);
 					container->contains_something = 0;
