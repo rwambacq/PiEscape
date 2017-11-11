@@ -131,6 +131,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 			break;
 		}
 	}
+
     
     
 }
@@ -145,11 +146,12 @@ void system_input_update(InputSystem* system, Engine* engine) {
     while( SDL_PollEvent( &event ) ) {
         switch( event.type ) {
             case SDL_KEYDOWN:
-                /* Handle key presses. */
+				printf("up");
                 handleKeyDown(system, engine, &event.key.keysym, input_recv_entity_id);
                 break;
             case SDL_KEYUP:
                 /* Handle key release. */
+				printf("tis ne graptje ");
                 handleKeyUp(system, engine, &event.key.keysym, input_recv_entity_id);
                 break;
             case SDL_QUIT:
@@ -173,7 +175,7 @@ void system_input_update(InputSystem* system, Engine* engine) {
 						float x_move = mouseMotionEvent->xrel * 1.0f;
 						float y_move = mouseMotionEvent->yrel * 1.0f;
 						cameraLookFrom->XYdegees -= x_move;
-						cameraLookFrom->Zdegrees += y_move;
+						cameraLookFrom->Zdegrees -= y_move;
                     } else {
                         //printf("Mouse moved %f %f\n", mouseMotionEvent->xrel * 1.0f, mouseMotionEvent->yrel * 1.0f);
                     }
@@ -199,17 +201,5 @@ void system_input_update(InputSystem* system, Engine* engine) {
                 break;
             }
         }
-
-
-
-        //demo only, no use in real game
-        /*EntityIterator it;
-        search_entity_1(engine, COMP_ACTIVATABLE, &it);
-        while(next_entity(&it)) {
-            EntityId drawable_entity_id = it.entity_id;
-            assert(drawable_entity_id != NO_ENTITY);
-            ActivatableComponent* activatable = get_component(engine, drawable_entity_id, COMP_ACTIVATABLE);
-            activatable->active = engine->context.demo;
-        }*/
     }
 }
