@@ -7,7 +7,7 @@
 #include <assert.h>
 #if defined(RPI)
 int snel = 3;
-int beneden = 1;
+int beneden = 3;
 #else
 int snel = 25;
 int beneden = 10;
@@ -144,7 +144,7 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 						if (eentje->active == 1 && tweetje->active == 1) {
 							WalkComponent* nieuwpath = get_component(engine, x->andor, COMP_WALKABLE);
 							ActivationComponent* activatie = create_component(engine, nieuwpath->lastconn, COMP_ACTIVATION);
-							activatie->currenttime = 10;
+							activatie->currenttime = beneden;
 							activatie->getto = 0;
 						}
 						else {
