@@ -29,6 +29,8 @@ void system_lock_update(LockSystem* system, Engine* engine) {
 	EntityIterator it;
 	search_entity_2(engine, COMP_INUSE, COMP_LOCK, &it);
 	while (next_entity(&it)) {
+		int x = 0;
+		int y = 0;
 		EntityId lock = it.entity_id;
 		assert(lock != NO_ENTITY);
 		GridLocationComponent* lock_pos = get_component(engine, lock, COMP_GRIDLOCATION);
@@ -48,23 +50,32 @@ void system_lock_update(LockSystem* system, Engine* engine) {
 			else {
 				if (key_pos->pos[0] == lock_pos->pos[0] && key_pos->pos[1] == lock_pos->pos[1] && (!has_component(engine, key, COMP_INCONTAINER))) {
 					if ((!has_component(engine, key, COMP_INCONTAINER)) && (lock_color->requiredKeyColor == key_color->color || lock_color->requiredKeyColor == O || key_color->color == O)) {
-						lock_act->active = 1;
-						checkForActivation(engine, lock, 0);
+						printf("\neen");
+						x = 1;
 					}
 					else {
+						x = 2;
+						printf("\ntwee");
 						lock_act->active = 0;
 						checkForActivation(engine, lock, 1);
 					}
 					break;
 				}
 				else if (has_component(engine, key, COMP_INCONTAINER) && (lock_color->requiredKeyColor == key_color->color || lock_color->requiredKeyColor == O || key_color->color == O)) {
-						printf("mjmfaemo");
-						if (lock_act->active != 0) {
-							lock_act->active = 0;
-						}
-						checkForActivation(engine, lock, 1);
+					y = 1;
 				}
 			}
+		}
+		if (y == 1 && x == 0) {
+			printf("\ndrie okokokok");
+			if (lock_act->active != 0) {
+				lock_act->active = 0;
+			}
+			checkForActivation(engine, lock, 1);
+		}
+		if (x == 1 && y == 0) {
+			lock_act->active = 1;
+			checkForActivation(engine, lock, 0);
 		}
 		free_component(engine, lock, COMP_INUSE);
 	}
@@ -165,6 +176,10 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 					else {
 						printf("\nhahahhah\n");
 						printf("doe da");
+						ActivatableComponent *al = get_component(engine, xje->deelaanor, COMP_ACTIVATABLE);
+						if (al->active == 0) {
+							xi->current += 1;
+						}
 						activatie = create_component(engine, deurie->door, COMP_ACTIVATION);
 						activatie->currenttime = 10;
 						activatie->getto = 0;
@@ -176,6 +191,10 @@ void checkForActivation(Engine* engine, EntityId lock, int x) {
 				
 					printf("\nhahahhah\n");
 					printf("doe dit");
+					ActivatableComponent *al = get_component(engine, xje->deelaanor, COMP_ACTIVATABLE);
+					if (al->active == 0) {
+						xi->current += 1;
+					}
 					activatie = create_component(engine, xje->deelaanor, COMP_ACTIVATION);
 					activatie->currenttime = 10;
 					activatie->getto = 0;
