@@ -70,9 +70,11 @@ void system_action_update(ActionSystem* system, Engine* engine) {
 					ItemComponent* ok = get_component(engine, container->id, COMP_ITEM);
 					int x = (int)ok->color;
 					showColor(x);
-					if (oud->color != ok->color) {
+					if (oud->color == ok->color || oud->color == O) {
+						printf("JAJAJJA");
+					}
+					else {
 						checkForLock(engine, item);
-
 					}
 					break;
 				}

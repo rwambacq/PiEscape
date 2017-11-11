@@ -7,21 +7,21 @@
 #include <assert.h>
 
 
-void checkForActivation(Engine* engine, EntityId lock,int x);
+void checkForActivation(Engine* engine, EntityId lock, int x);
 
 LockSystem* system_lock_alloc() {
-    LockSystem* res = calloc(1, sizeof(LockSystem));
-    system_lock_init(res);
-    return res;
+	LockSystem* res = calloc(1, sizeof(LockSystem));
+	system_lock_init(res);
+	return res;
 }
 
 void system_lock_init(LockSystem* system) {
-    //TODO
+	//TODO
 }
 
 
 void system_lock_free(LockSystem* system) {
-    //TODO
+	//TODO
 }
 
 
@@ -42,25 +42,27 @@ void system_lock_update(LockSystem* system, Engine* engine) {
 			assert(key != NO_ENTITY);
 			GridLocationComponent* key_pos = get_component(engine, key, COMP_GRIDLOCATION);
 			ItemComponent* key_color = get_component(engine, key, COMP_ITEM);
-			if(0){
-			printf("oei jammer");
+			if (0) {
+				printf("oei jammer");
 			}
 			else {
 				if (key_pos->pos[0] == lock_pos->pos[0] && key_pos->pos[1] == lock_pos->pos[1] && (!has_component(engine, key, COMP_INCONTAINER))) {
 					if ((!has_component(engine, key, COMP_INCONTAINER)) && (lock_color->requiredKeyColor == key_color->color || lock_color->requiredKeyColor == O || key_color->color == O)) {
 						lock_act->active = 1;
-						printf("nee wtf");
 						checkForActivation(engine, lock, 0);
-						break;
 					}
+					else {
+						lock_act->active = 0;
+						checkForActivation(engine, lock, 1);
+					}
+					break;
 				}
 				else if (has_component(engine, key, COMP_INCONTAINER) && (lock_color->requiredKeyColor == key_color->color || lock_color->requiredKeyColor == O || key_color->color == O)) {
-					
-
-					if (lock_act->active != 0) {
-						lock_act->active = 0;
-					}
-					checkForActivation(engine, lock, 1);
+						printf("mjmfaemo");
+						if (lock_act->active != 0) {
+							lock_act->active = 0;
+						}
+						checkForActivation(engine, lock, 1);
 				}
 			}
 		}
