@@ -5,11 +5,11 @@
 #include <assert.h>
 #include <stdio.h>
 #if defined(RPI)
-int snel1 = 3;
-int beneden1 = 2;
+int snel1 = 1;
+double beneden1 = 0.5;
 #else
-int snel1 = 24;
-int beneden1 = 9;
+int snel1 = 5;
+int beneden1 = 2;
 #endif
 
 ActivationSystem* system_activation_alloc() {
@@ -69,7 +69,7 @@ void system_activation_update(ActivationSystem* system, Engine* engine) {
 				}
 			}
 			else {
-				aanmaken->getto += 1;
+				aanmaken->getto += 0.25;
 			}
 
 			if (uit == 1) {
@@ -97,7 +97,7 @@ void system_activation_update(ActivationSystem* system, Engine* engine) {
 				}
 			}
 			else {
-				aanmaken->getto += 1;
+				aanmaken->getto += 0.25;
 			}
 		}
 		else {

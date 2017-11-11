@@ -6,11 +6,11 @@
 
 #include <assert.h>
 #if defined(RPI)
-int snel = 3;
-int beneden = 2;
+int snel = 1;
+double beneden = 0.5;
 #else
-int snel = 24;
-int beneden = 9;
+int snel = 5;
+int beneden = 2;
 #endif
 
 void checkForActivation(Engine* engine, EntityId lock, int x);

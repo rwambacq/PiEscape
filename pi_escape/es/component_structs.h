@@ -109,8 +109,8 @@ typedef struct ContainerComponent {
 } ContainerComponent;
 
 typedef struct ActivationComponent {
-	int currenttime;
-	int getto;
+	double currenttime;
+	double getto;
 } ActivationComponent;
 
 typedef struct ActivatableComponent {
