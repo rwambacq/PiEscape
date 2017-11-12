@@ -90,20 +90,20 @@ void system_render_update(RenderSystem* system, Engine* engine) {
     
     uint64_t time = engine->context.time;
 
-    system->graphics->background_color[0] = 0.0f;
-    system->graphics->background_color[1] = 0.0f;
-    system->graphics->background_color[2] = 0.25f;
+    system->graphics->background_color[0] = (float)engine->process_sensor_system->temperatureColor->rgbRed/255;
+    system->graphics->background_color[1] = (float)engine->process_sensor_system->temperatureColor->rgbGreen/255;
+    system->graphics->background_color[2] = (float)engine->process_sensor_system->temperatureColor->rgbBlue/255;
 
     t_vec4 wall_color;
-    wall_color[0] = 1.0f;
-    wall_color[1] = 0.0f;
-    wall_color[2] = 0.0f;
+    wall_color[0] = (float)engine->process_sensor_system->humidityColor->rgbRed / 255;
+    wall_color[1] = (float)engine->process_sensor_system->humidityColor->rgbGreen / 255;
+    wall_color[2] = (float)engine->process_sensor_system->humidityColor->rgbBlue / 255;
     wall_color[3] = 1.0f;
 
     t_vec4 floor_color;
-    floor_color[0] = 1.0f;
-    floor_color[1] = 0.0f;
-    floor_color[2] = 0.0f;
+    floor_color[0] = (float)engine->process_sensor_system->airPressureColor->rgbRed / 255;
+    floor_color[1] = (float)engine->process_sensor_system->airPressureColor->rgbGreen / 255;
+    floor_color[2] = (float)engine->process_sensor_system->airPressureColor->rgbBlue/255;
     floor_color[3] = 1.0f;
 
 

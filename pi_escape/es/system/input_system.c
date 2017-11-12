@@ -12,6 +12,7 @@
 #include "../game_util.h"
 #include "../game.h"
 
+
 InputSystem* system_input_alloc() {
 	InputSystem* res = calloc(1, sizeof(InputSystem));
 	system_input_init(res);
@@ -19,6 +20,7 @@ InputSystem* system_input_alloc() {
 }
 
 void system_input_init(InputSystem* system) {
+	system->sensorField = 3;
 	system->intro_can_be_played = 1;
 }
 
@@ -129,15 +131,62 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 			}
 			break;
 		}
+#ifndef RPI
+		case SDLK_h: {
+			system->sensorField = 0;
+			break;
+		}
+		case SDLK_t: {
+			system->sensorField = 1;
+			break;
+		}
+		case SDLK_p: {
+			system->sensorField = 2;
+			break;
+		}
+		case SDLK_SLASH: {
+			if (system->sensorField == 0) {
+				if (engine->process_sensor_system->humidity < 100) {
+					engine->process_sensor_system->humidity += 1;
+				}
+			}
+			else if (system->sensorField == 1) {
+				engine->process_sensor_system->temperature += 1;
+			}
+			else if (system->sensorField == 2) {
+				engine->process_sensor_system->airPressure += 1;
+			}
+			break;
+		}
+		case SDLK_EQUALS: {
+			if (system->sensorField == 0) {
+				if (engine->process_sensor_system->humidity > 0) {
+					engine->process_sensor_system->humidity -= 1;
+				}
+			}
+			else if (system->sensorField == 1) {
+				if (engine->process_sensor_system->temperature > -273) {
+					engine->process_sensor_system->temperature -= 1;
+				}
+			}
+			else if (system->sensorField == 2) {
+				if (engine->process_sensor_system->airPressure > 0) {
+					engine->process_sensor_system->airPressure -= 1;
+				}
+			}
+			break;
+		}
+#endif
 		default:
 			break;
 		}
 	}
-
+}
 
 void system_input_update(InputSystem* system, Engine* engine) {
 	EntityId input_recv_entity_id = search_first_entity_1(engine, COMP_INPUTRECEIVER);
 	CameraLookFromComponent* cameraLookFrom = search_first_component(engine, COMP_CAMERA_LOOK_FROM);
+
 	if (!player_blocked) {
 		SDL_Event event;
 		memset(&event, 0, sizeof(SDL_Event));

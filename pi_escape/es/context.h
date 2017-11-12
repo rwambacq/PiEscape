@@ -8,7 +8,6 @@ typedef struct Context {
     uint64_t time;
     int is_exit_game;
     int demo;
-    //TODO: add other context fields
 } Context;
 
 void context_init(Context*);

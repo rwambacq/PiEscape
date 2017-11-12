@@ -8,7 +8,7 @@ typedef struct InputSystem {
     uint32_t screenHeight;
     uint32_t screenMidX;
     uint32_t screenMidY;
-
+	uint32_t sensorField;
 	int intro_can_be_played;
 } InputSystem;
 
