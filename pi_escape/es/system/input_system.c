@@ -57,7 +57,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 	assert(player_entity_id != NO_ENTITY);
 	if (!has_component(engine, player_entity_id, COMP_BLOCKING)) {
 		switch (keysym->sym) {
-			/*case SDLK_o:
+			case SDLK_o:
 			//key die deuren opent of sluit, handig voor debug
 			search_entity_3(engine, COMP_ART, COMP_ISDOOR, COMP_DIRECTION, &itdoor);
 			while (next_entity(&itdoor)) {
@@ -108,7 +108,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 			if (next) {
 				ItemActionComponent* action = create_component(engine, player_entity_id, COMP_ITEMACTION);
 			}
-		}*/
+		}
 		case SDLK_RETURN: {
 			//engine->context.demo = !engine->context.demo;
 			EntityIterator itlock;
