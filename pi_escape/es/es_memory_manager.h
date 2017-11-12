@@ -84,7 +84,7 @@ void* create_component(Engine* engine, EntityId entity_id, ComponentId component
 void free_component(Engine* engine, EntityId entity_id, ComponentId component_id);
 
 EntityId get_new_entity_id(Engine* engine);
-void change_es_memory_size(Engine*);
+void change_es_memory_size(Engine*, AllComponent**);
 void update_es_mem_and_free(Engine*, ESMemory*);
 
 #endif //PIESCAPE2_ES_MEMORY_MANAGER_H
