@@ -64,13 +64,6 @@ int main(int argc, char **argv) {
 	int level_nr = 0;															//THIS NUMBER DECIDES WHICH LEVEL IS LOADED, FOR TESTING, USE THIS!!
     Level* level = levelloader_load_level(level_loader, level_nr);
     game_load_level(pi_escape_2, level);
-	
-	int width = level->breedte;
-	int height = level->hoogte;
-
-	int s;
-
-    //TODO: support playing all levels in sequence
 
     Uint32 start_time_ms = SDL_GetTicks();
     Uint32 last_print_time_ms = start_time_ms;
@@ -85,7 +78,6 @@ int main(int argc, char **argv) {
 	}
 
     while (!pi_escape_2->engine.context.is_exit_game) {
-		
 		EntityIterator level_exit;
 		search_entity_1(&pi_escape_2->engine, COMP_EXIT, &level_exit);
 		next_entity(&level_exit);
@@ -103,6 +95,9 @@ int main(int argc, char **argv) {
 		ExitComponent* exit_comp = get_component(&pi_escape_2->engine, exit_id, COMP_EXIT);
 		if (exit_comp->done && level_nr < 9) {
 			player_blocked = 1;
+			if (logging_benchmark) {
+				fprintf(benchfile, "init\n");
+			}
 			sleep_ms(500);
 			es_memory_manager_init(&(pi_escape_2->engine.es_memory));
 			level_nr++;
@@ -119,9 +114,7 @@ int main(int argc, char **argv) {
 			}
 			else {
 				player_blocked = 0;
-			}
-
-			int s;
+      }
 			
 		}
 		else if (exit_comp->done && level_nr == 9) {

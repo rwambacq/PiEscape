@@ -23,7 +23,7 @@ int showColor(int kleurtje)
 
 	if (kleurtje == 2) {
 		SPGM_RGBTRIPLE gridgroen[] =
-		  { bl,bl,bl,bl,bl,bl,bl,bl,
+		{ bl,bl,bl,bl,bl,bl,bl,bl,
 			bl,bl,bl,bl,bl,bl,bl,bl,
 			bl,g,g,g,bl,bl,bl,bl,
 			g,bl,bl,g,g,g,g,g,
@@ -52,8 +52,8 @@ int showColor(int kleurtje)
 		display_ledgrid(gridblauw, "/dev/fb1");
 	}
 	else if (kleurtje == 3) {
-		SPGM_RGBTRIPLE gridrood[] = 
-			{ bl,bl,bl,bl,bl,bl,bl,bl,
+		SPGM_RGBTRIPLE gridrood[] =
+		{ bl,bl,bl,bl,bl,bl,bl,bl,
 			bl,bl,bl,bl,bl,bl,bl,bl,
 			bl,r,r,r,bl,bl,bl,bl,
 			r,bl,bl,r,r,r,r,r,
