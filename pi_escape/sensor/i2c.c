@@ -1,10 +1,5 @@
-#include <i2c.h>
-#include <stdlib.h>
-#include <sys/ioctl.h>
-#include <unistd.h>
-#include <linux/i2c-dev.h>
-#include <fcntl.h>
-#include <stdint.h>
+#ifdef RPI
+#include "i2c.h"
 
 
 int i2c_init_adapter(int addr) {
@@ -41,3 +36,4 @@ int i2c_read_byte_data(int file, uint8_t reg) {
 	}
 	return(buf[0]);
 }
+#endif

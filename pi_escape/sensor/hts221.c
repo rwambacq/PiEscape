@@ -1,5 +1,6 @@
-#include <hts221.h>
-#include <stdint.h>
+#ifdef RPI
+#include "hts221.h"
+
 
 int filehts221;
 int32_t H0T0OUT;
@@ -80,7 +81,7 @@ int hts221_init(int frequentie) {
 }
 
 int hts221_read_temperature(){
-	if (TempOut != NULL && ((uint8_t)i2c_read_byte_data(filehts221, 0x27) % 2) == 0) {
+	if (TempOut && ((uint8_t)i2c_read_byte_data(filehts221, 0x27) % 2) == 0) {
 		return(TempOut);
 	}
 	int32_t TOUT;
@@ -97,7 +98,7 @@ int hts221_read_temperature(){
 }
 
 int hts221_read_humidity() {
-	if (HumidOut != NULL && (((uint8_t)i2c_read_byte_data(filehts221, 0x27) / 2) % 2) == 0) {
+	if (HumidOut && (((uint8_t)i2c_read_byte_data(filehts221, 0x27) / 2) % 2) == 0) {
 		return(HumidOut);
 	}
 	int32_t HOUT;
@@ -115,3 +116,4 @@ int hts221_read_humidity() {
 	}
 	return(HumidOut);
 }
+#endif

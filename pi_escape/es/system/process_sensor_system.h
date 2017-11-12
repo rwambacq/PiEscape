@@ -1,6 +1,5 @@
 #ifndef PROCESS_SENSOR_SYSTEM_H
 #define PROCESS_SENSOR_SYSTEM_H
-#define TO_IMPLEMENT_STRUCT char c
 
 
 #include <stdint.h>
@@ -8,8 +7,12 @@
 #include "../../../util/rgb_triple.h"
 
 typedef struct ProcessSensorSystem {
-	TO_IMPLEMENT_STRUCT;
-    //TODO
+	double temperature;
+	double airPressure;
+	double humidity;
+	SPGM_RGBTRIPLE* temperatureColor;
+	SPGM_RGBTRIPLE* airPressureColor;
+	SPGM_RGBTRIPLE* humidityColor;
 } ProcessSensorSystem;
 
 #include "../engine.h"

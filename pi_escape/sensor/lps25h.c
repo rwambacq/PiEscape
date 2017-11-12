@@ -1,5 +1,6 @@
-#include <lps25h.h>
-#include <stdint.h>
+#ifdef RPI
+#include "lps25h.h"
+
 
 int filelps25h;
 int32_t PressOut;
@@ -33,7 +34,7 @@ int lps25h_init(int frequentie) {
 }
 
 int lps25h_read_pressure(){
-	if (PressOut != NULL && (((uint8_t)i2c_read_byte_data(filelps25h, 0x27) / 2) % 2) == 0) {
+	if (PressOut && (((uint8_t)i2c_read_byte_data(filelps25h, 0x27) / 2) % 2) == 0) {
 		return(PressOut);
 	}
 	uint8_t PressOutXl = i2c_read_byte_data(filelps25h, 0x28);
@@ -49,7 +50,7 @@ int lps25h_read_pressure(){
 }
 
 int lps25h_read_temperature() {
-	if (TempOut != NULL && ((uint8_t)i2c_read_byte_data(filelps25h, 0x27) % 2) == 0){
+	if (TempOut && ((uint8_t)i2c_read_byte_data(filelps25h, 0x27) % 2) == 0){
 		return(TempOut);
 	}
 	uint8_t TempOutL = i2c_read_byte_data(filelps25h, 0x2B);
@@ -62,4 +63,5 @@ int lps25h_read_temperature() {
 	}
 	return(TempOut);
 }
+#endif
 	

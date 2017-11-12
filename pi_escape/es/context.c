@@ -7,9 +7,6 @@ void context_init(Context* c) {
     c->is_exit_game = 0;
     c->demo = 0;
     c->time = 0;
-	c->airPressure = 0;
-	c->humidity = 0;
-	c->temperature = 0;
 }
 
 Context* context_alloc() {
