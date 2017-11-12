@@ -77,7 +77,12 @@ int main(int argc, char **argv) {
     long update_count = 0;
 
 	//PLAY THE LEVEL INTRO SCENE
-	pi_escape_2->engine.animation_system->intro_playing = 1;
+	if (pi_escape_2->engine.input_system->intro_can_be_played) {
+		pi_escape_2->engine.animation_system->intro_playing = 1;
+	}
+	else {
+		player_blocked = 0;
+	}
 
     while (!pi_escape_2->engine.context.is_exit_game) {
 		
@@ -109,7 +114,12 @@ int main(int argc, char **argv) {
 			height = level->hoogte;
 
 			//PLAY THE LEVEL INTRO SCENE
-			pi_escape_2->engine.animation_system->intro_playing = 1;
+			if (pi_escape_2->engine.input_system->intro_can_be_played) {
+				pi_escape_2->engine.animation_system->intro_playing = 1;
+			}
+			else {
+				player_blocked = 0;
+			}
 
 			int s;
 			

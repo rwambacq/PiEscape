@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+#include <math.h>
 
 #include "../game_util.h"
 #include "../game.h"
@@ -18,6 +19,7 @@ InputSystem* system_input_alloc() {
 }
 
 void system_input_init(InputSystem* system) {
+	system->intro_can_be_played = 1;
 }
 
 
@@ -64,6 +66,10 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 				ActivatableComponent* xx = get_component(engine, door, COMP_ACTIVATABLE);
 				xx->active = !xx->active;
 			}
+			break;
+		case SDLK_i:
+			//hiermee wordt het spelen van een intro aan het begin van elk level getoggeld
+			system->intro_can_be_played = !system->intro_can_be_played;
 			break;
 		case SDLK_ESCAPE:
 			engine->context.is_exit_game = 1;
@@ -166,8 +172,11 @@ void system_input_update(InputSystem* system, Engine* engine) {
 					if (buttonDown) {
 						float x_move = mouseMotionEvent->xrel * 1.0f;
 						float y_move = mouseMotionEvent->yrel * 1.0f;
-						cameraLookFrom->XYdegees -= x_move;
-						cameraLookFrom->Zdegrees -= y_move;
+							cameraLookFrom->XYdegees = fmod((cameraLookFrom->XYdegees - x_move), 360);
+
+						if (cameraLookFrom->Zdegrees >= 0.0f && cameraLookFrom->Zdegrees <= 90.0f) {
+							cameraLookFrom->Zdegrees -= y_move;
+						}
 					}
 					else {
 						//printf("Mouse moved %f %f\n", mouseMotionEvent->xrel * 1.0f, mouseMotionEvent->yrel * 1.0f);
