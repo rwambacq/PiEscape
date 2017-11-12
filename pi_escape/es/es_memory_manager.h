@@ -27,7 +27,7 @@ extern int running_benchmark;
 extern ComponentIterator* bench_comp_it_ptr;
 extern EntityIterator* bench_ent_it_ptr;
 extern FILE* benchfile;
-extern curr_max_entities;
+extern int curr_max_entities;
 #endif
 #endif
 
