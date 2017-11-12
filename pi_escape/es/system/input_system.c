@@ -181,7 +181,6 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 			break;
 		}
 	}
-}
 
 void system_input_update(InputSystem* system, Engine* engine) {
 	EntityId input_recv_entity_id = search_first_entity_1(engine, COMP_INPUTRECEIVER);
