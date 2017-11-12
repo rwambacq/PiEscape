@@ -33,8 +33,8 @@ void fill_level_loader(LevelLoader* level_loader) {
 	strcpy(level_loader->level_paths[8], "pi_escape/level/level_files/game2.lvl");
 	strcpy(level_loader->level_paths[9], "pi_escape/level/level_files/game3.lvl");
 }
-
 int main(int argc, char **argv) {
+	player_blocked = 1;
 	// if you call the main game with more than one argument, assume it is benchmarking.
 	if (argc > 1) {
 		printf("benchmark mode\n\n%d\n", logging_benchmark);
@@ -65,19 +65,19 @@ int main(int argc, char **argv) {
     Level* level = levelloader_load_level(level_loader, level_nr);
     game_load_level(pi_escape_2, level);
 
-	int width = level->breedte;
-	int height = level->hoogte;
-
-	int s;
-
-    //TODO: support playing all levels in sequence
-
     Uint32 start_time_ms = SDL_GetTicks();
     Uint32 last_print_time_ms = start_time_ms;
     long update_count = 0;
 
+	//PLAY THE LEVEL INTRO SCENE
+	if (pi_escape_2->engine.input_system->intro_can_be_played) {
+		pi_escape_2->engine.animation_system->intro_playing = 1;
+	}
+	else {
+		player_blocked = 0;
+	}
+
     while (!pi_escape_2->engine.context.is_exit_game) {
-		
 		EntityIterator level_exit;
 		search_entity_1(&pi_escape_2->engine, COMP_EXIT, &level_exit);
 		next_entity(&level_exit);
@@ -89,16 +89,16 @@ int main(int argc, char **argv) {
 		next_entity(&player_it);
 		EntityId player_entity_id = player_it.entity_id;
 		assert(player_entity_id != NO_ENTITY);
+
 		Uint32 timer_exit = 0;
 
 		ExitComponent* exit_comp = get_component(&pi_escape_2->engine, exit_id, COMP_EXIT);
 		if (exit_comp->done && level_nr < 9) {
+			player_blocked = 1;
 			if (logging_benchmark) {
 				fprintf(benchfile, "init\n");
 			}
-			create_component(&pi_escape_2->engine, player_entity_id, COMP_BLOCKING);
 			sleep_ms(500);
-			free_component(&pi_escape_2->engine, player_entity_id, COMP_BLOCKING);
 			es_memory_manager_init(&(pi_escape_2->engine.es_memory));
 			level_nr++;
 			levelloader_free_level(level);
@@ -108,7 +108,13 @@ int main(int argc, char **argv) {
 			width = level->breedte;
 			height = level->hoogte;
 
-			int s;
+			//PLAY THE LEVEL INTRO SCENE
+			if (pi_escape_2->engine.input_system->intro_can_be_played) {
+				pi_escape_2->engine.animation_system->intro_playing = 1;
+			}
+			else {
+				player_blocked = 0;
+      }
 			
 		}
 		else if (exit_comp->done && level_nr == 9) {

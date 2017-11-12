@@ -8,6 +8,8 @@ typedef struct InputSystem {
     uint32_t screenHeight;
     uint32_t screenMidX;
     uint32_t screenMidY;
+
+	int intro_can_be_played;
 } InputSystem;
 
 #include "../engine.h"

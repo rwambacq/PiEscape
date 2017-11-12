@@ -4,7 +4,20 @@
 
 
 typedef struct AnimationSystem {
-	EMPTY_SYSTEM_STRUCT;
+	int intro_playing;
+
+	int waiting;
+	float waiting_timer;
+
+	int intro_wait_counter;
+
+	int look_left_1;
+	float look_left_1_timer;
+	int look_right_1;
+	float look_right_1_timer;
+	int look_left_2;
+	float look_left_2_timer;
+
 } AnimationSystem;
 
 #include "../engine.h"
