@@ -125,6 +125,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 			}
 			break;
 		}
+#ifndef RPI
 		case SDLK_h: {
 			system->sensorField = 0;
 			break;
@@ -169,18 +170,7 @@ static void handleKeyUp(InputSystem* system, Engine* engine, SDL_keysym *keysym,
 			}
 			break;
 		}
-		case SDLK_c: {
-			printf("temp red %d\n", engine->process_sensor_system->temperatureColor->rgbRed);
-			printf("temp green %d\n", engine->process_sensor_system->temperatureColor->rgbGreen);
-			printf("temp blue %d\n", engine->process_sensor_system->temperatureColor->rgbBlue);
-			printf("humid red %d\n", engine->process_sensor_system->humidityColor->rgbRed);
-			printf("humid green %d\n", engine->process_sensor_system->humidityColor->rgbGreen);
-			printf("humid blue %d\n", engine->process_sensor_system->humidityColor->rgbBlue);
-			printf("press red %d\n", engine->process_sensor_system->airPressureColor->rgbRed);
-			printf("press green %d\n", engine->process_sensor_system->airPressureColor->rgbGreen);
-			printf("press blue %d\n", engine->process_sensor_system->airPressureColor->rgbBlue);
-
-		}
+#endif
 		default:
 			break;
 		}

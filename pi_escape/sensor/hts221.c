@@ -72,7 +72,7 @@ int hts221_init(int frequentie) {
 	}
 	uint8_t tempStatus = (uint8_t)i2c_read_byte_data(filehts221, 0x27) % 2;
 	uint8_t humidStatus = ((uint8_t)i2c_read_byte_data(filehts221, 0x27) / 2) % 2;
-	while (humidStatus == 0 || tempStatus) {
+	while (humidStatus == 0 || tempStatus == 0) {
 		sleep(0.1);
 		tempStatus = (uint8_t)i2c_read_byte_data(filehts221, 0x27) % 2;
 		humidStatus = ((uint8_t)i2c_read_byte_data(filehts221, 0x27) / 2) % 2;

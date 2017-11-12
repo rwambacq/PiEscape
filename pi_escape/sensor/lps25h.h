@@ -3,6 +3,8 @@
 #define LPS25H
 
 #include <stdint.h>
+#include "i2c.h"
+#include <unistd.h>
 
 int lps25h_init(int frequentie);
 

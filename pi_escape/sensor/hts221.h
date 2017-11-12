@@ -3,6 +3,8 @@
 #define HTS221
 
 #include <stdint.h>
+#include "i2c.h"
+#include <unistd.h>
 
 int hts221_init(int frequentie);
 
