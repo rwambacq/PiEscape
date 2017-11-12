@@ -272,35 +272,31 @@ int main(int argc, char **argv){
 		exit(2);
 	}
 	else {
-		printf("File opened successfully\n");
+		printf("File opened successfully\nNow running all function calls\n");
 	}
 
-	printf("Counting amount of lines in file...\n");
 	while (!feof(f)) {
 		fscanf(f, "%s", line);
 		line_count++;
 	}
 	fclose(f);
-	printf("counting done\n");
 	
 	f = fopen(*(argv + 1), "r");
 
-	printf("Now running %u function calls.\n", line_count);
 	// run function calls being read from benchlog file sequentially
 	tic = tick();
 	while (!feof(f)) {
 		fscanf(f, "%s", line);
 		crunch_line(&pi_escape_2->engine, line);
 		i++;
-		if (!(i % 10000)) {
-			printf("Running...%.2f%%\n", roundf((float)i / (float)line_count * 10000) / 100);
+		if (!(i % 100)) {
+			+printf("Running...%.2f%%\n", roundf((float)i / (float)line_count * 10000) / 100);
 		}
 	}
 	toc = tock(tic);
 	printf("Program took %f seconds to execute under synthetic load.\n", toc / 1000.0f);
 	printf("The application took up %u bytes of space in the system memory.\n", sizeof(AllComponent)*COMPONENT_ID_SIZE*curr_max_entities + sizeof(int));
 	printf("sizeof(AllComponent)=%u\n", sizeof(AllComponent));
-	printf("ESMemory.components size = %d x %d\n", COMPONENT_ID_SIZE, curr_max_entities);
 
 	fclose(f);
 	
