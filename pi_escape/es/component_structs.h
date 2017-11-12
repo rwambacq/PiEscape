@@ -20,6 +20,9 @@ typedef struct CameraLookFromComponent {
     float distance;
     float XYdegees;
     float Zdegrees;
+	float prev_dist;
+	float prev_XY;
+	float prev_Z;
 } CameraLookFromComponent;
 
 typedef struct CameraLookAtComponent {
@@ -29,9 +32,20 @@ typedef struct CameraLookAtComponent {
 } CameraLookAtComponent;
 
 typedef struct MoveActionComponent {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	int x_plus_move;
+	int x_min_move;
+	int y_plus_move;
+	int y_min_move;
 } MoveActionComponent;
+
+typedef struct IsDoorComponent{
+	int x;
+} IsDoorComponent;
+
+typedef struct IsConnectorComponent {
+	int x;
+} IsConnectorComponent;
+
 
 typedef struct GridLocationComponent {
     t_ivec2 pos;
@@ -39,17 +53,26 @@ typedef struct GridLocationComponent {
 
 typedef struct OneTimeAnimationComponent {
     //TODO
-	TO_IMPLEMENT_STRUCT;
+	float progress;
 } OneTimeAnimationComponent;
 
 typedef struct MoveAnimationComponent {
     //TODO
-	TO_IMPLEMENT_STRUCT;
+	float progress;
 } MoveAnimationComponent;
 
+typedef struct ConnectorOr {
+	int needed;
+	int current;
+}ConnectorOr;
+
+typedef struct DoubleDoor {
+	EntityId een;
+	EntityId twee;
+} DoubleDoor;
+
 typedef struct WalkComponent {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	EntityId lastconn;
 } WalkComponent;
 
 typedef struct WallArtComponent {
@@ -68,19 +91,26 @@ typedef struct ItemComponent {
     //TODO
 } ItemComponent;
 
+typedef struct LockDoorComponent {
+	EntityId door;
+	//TODO
+} LockDoorComponent;
+
+
 typedef struct InContainerComponent {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	int previous_location_x;
+	int previous_location_y;
+	GridLocationComponent* entity_location;
 } InContainerComponent;
 
 typedef struct ContainerComponent {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	int contains_something;
+	EntityId id;
 } ContainerComponent;
 
 typedef struct ActivationComponent {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	double currenttime;
+	double getto;
 } ActivationComponent;
 
 typedef struct ActivatableComponent {
@@ -88,17 +118,21 @@ typedef struct ActivatableComponent {
 } ActivatableComponent;
 
 typedef struct ConnectionsComponent {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	EntityId prev;
+	EntityId next;
 } ConnectionsComponent;
 
 typedef struct LockComponent {
     ItemColor requiredKeyColor;
 } LockComponent;
 
+typedef struct AndOrIn {
+	int x;
+}AndOrIn;
+
 typedef struct ConnectorLogicComponent {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	EntityId andor;
+	EntityId deelaanor;
 } ConnectorLogicComponent;
 
 typedef struct InputReceiverComponent {
@@ -125,8 +159,11 @@ typedef struct ArtComponent {
 } ArtComponent;
 
 typedef struct ExitComponent {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	int done;
 } ExitComponent;
+
+typedef struct inUse {
+	int done;
+} inUse;
 
 #endif //PIESCAPE2_COMPONENTS_H

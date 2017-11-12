@@ -9,13 +9,14 @@ typedef enum ItemType { KEY } ItemType;
 typedef enum ItemColor { O, A, B, C } ItemColor;
 
 typedef struct Level {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	char level_description[32][32]; /* 32 x 32 want ja, ik ben wel een informaticus eh, 30 is voor plebs */
+	int hoogte;
+	int breedte;
+	int nr;
 } Level;
 
 typedef struct LevelLoader {
-    //TODO
-	TO_IMPLEMENT_STRUCT;
+	char level_paths[10][50];
 } LevelLoader;
 
 

@@ -14,8 +14,8 @@ Engine* engine_alloc(Graphics* graphics) {
 void engine_init(Engine* engine, Graphics* graphics) {
     context_init(&engine->context);
     assert(!engine->context.is_exit_game);
-    
-    es_memory_manager_init(&engine->es_memory);
+	
+	es_memory_manager_init(&engine->es_memory);
     
     engine->render_system = system_render_alloc(graphics);
     engine->input_system = system_input_alloc();

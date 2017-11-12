@@ -10,7 +10,10 @@ after_initial_build_screenshot.PNG
 
 *.bmp
 
+*.user
+
 *.vcxproj
+*.user
 *.filters
 *.sln
 /*.dll
