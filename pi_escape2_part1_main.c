@@ -105,9 +105,6 @@ int main(int argc, char **argv) {
 			level = levelloader_load_level(level_loader, level_nr);
 			game_load_level(pi_escape_2, level);
 
-			width = level->breedte;
-			height = level->hoogte;
-
 			//PLAY THE LEVEL INTRO SCENE
 			if (pi_escape_2->engine.input_system->intro_can_be_played) {
 				pi_escape_2->engine.animation_system->intro_playing = 1;
