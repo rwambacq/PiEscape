@@ -2,6 +2,7 @@
 #define PIESCAPE2_FONTMANAGER_H
 
 #include "../graphics/opengl_game_renderer.h"
+#include "../graphics/gl_glyph.h"
 
 #include <vector>
 #include <string>
@@ -10,14 +11,20 @@
 
 class GlyphDrawCommand {
 private:
-    const t_vec4& color;
+    t_vec4 color;
+	int pos_ltop_x;
+	int pos_ltop_y;
+	int glyph_x;
+	int glyph_y;
+	int glyph_w;
+	int glyph_h;
 public:
     /**
      * Create a draw command
      * @param pos_ltop_x The X coordinate of the position on the screen of the left top of the glyph
      * @param pos_ltop_y The Y coordinate of the position on the screen of the left top of the glyph
-     * @param glyph_x The X coordinate of the glyph in the font image
-     * @param glyph_y The Y coordinate of the glyph in the font image
+     * @param glyph_x The X coordinate of the glyph in the font image (coordinate x in png)
+     * @param glyph_y The Y coordinate of the glyph in the font image (coordinate y in png)
      * @param glyph_w The width of the glyph (both on screen and in the font image)
      * @param glyph_h The height of the glyph (both on screen and in the font image)
      * @param color The color the glyph should have. Note that this includes the alpha (1.0f = opaque, 0.0f = transparent)
@@ -45,15 +52,24 @@ enum TextVerticalPosition { TEXT_TOP, TEXT_MIDDLE, TEXT_BOTTOM };
 class FontManager {
 private:
     //TODO extend this class where needed
+	Graphics* graphics;
+	GLGlyph* glyph;
+	TextJustification hpos;
+	TextVerticalPosition vpos;
+	t_vec4 color;
+	t_vec2 scale;
+	std::string fontName;
+	std::string fontMetaFilename;
+	std::string fontImageFilename;
 public:
-    FontManager(Graphics* graphics);
-    virtual ~FontManager();
+    FontManager(Graphics* graphics, GLGlyph* glyph);
+    ~FontManager();
     
     void loadFont(const std::string& fontName,
                   const std::string& fontImageFilename,
                   const std::string& fontMetaFilename);
 
-    //these method set attibutes for the next  makeGlyphDrawCommands call
+    //these methods set attributes for the next  makeGlyphDrawCommands call
     void setHpos(TextJustification hpos);
     void setVpos(TextVerticalPosition vpos);
     void setColor(const t_vec4& color);
@@ -61,6 +77,8 @@ public:
     void setColor(float colorR, float colorG, float colorB, float colorA);
     void setScale(float xScale, float yScale);
     void setFont(const std::string& fontName);
+
+	std::string getFontImageFilename();
 
     std::vector<GlyphDrawCommand> makeGlyphDrawCommands(std::string text, int x, int y) const;
     
