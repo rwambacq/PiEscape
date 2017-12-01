@@ -1,5 +1,9 @@
 #include "FontManager.h"
 
+#include <fstream>
+#include <sstream>
+#include <iostream>
+
 using namespace std;
 
 FontManager::FontManager(Graphics* graphics, GLGlyph* glyph) {
@@ -58,13 +62,55 @@ void FontManager::setFont(const std::string& fontName) {
 	this->fontMetaFilename = "pi_escape/graphics/" + fontName + ".fnt";
 }
 
+//TODO: implement draw so it isn't shit
+
 //void FontManager::draw(const GlyphDrawCommand& glyphDraw) const {
-//	gl_glyph_draw();
+//	gl_glyph_draw(this->glyph, glyphDraw.getLTopX(), glyphDraw.getLTopY(), glyphDraw.getGlyphX(), glyphDraw.getGlyphY(), glyphDraw.getGlyphWidth(), glyphDraw.getGlyphHeight(), this->color);
 //}
 
+std::vector<GlyphDrawCommand> FontManager::makeGlyphDrawCommands(std::string text, int x, int y) const {
+	int leftTopX = x;
+	int leftTopY = y;
 
+	std::vector<GlyphDrawCommand> toReturn(10);
+	for (char& c : text) {
+		int charId = (int)c;
 
-//TODO: the code below consists only of placeholders to make it compile. You need to replace them with the correct implementation
+		ifstream bestand;
+
+		string line;
+
+		int currentLine = 0;
+
+		string search = "char id=" + charId;
+
+		bestand.open(this->fontMetaFilename.c_str());
+		if (bestand.is_open()) {
+			while (getline(bestand, line)) {
+				currentLine++;
+				if (line.find(search, 0) != string::npos) {
+					istringstream iss(line);
+					string a, b, c, d, e, f;
+					int id, x, y, width, height ;
+
+					iss >> a >> id >> b >> x >> c >> y >> d >> width >> e >> height >> f;
+					const int cTopX = leftTopX;
+					const int cTopY = leftTopY;
+					const int cid = id;
+					const int cx = x;
+					const int cy = y;
+					const int cwidth = width;
+					const int cheight = height;
+					GlyphDrawCommand toInsert(leftTopX, leftTopY, x, y, width, height, this->color);
+
+					leftTopX += (width + 5);
+				}
+			}
+			bestand.close();
+		}
+	}
+}
+
 
 GlyphDrawCommand GlyphDrawCommand::changeColor(float r, float g, float b) const {
 	GlyphDrawCommand toReturn = GlyphDrawCommand(*this);
@@ -102,3 +148,28 @@ GlyphDrawCommand::GlyphDrawCommand(const GlyphDrawCommand &orig) { // copy const
 const t_vec4 &GlyphDrawCommand::getColor() const {
     return color;
 }
+
+int GlyphDrawCommand::getLTopY() {
+	return this->pos_ltop_y;
+}
+
+int GlyphDrawCommand::getLTopX() {
+	return this->pos_ltop_x;
+}
+
+int GlyphDrawCommand::getGlyphY() {
+	return this->glyph_y;
+}
+
+int GlyphDrawCommand::getGlyphX() {
+	return this->glyph_x;
+}
+
+int GlyphDrawCommand::getGlyphWidth() {
+	return this->glyph_w;
+}
+
+int GlyphDrawCommand::getGlyphHeight() {
+	return this->glyph_h;
+}
+

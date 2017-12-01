@@ -43,6 +43,12 @@ public:
     GlyphDrawCommand changeAlpha(float a) const;
 
     const t_vec4& getColor() const;
+	int getLTopX();
+	int getLTopY();
+	int getGlyphX();
+	int getGlyphY();
+	int getGlyphWidth();
+	int getGlyphHeight();
     //TODO extend this class where needed
 };
 

@@ -39,6 +39,8 @@ int main() {
 
 	gl_glyph_init(&glGlyph, graphics, (char*)lettertypeToezichthouder.getFontImageFilename().c_str());
 
+
+
     t_vec4 col = { 1.0f, 0.0f, 0.0f, 1.0f };
 
     //this is a demo of gl_glyph_draw
