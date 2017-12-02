@@ -1,9 +1,5 @@
 #include "FontManager.h"
 
-#include <fstream>
-#include <sstream>
-#include <iostream>
-
 using namespace std;
 
 FontManager::FontManager(Graphics* graphics, GLGlyph* glyph) {
@@ -71,29 +67,47 @@ void FontManager::setFont(const std::string& fontName) {
 std::vector<GlyphDrawCommand> FontManager::makeGlyphDrawCommands(std::string text, int x, int y) const {
 	int leftTopX = x;
 	int leftTopY = y;
+	int i = 0;
 
-	std::vector<GlyphDrawCommand> toReturn(10);
+	std::vector<GlyphDrawCommand> toReturn(text.size());
+	cout << "text: " << text << endl;
 	for (char& c : text) {
+		/*cout << "################################" << endl;
+		cout << "letter " << i << ": " << c << "(id should be " << (int) c << ")" << endl;*/
 		int charId = (int)c;
 
 		ifstream bestand;
 
 		string line;
 
-		int currentLine = 0;
+		ostringstream oss;
+		oss << "char id=" << charId;
 
-		string search = "char id=" + charId;
+		string search = oss.str();
 
 		bestand.open(this->fontMetaFilename.c_str());
 		if (bestand.is_open()) {
 			while (getline(bestand, line)) {
-				currentLine++;
 				if (line.find(search, 0) != string::npos) {
+					//cout << "current line: " << line << endl;
 					istringstream iss(line);
-					string a, b, c, d, e, f;
 					int id, x, y, width, height ;
 
-					iss >> a >> id >> b >> x >> c >> y >> d >> width >> e >> height >> f;
+					iss.ignore(INT_MAX, ' ');
+					iss.ignore(INT_MAX, '=');
+					iss >> id;
+					iss.ignore(INT_MAX, '=');
+					iss >> x;
+					iss.ignore(INT_MAX, '=');
+					iss >> y;
+					iss.ignore(INT_MAX, '=');
+					iss >> width;
+					iss.ignore(INT_MAX, '=');
+					iss >> height;
+					/*cout << "gevonden letter id: " << id << endl;
+					cout << "x en y in png file: " << x << " " << y << endl;
+					cout << "width en height: " << width << " " << height << endl;
+					cout << "##############################" << endl;*/
 					const int cTopX = leftTopX;
 					const int cTopY = leftTopY;
 					const int cid = id;
@@ -104,11 +118,14 @@ std::vector<GlyphDrawCommand> FontManager::makeGlyphDrawCommands(std::string tex
 					GlyphDrawCommand toInsert(leftTopX, leftTopY, x, y, width, height, this->color);
 
 					leftTopX += (width + 5);
+					toReturn[i] = toInsert;
 				}
 			}
 			bestand.close();
 		}
+		i++;
 	}
+	return toReturn;
 }
 
 
@@ -122,6 +139,16 @@ GlyphDrawCommand GlyphDrawCommand::changeAlpha(float a) const {
 	GlyphDrawCommand toReturn = GlyphDrawCommand(*this);
 	glmc_vec4_set(toReturn.color, color[0], color[1], color[2], a);
 	return toReturn;
+}
+
+GlyphDrawCommand::GlyphDrawCommand() {
+	glmc_vec4_set(this->color, 0, 0 , 0, 1);
+	this->pos_ltop_x = 0;
+	this->pos_ltop_y = 0;
+	this->glyph_x = 0;
+	this->glyph_y = 0;
+	this->glyph_w = 0;
+	this->glyph_h = 0;
 }
 
 GlyphDrawCommand::GlyphDrawCommand(const int pos_ltop_x, const int pos_ltop_y, const int glyph_x, const int glyph_y,

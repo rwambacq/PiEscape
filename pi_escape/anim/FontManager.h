@@ -6,6 +6,9 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
+#include <sstream>
+#include <iostream>
 
 //for format of .fnt file, see http://www.angelcode.com/products/bmfont/doc/file_format.html
 
@@ -34,6 +37,8 @@ public:
                      const int glyph_w, const int glyph_h,
                      const t_vec4& color);
     GlyphDrawCommand(const GlyphDrawCommand& orig);
+
+	GlyphDrawCommand();
 
     //these method create a NEW GlyphDrawCommand based on a transformation of this one
     GlyphDrawCommand move(int x_offset, int y_offset) const;

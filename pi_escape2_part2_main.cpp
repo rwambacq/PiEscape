@@ -25,6 +25,10 @@ extern "C"
 using namespace std;
 
 int main() {
+	vector<GlyphDrawCommand> glifjes;
+	t_vec4 col = { 1.0f, 0.0f, 0.0f, 1.0f };
+	GlyphDrawCommand curr_cmd(0,0,0,0,0,0, col);
+	int i;
     int imgFlags = IMG_INIT_PNG;
     if(!(IMG_Init(imgFlags) & imgFlags)) {
         fatal("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
@@ -39,9 +43,9 @@ int main() {
 
 	gl_glyph_init(&glGlyph, graphics, (char*)lettertypeToezichthouder.getFontImageFilename().c_str());
 
+	glifjes = lettertypeToezichthouder.makeGlyphDrawCommands("YE_BOI_SUPERHAX0R", 500, 700);
 
-
-    t_vec4 col = { 1.0f, 0.0f, 0.0f, 1.0f };
+    
 
     //this is a demo of gl_glyph_draw
 
@@ -51,27 +55,39 @@ int main() {
         graphics_begin_draw(graphics);
 
         glmc_vec4_set(col, diff_time_ms / 5000.0f, 0.0f, 0.0f, 1.0f);
+
+		for (i = 0; i < glifjes.size(); i++) {
+			curr_cmd = glifjes[i];
+			gl_glyph_draw(&glGlyph, curr_cmd.getLTopX(), curr_cmd.getLTopY(), 
+				curr_cmd.getGlyphX(), curr_cmd.getGlyphY(),
+				curr_cmd.getGlyphWidth(), curr_cmd.getGlyphHeight(),
+				col);
+			/*cout << "glifjes[" << i << "] :" << endl;
+			cout << "LTopX=" << curr_cmd.getLTopX() << ", LTopY=" << curr_cmd.getLTopY() << endl;
+			cout << "glyphX=" << curr_cmd.getGlyphX() << ", glyphY=" << curr_cmd.getGlyphY() << endl;
+			cout << "glyphW=" << curr_cmd.getGlyphWidth() << ", glyphH=" << curr_cmd.getGlyphHeight() << endl;*/
+		}
 	
-        gl_glyph_draw(&glGlyph, 481, 750,  2, 215,  48, 51, col); //G
-        gl_glyph_draw(&glGlyph, 534, 751,  52, 109,  35, 51, col);//L
-        gl_glyph_draw(&glGlyph, 570, 698,  214, 495,  51, 14, col);//_
-        gl_glyph_draw(&glGlyph, 624, 750,  2, 215,  48, 51, col);//G
-        gl_glyph_draw(&glGlyph, 677, 751,  52, 109,  35, 51, col);//L
-        gl_glyph_draw(&glGlyph, 714, 751,  127, 268,  39, 52, col);//Y
-        gl_glyph_draw(&glGlyph, 757, 750,  53, 428,  41, 51, col);//P
-        gl_glyph_draw(&glGlyph, 801, 751,  2, 268,  48, 52, col);//H
-        gl_glyph_draw(&glGlyph, 852, 698,  214, 495,  51, 14, col);//_
-        gl_glyph_draw(&glGlyph, 906, 750,  44, 56,  46, 51, col);//D
-        gl_glyph_draw(&glGlyph, 954, 750,  82, 162,  41, 51, col);//R
-        gl_glyph_draw(&glGlyph, 997, 751,  2, 2,  48, 52, col);//A
-        gl_glyph_draw(&glGlyph, 1049, 751,  103, 215,  58, 51, col);//W
-        gl_glyph_draw(&glGlyph, 1165, 750,  52, 2,  42, 51, col);//E
-        gl_glyph_draw(&glGlyph, 1213, 751,  94, 335,  38, 52, col);//X
-        gl_glyph_draw(&glGlyph, 1254, 751,  2, 2,  48, 52, col);//A
-        gl_glyph_draw(&glGlyph, 1306, 750,  18, 322,  58, 51, col);//M
-        gl_glyph_draw(&glGlyph, 1368, 750,  53, 428,  41, 51, col);//P
-        gl_glyph_draw(&glGlyph, 1412, 751,  52, 109,  35, 51, col);//L
-        gl_glyph_draw(&glGlyph, 1451, 750,  52, 2,  42, 51, col); // E 
+        //gl_glyph_draw(&glGlyph, 481, 750,  2, 215,  48, 51, col); //G
+        //gl_glyph_draw(&glGlyph, 534, 751,  52, 109,  35, 51, col);//L
+        //gl_glyph_draw(&glGlyph, 570, 698,  214, 495,  51, 14, col);//_
+        //gl_glyph_draw(&glGlyph, 624, 750,  2, 215,  48, 51, col);//G
+        //gl_glyph_draw(&glGlyph, 677, 751,  52, 109,  35, 51, col);//L
+        //gl_glyph_draw(&glGlyph, 714, 751,  127, 268,  39, 52, col);//Y
+        //gl_glyph_draw(&glGlyph, 757, 750,  53, 428,  41, 51, col);//P
+        //gl_glyph_draw(&glGlyph, 801, 751,  2, 268,  48, 52, col);//H
+        //gl_glyph_draw(&glGlyph, 852, 698,  214, 495,  51, 14, col);//_
+        //gl_glyph_draw(&glGlyph, 906, 750,  44, 56,  46, 51, col);//D
+        //gl_glyph_draw(&glGlyph, 954, 750,  82, 162,  41, 51, col);//R
+        //gl_glyph_draw(&glGlyph, 997, 751,  2, 2,  48, 52, col);//A
+        //gl_glyph_draw(&glGlyph, 1049, 751,  103, 215,  58, 51, col);//W
+        //gl_glyph_draw(&glGlyph, 1165, 750,  52, 2,  42, 51, col);//E
+        //gl_glyph_draw(&glGlyph, 1213, 751,  94, 335,  38, 52, col);//X
+        //gl_glyph_draw(&glGlyph, 1254, 751,  2, 2,  48, 52, col);//A
+        //gl_glyph_draw(&glGlyph, 1306, 750,  18, 322,  58, 51, col);//M
+        //gl_glyph_draw(&glGlyph, 1368, 750,  53, 428,  41, 51, col);//P
+        //gl_glyph_draw(&glGlyph, 1412, 751,  52, 109,  35, 51, col);//L
+        //gl_glyph_draw(&glGlyph, 1451, 750,  52, 2,  42, 51, col); // E 
 
         graphics_end_draw(graphics);
 
