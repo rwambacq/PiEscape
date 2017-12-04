@@ -375,7 +375,7 @@ void graphics_init(Graphics* graphics, int width, int height) {
     
     graphics->background_color[0] = 0.0f;
     graphics->background_color[1] = 0.0f;
-    graphics->background_color[2] = 0.3f;
+    graphics->background_color[2] = 0.0f;
     
     graphics->width = width;
     graphics->height = width;

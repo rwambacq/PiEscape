@@ -14,6 +14,8 @@
 
 class GlyphDrawCommand {
 private:
+	bool up;
+	int bounceDiff;
     t_vec4 color;
 	int pos_ltop_x;
 	int pos_ltop_y;
@@ -47,6 +49,11 @@ public:
     GlyphDrawCommand changeColor(float r, float g, float b) const;
     GlyphDrawCommand changeAlpha(float a) const;
 
+	bool operator==(const GlyphDrawCommand& a) const;
+
+	void bounce();
+
+	int getBounceDiff();
     const t_vec4& getColor() const;
 	int getLTopX();
 	int getLTopY();
@@ -54,7 +61,6 @@ public:
 	int getGlyphY();
 	int getGlyphWidth();
 	int getGlyphHeight();
-    //TODO extend this class where needed
 };
 
 enum TextJustification { TEXT_LEFT, TEXT_CENTER, TEXT_RIGHT };
@@ -62,7 +68,6 @@ enum TextVerticalPosition { TEXT_TOP, TEXT_MIDDLE, TEXT_BOTTOM };
 
 class FontManager {
 private:
-    //TODO extend this class where needed
 	Graphics* graphics;
 	GLGlyph* glyph;
 	TextJustification hpos;
@@ -92,8 +97,6 @@ public:
 	std::string getFontImageFilename();
 
     std::vector<GlyphDrawCommand> makeGlyphDrawCommands(std::string text, int x, int y) const;
-    
-    void draw(const GlyphDrawCommand& glyphDraw) const;
 };
 
 #endif //PIESCAPE2_FONTMANAGER_H

@@ -7,7 +7,7 @@ FontManager::FontManager(Graphics* graphics, GLGlyph* glyph) {
 	this->glyph = glyph;
 	hpos = TEXT_LEFT;
 	vpos = TEXT_MIDDLE;
-	glmc_vec4_set(color, 0.0f, 0.0f, 0.0f, 0.0f);
+	glmc_vec4_set(color, 0.0f, 0.0f, 0.0f, 1.0f);
 	glmc_vec2_set(scale, 0.0f, 0.0f);
 	this->fontName = "empty";
 	this->fontMetaFilename = "empty";
@@ -60,10 +60,6 @@ void FontManager::setFont(const std::string& fontName) {
 
 //TODO: implement draw so it isn't shit
 
-//void FontManager::draw(const GlyphDrawCommand& glyphDraw) const {
-//	gl_glyph_draw(this->glyph, glyphDraw.getLTopX(), glyphDraw.getLTopY(), glyphDraw.getGlyphX(), glyphDraw.getGlyphY(), glyphDraw.getGlyphWidth(), glyphDraw.getGlyphHeight(), this->color);
-//}
-
 std::vector<GlyphDrawCommand> FontManager::makeGlyphDrawCommands(std::string text, int x, int y) const {
 	int leftTopX = x;
 	int leftTopY = y;
@@ -91,15 +87,15 @@ std::vector<GlyphDrawCommand> FontManager::makeGlyphDrawCommands(std::string tex
 				if (line.find(search, 0) != string::npos) {
 					//cout << "current line: " << line << endl;
 					istringstream iss(line);
-					int id, x, y, width, height ;
+					int id, xx, yy, width, height ;
 
 					iss.ignore(INT_MAX, ' ');
 					iss.ignore(INT_MAX, '=');
 					iss >> id;
 					iss.ignore(INT_MAX, '=');
-					iss >> x;
+					iss >> xx;
 					iss.ignore(INT_MAX, '=');
-					iss >> y;
+					iss >> yy;
 					iss.ignore(INT_MAX, '=');
 					iss >> width;
 					iss.ignore(INT_MAX, '=');
@@ -111,11 +107,11 @@ std::vector<GlyphDrawCommand> FontManager::makeGlyphDrawCommands(std::string tex
 					const int cTopX = leftTopX;
 					const int cTopY = leftTopY;
 					const int cid = id;
-					const int cx = x;
-					const int cy = y;
+					const int cx = xx;
+					const int cy = yy;
 					const int cwidth = width;
 					const int cheight = height;
-					GlyphDrawCommand toInsert(leftTopX, leftTopY, x, y, width, height, this->color);
+					GlyphDrawCommand toInsert(leftTopX, leftTopY, xx, yy, width, height, this->color);
 
 					leftTopX += (width + 5);
 					toReturn[i] = toInsert;
@@ -141,8 +137,17 @@ GlyphDrawCommand GlyphDrawCommand::changeAlpha(float a) const {
 	return toReturn;
 }
 
+GlyphDrawCommand GlyphDrawCommand::move(int x_offset, int y_offset) const {
+	GlyphDrawCommand toReturn = GlyphDrawCommand(*this);
+	toReturn.pos_ltop_x += x_offset;
+	toReturn.pos_ltop_y += y_offset;
+	return toReturn;
+}
+
 GlyphDrawCommand::GlyphDrawCommand() {
 	glmc_vec4_set(this->color, 0, 0 , 0, 1);
+	this->up = true;
+	this->bounceDiff = 0;
 	this->pos_ltop_x = 0;
 	this->pos_ltop_y = 0;
 	this->glyph_x = 0;
@@ -154,6 +159,8 @@ GlyphDrawCommand::GlyphDrawCommand() {
 GlyphDrawCommand::GlyphDrawCommand(const int pos_ltop_x, const int pos_ltop_y, const int glyph_x, const int glyph_y,
                                    const int glyph_w, const int glyph_h, const t_vec4 &color){
 	glmc_vec4_set(this->color, color[0], color[1], color[2], color[3]);
+	this->up = true;
+	this->bounceDiff = 0;
 	this->pos_ltop_x = pos_ltop_x;
 	this->pos_ltop_y = pos_ltop_y;
 	this->glyph_x = glyph_x;
@@ -164,6 +171,8 @@ GlyphDrawCommand::GlyphDrawCommand(const int pos_ltop_x, const int pos_ltop_y, c
 
 GlyphDrawCommand::GlyphDrawCommand(const GlyphDrawCommand &orig) { // copy constructor
 	glmc_vec4_set(this->color, orig.color[0], orig.color[1], orig.color[2], orig.color[3]);
+	this->up = orig.up;
+	this->bounceDiff = orig.bounceDiff;
 	this->pos_ltop_x = orig.pos_ltop_x;
 	this->pos_ltop_y = orig.pos_ltop_y;
 	this->glyph_x = orig.glyph_x;
@@ -172,8 +181,37 @@ GlyphDrawCommand::GlyphDrawCommand(const GlyphDrawCommand &orig) { // copy const
 	this->glyph_h = orig.glyph_h;
 }
 
+bool GlyphDrawCommand::operator==(const GlyphDrawCommand& a) const {
+	return pos_ltop_x == a.pos_ltop_x
+		&& pos_ltop_y == a.pos_ltop_y
+		&& glyph_x == a.glyph_x
+		&& glyph_y == a.glyph_y
+		&& glyph_w == a.glyph_w
+		&& glyph_h == a.glyph_h
+		&& color == a.color;
+}
+
+void GlyphDrawCommand::bounce() {
+	if (this->up) { // bounce up
+		this->bounceDiff++;
+		if (this->bounceDiff == 10) {
+			this->up = false;
+		}
+	}
+	else { // bounce down
+		this->bounceDiff--;
+		if (this->bounceDiff == 0) {
+			this->up = true;
+		}
+	}
+}
+
 const t_vec4 &GlyphDrawCommand::getColor() const {
     return color;
+}
+
+int GlyphDrawCommand::getBounceDiff() {
+	return this->bounceDiff;
 }
 
 int GlyphDrawCommand::getLTopY() {
