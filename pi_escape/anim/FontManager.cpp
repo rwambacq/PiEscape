@@ -210,7 +210,7 @@ bool GlyphDrawCommand::operator==(const GlyphDrawCommand& a) const {
 void GlyphDrawCommand::bounce() {
 		if (this->up) { // bounce up
 			this->bounceDiff++;
-			if (this->bounceDiff == 10) {
+			if (this->bounceDiff == 50) {
 				this->up = false;
 			}
 		}

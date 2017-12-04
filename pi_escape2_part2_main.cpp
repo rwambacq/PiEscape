@@ -30,7 +30,7 @@ int main() {
 	GlyphDrawCommand curr_cmd(0,0,0,0,0,0, col);
 	int i=0;
 	string punts = ".";
-	int leadbounce=0;
+	int bounceInt=0;
     int imgFlags = IMG_INIT_PNG;
     if(!(IMG_Init(imgFlags) & imgFlags)) {
         fatal("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
@@ -45,11 +45,7 @@ int main() {
 
 	gl_glyph_init(&glGlyph, graphics, (char*)lettertypeToezichthouder.getFontImageFilename().c_str());
 
-	glifjes = lettertypeToezichthouder.makeGlyphDrawCommands("Barry Allen is een zware aidsbever", 500, 700);
-
-    
-
-    //this is a demo of gl_glyph_draw
+	glifjes = lettertypeToezichthouder.makeGlyphDrawCommands("PI_ECAPE 2", 900, 500);
 
     Uint32 start_time_ms = SDL_GetTicks();
     Uint32 diff_time_ms = 0;
@@ -58,24 +54,28 @@ int main() {
 
         glmc_vec4_set(col, 0.0f, diff_time_ms / 15000.0f, 0.0f, 1.0f);
 		for (i = 0; i < glifjes.size(); i++) {
-			cout << "Spijslijst vergladden " + punts << endl; // sehr wichtig!
+			cout << "Stealing precious memory" + punts << endl; // Do not delete this print, without it, the animation goes way too fast
 			if (punts == "...") { punts = "."; } else { punts += "."; }
-			if (i <= leadbounce) {
+			if (i <= bounceInt) {
 				glifjes[i].bounce();
 				curr_cmd = glifjes[i];
 			}
-			else { // this case is only for when the elements further than leadbounce haven't started bouncing yet
+			else { // this case is only for when the elements further than bounceInt haven't started bouncing yet
 				curr_cmd = glifjes[i];
 			}
-			
-			gl_glyph_draw(&glGlyph, curr_cmd.getLTopX(), curr_cmd.getLTopY() + curr_cmd.getBounceDiff() * 6,
+
+			gl_glyph_draw(&glGlyph, curr_cmd.getLTopX(), curr_cmd.getLTopY() + curr_cmd.getBounceDiff(),
 				curr_cmd.getGlyphX(), curr_cmd.getGlyphY(),
 				curr_cmd.getGlyphWidth(), curr_cmd.getGlyphHeight(),
 				col);
 		}
 
         graphics_end_draw(graphics);
-		leadbounce++; // cause a further letter to be the start of bounce wave
+		if (bounceInt < (glifjes.size()-1)) {
+			if (glifjes.at(bounceInt).getBounceDiff() >= 5) {
+				bounceInt++; // cause a further letter to be the start of bounce wave
+			}
+		}
 
         Uint32 cur_time_ms = SDL_GetTicks();
         diff_time_ms = cur_time_ms - start_time_ms;
