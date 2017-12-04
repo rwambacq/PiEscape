@@ -45,7 +45,7 @@ int main() {
 
 	gl_glyph_init(&glGlyph, graphics, (char*)lettertypeToezichthouder.getFontImageFilename().c_str());
 
-	glifjes = lettertypeToezichthouder.makeGlyphDrawCommands("YE_BOI_SUPERHAX0R", 500, 700);
+	glifjes = lettertypeToezichthouder.makeGlyphDrawCommands("Barry Allen is een zware aidsbever", 500, 700);
 
     
 
@@ -53,10 +53,10 @@ int main() {
 
     Uint32 start_time_ms = SDL_GetTicks();
     Uint32 diff_time_ms = 0;
-    while (diff_time_ms < 5000) {
+    while (diff_time_ms < 15000) {
         graphics_begin_draw(graphics);
 
-        glmc_vec4_set(col, 0.0f, diff_time_ms / 5000.0f, 0.0f, 1.0f);
+        glmc_vec4_set(col, 0.0f, diff_time_ms / 15000.0f, 0.0f, 1.0f);
 		for (i = 0; i < glifjes.size(); i++) {
 			cout << "Spijslijst vergladden " + punts << endl; // sehr wichtig!
 			if (punts == "...") { punts = "."; } else { punts += "."; }

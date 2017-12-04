@@ -15,6 +15,7 @@
 class GlyphDrawCommand {
 private:
 	bool up;
+	int wait;
 	int bounceDiff;
     t_vec4 color;
 	int pos_ltop_x;
@@ -48,6 +49,7 @@ public:
     GlyphDrawCommand changeColor(float r, float g, float b, float a) const;
     GlyphDrawCommand changeColor(float r, float g, float b) const;
     GlyphDrawCommand changeAlpha(float a) const;
+	void setLtopY(float a);
 
 	bool operator==(const GlyphDrawCommand& a) const;
 

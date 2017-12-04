@@ -65,6 +65,8 @@ std::vector<GlyphDrawCommand> FontManager::makeGlyphDrawCommands(std::string tex
 	int leftTopY = y;
 	int i = 0;
 
+	int maxHeight = 0;
+
 	std::vector<GlyphDrawCommand> toReturn(text.size());
 	cout << "text: " << text << endl;
 	for (char& c : text) {
@@ -87,7 +89,7 @@ std::vector<GlyphDrawCommand> FontManager::makeGlyphDrawCommands(std::string tex
 				if (line.find(search, 0) != string::npos) {
 					//cout << "current line: " << line << endl;
 					istringstream iss(line);
-					int id, xx, yy, width, height ;
+					int id, xx, yy, width, height, xadvance ;
 
 					iss.ignore(INT_MAX, ' ');
 					iss.ignore(INT_MAX, '=');
@@ -100,28 +102,42 @@ std::vector<GlyphDrawCommand> FontManager::makeGlyphDrawCommands(std::string tex
 					iss >> width;
 					iss.ignore(INT_MAX, '=');
 					iss >> height;
+					iss.ignore(INT_MAX, '=');
+					iss.ignore(INT_MAX, '=');
+					iss.ignore(INT_MAX, '=');
+					iss >> xadvance;
 					/*cout << "gevonden letter id: " << id << endl;
 					cout << "x en y in png file: " << x << " " << y << endl;
 					cout << "width en height: " << width << " " << height << endl;
 					cout << "##############################" << endl;*/
-					const int cTopX = leftTopX;
-					const int cTopY = leftTopY;
-					const int cid = id;
-					const int cx = xx;
-					const int cy = yy;
-					const int cwidth = width;
-					const int cheight = height;
+
+					if (height > maxHeight){
+						maxHeight = height;
+					}
+					
 					GlyphDrawCommand toInsert(leftTopX, leftTopY, xx, yy, width, height, this->color);
 
-					leftTopX += (width + 5);
+					leftTopX += xadvance;
 					toReturn[i] = toInsert;
+
+
 				}
 			}
 			bestand.close();
 		}
 		i++;
 	}
+
+	for (GlyphDrawCommand& g : toReturn) {
+		int heightDiff = maxHeight - g.getGlyphHeight();
+		g.setLtopY(g.getLTopY() - heightDiff);
+	}
+
 	return toReturn;
+}
+
+void GlyphDrawCommand::setLtopY(float y) {
+	this->pos_ltop_y = y;
 }
 
 
@@ -192,18 +208,18 @@ bool GlyphDrawCommand::operator==(const GlyphDrawCommand& a) const {
 }
 
 void GlyphDrawCommand::bounce() {
-	if (this->up) { // bounce up
-		this->bounceDiff++;
-		if (this->bounceDiff == 10) {
-			this->up = false;
+		if (this->up) { // bounce up
+			this->bounceDiff++;
+			if (this->bounceDiff == 10) {
+				this->up = false;
+			}
 		}
-	}
-	else { // bounce down
-		this->bounceDiff--;
-		if (this->bounceDiff == 0) {
-			this->up = true;
+		else { // bounce down
+			this->bounceDiff--;
+			if (this->bounceDiff == 0) {
+				this->up = true;
+			}
 		}
-	}
 }
 
 const t_vec4 &GlyphDrawCommand::getColor() const {
