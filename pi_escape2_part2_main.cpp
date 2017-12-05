@@ -45,7 +45,7 @@ int main() {
 
 	gl_glyph_init(&glGlyph, graphics, (char*)lettertypeToezichthouder.getFontImageFilename().c_str());
 
-	glifjes = lettertypeToezichthouder.makeGlyphDrawCommands("PI_ECAPE 2", 900, 500);
+	glifjes = lettertypeToezichthouder.makeGlyphDrawCommands("PI_ESCAPE 2", 900, 500);
 	for (i = 0; i < glifjes.size(); i++) {
 		glifjes[i] = glifjes[i].changeColor(col);
 	}
