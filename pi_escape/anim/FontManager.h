@@ -12,6 +12,23 @@
 
 //for format of .fnt file, see http://www.angelcode.com/products/bmfont/doc/file_format.html
 
+typedef struct RgbColor
+{
+	unsigned char r;
+	unsigned char g;
+	unsigned char b;
+} RgbColor;
+
+typedef struct HsvColor
+{
+	unsigned char h;
+	unsigned char s;
+	unsigned char v;
+} HsvColor;
+
+RgbColor HsvToRgb(HsvColor hsv);
+HsvColor RgbToHsv(RgbColor rgb);
+
 class GlyphDrawCommand {
 private:
 	bool up;
@@ -54,6 +71,7 @@ public:
 	bool operator==(const GlyphDrawCommand& a) const;
 
 	void bounce();
+	GlyphDrawCommand cycleRainbow();
 
 	int getBounceDiff();
     const t_vec4& getColor() const;
@@ -100,5 +118,7 @@ public:
 
     std::vector<GlyphDrawCommand> makeGlyphDrawCommands(std::string text, int x, int y) const;
 };
+
+
 
 #endif //PIESCAPE2_FONTMANAGER_H
