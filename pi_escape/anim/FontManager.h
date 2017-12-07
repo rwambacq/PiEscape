@@ -12,22 +12,23 @@
 
 //for format of .fnt file, see http://www.angelcode.com/products/bmfont/doc/file_format.html
 
-typedef struct RgbColor
-{
-	unsigned char r;
-	unsigned char g;
-	unsigned char b;
-} RgbColor;
+typedef struct hsv {
+	float h;
+	float s;
+	float v;
+} hsv;
 
-typedef struct HsvColor
-{
-	unsigned char h;
-	unsigned char s;
-	unsigned char v;
-} HsvColor;
+typedef struct rgb {
+	float r;
+	float g;
+	float b;
+} rgb;
 
-RgbColor HsvToRgb(HsvColor hsv);
-HsvColor RgbToHsv(RgbColor rgb);
+rgb HsvToRgb(hsv);
+hsv RgbToHsv(rgb);
+
+float fmin_min(float, float);
+float fmax_max(float, float);
 
 class GlyphDrawCommand {
 private:

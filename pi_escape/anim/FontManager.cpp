@@ -58,8 +58,6 @@ void FontManager::setFont(const std::string& fontName) {
 	this->fontMetaFilename = "pi_escape/graphics/" + fontName + ".fnt";
 }
 
-//TODO: implement draw so it isn't shit
-
 std::vector<GlyphDrawCommand> FontManager::makeGlyphDrawCommands(std::string text, int x, int y) const {
 	int leftTopX = x;
 	int leftTopY = y;
@@ -223,14 +221,16 @@ void GlyphDrawCommand::bounce() {
 }
 
 GlyphDrawCommand GlyphDrawCommand::cycleRainbow() {
-	RgbColor rgb;
-	rgb.r = (this->color[0] * 100.0f);
-	rgb.g = (this->color[1] * 100.0f);
-	rgb.b = (this->color[2] * 100.0f);
-	HsvColor hsv = RgbToHsv(rgb);
-	hsv.h = (hsv.h + 5) % 359;
-	RgbColor newColor = HsvToRgb(hsv);
-	GlyphDrawCommand toReturn = changeColor((newColor.r/100.0f), (newColor.g/100.0f), (newColor.b/100.0f));
+	rgb this_rgb;
+	this_rgb.r = this->color[0];
+	this_rgb.g = this->color[1];
+	this_rgb.b = this->color[2];
+	hsv hsv = RgbToHsv(this_rgb);
+
+	hsv.h = fmod(hsv.h + 5.0f, 359.0f);
+
+	rgb newColor = HsvToRgb(hsv);
+	GlyphDrawCommand toReturn = changeColor(newColor.r, newColor.g, newColor.b);
 	return toReturn;
 }
 
@@ -278,80 +278,132 @@ int GlyphDrawCommand::getGlyphHeight() {
 	return this->glyph_h;
 }
 
-RgbColor HsvToRgb(HsvColor hsv)
-{
-	RgbColor rgb;
-	unsigned char region, remainder, p, q, t;
+// see https://en.wikipedia.org/wiki/HSL_and_HSV#Converting_to_RGB for an algorithm to convert hsv values to rgb
+rgb HsvToRgb(hsv hsv){
 
-	if (hsv.s == 0)
-	{
-		rgb.r = hsv.v;
-		rgb.g = hsv.v;
-		rgb.b = hsv.v;
+	float h = hsv.h;
+	float s = hsv.s;
+	float v = hsv.v;
+
+	rgb rgb;
+	float c, hAcc, x;
+	float r1, g1, b1, m;
+
+	if (s == 0.0f){
+		rgb.r = v;
+		rgb.g = v;
+		rgb.b = v;
 		return rgb;
 	}
 
-	region = hsv.h / 43;
-	remainder = (hsv.h - (region * 43)) * 6;
+	c = v * s;
+	m = v - c;
 
-	p = (hsv.v * (255 - hsv.s)) >> 8;
-	q = (hsv.v * (255 - ((hsv.s * remainder) >> 8))) >> 8;
-	t = (hsv.v * (255 - ((hsv.s * (255 - remainder)) >> 8))) >> 8;
+	hAcc = h / 60;
+	x = c * (1 - abs(fmod(hAcc, 2) - 1));
 
-	switch (region)
-	{
-	case 0:
-		rgb.r = hsv.v; rgb.g = t; rgb.b = p;
-		break;
-	case 1:
-		rgb.r = q; rgb.g = hsv.v; rgb.b = p;
-		break;
-	case 2:
-		rgb.r = p; rgb.g = hsv.v; rgb.b = t;
-		break;
-	case 3:
-		rgb.r = p; rgb.g = q; rgb.b = hsv.v;
-		break;
-	case 4:
-		rgb.r = t; rgb.g = p; rgb.b = hsv.v;
-		break;
-	default:
-		rgb.r = hsv.v; rgb.g = p; rgb.b = q;
-		break;
+	if (hAcc >= 0 && hAcc <= 1) {
+		r1 = c;
+		g1 = x;
+		b1 = 0;
+	} 
+	else if (hAcc > 1 && hAcc <= 2) {
+		r1 = x;
+		g1 = c;
+		b1 = 0;
 	}
+	else if (hAcc > 2 && hAcc <= 3) {
+		r1 = 0;
+		g1 = c;
+		b1 = x;
+	}
+	else if (hAcc > 3 && hAcc <= 4) {
+		r1 = 0;
+		g1 = x;
+		b1 = c;
+	}
+	else if (hAcc > 4 && hAcc <= 5) {
+		r1 = x;
+		g1 = 0;
+		b1 = c;
+	}
+	else if (hAcc > 5 && hAcc < 6) {
+		r1 = c;
+		g1 = 0;
+		b1 = x;
+	}
+	else {
+		r1 = 0;
+		g1 = 0;
+		b1 = 0;
+	}
+
+	rgb.r = r1 + m;
+	rgb.g = g1 + m;
+	rgb.b = b1 + m;
 
 	return rgb;
 }
+ // see https://www.rapidtables.com/convert/color/rgb-to-hsv.html for the algorithm used to convert rgb to hsv
+hsv RgbToHsv(rgb rgb){
+	hsv hsv;
+	float r = rgb.r, g = rgb.g, b = rgb.b;
+	float rgbMin, rgbMax, delta;
+	float h, s, v;
 
-HsvColor RgbToHsv(RgbColor rgb)
-{
-	HsvColor hsv;
-	unsigned char rgbMin, rgbMax;
-
-	rgbMin = rgb.r < rgb.g ? (rgb.r < rgb.b ? rgb.r : rgb.b) : (rgb.g < rgb.b ? rgb.g : rgb.b);
-	rgbMax = rgb.r > rgb.g ? (rgb.r > rgb.b ? rgb.r : rgb.b) : (rgb.g > rgb.b ? rgb.g : rgb.b);
-
-	hsv.v = rgbMax;
-	if (hsv.v == 0)
-	{
-		hsv.h = 0;
-		hsv.s = 0;
-		return hsv;
+	rgbMin = fmin_min(rgb.r, fmin_min(rgb.g, rgb.b));
+	rgbMax = fmax_max(rgb.r, fmax_max(rgb.g, rgb.b));
+	v = rgbMax;
+	delta = rgbMax - rgbMin;
+	
+	// calculate hue
+	if (delta == 0.0f) {
+		h = 0.0f;
+	}
+	else if (rgbMax == r) {
+		h = fmod((g - b) / delta, 6.0f);
+		if (h < 0) {
+			h += 6.0f;
+		}
+		h *= 60.0f;
+	}
+	else if (rgbMax == g) {
+		h = 60.0f * (((b-r) / delta) + 2.0f);
+	}
+	else if (rgbMax == b) {
+		h = 60.0f * (((r - g) / delta) + 4.0f);
 	}
 
-	hsv.s = 255 * long(rgbMax - rgbMin) / hsv.v;
-	if (hsv.s == 0)
-	{
-		hsv.h = 0;
-		return hsv;
+	// calculate 
+	//       S
+	//     A   T
+	//   U   R   A
+	// T   I   O   N
+
+	if (rgbMax == 0.0f) {
+		s = 0.0f;
+	}
+	else {
+		s = delta / rgbMax;
 	}
 
-	if (rgbMax == rgb.r)
-		hsv.h = 0 + 43 * (rgb.g - rgb.b) / (rgbMax - rgbMin);
-	else if (rgbMax == rgb.g)
-		hsv.h = 85 + 43 * (rgb.b - rgb.r) / (rgbMax - rgbMin);
-	else
-		hsv.h = 171 + 43 * (rgb.r - rgb.g) / (rgbMax - rgbMin);
+	hsv.h = h;
+	hsv.s = s;
+	hsv.v = v;
 
 	return hsv;
+}
+
+float fmin_min(float f1, float f2) {
+	if (f1 <= f2) {
+		return f1;
+	}
+	return f2;
+}
+
+float fmax_max(float f1, float f2) {
+	if (f1 >= f2) {
+		return f1;
+	}
+	return f2;
 }

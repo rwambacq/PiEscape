@@ -36,6 +36,7 @@ int main() {
         fatal("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
     }
 
+
     Graphics* graphics = graphics_alloc(0, 0);
 
     GLGlyph glGlyph;
@@ -45,19 +46,19 @@ int main() {
 
 	gl_glyph_init(&glGlyph, graphics, (char*)lettertypeToezichthouder.getFontImageFilename().c_str());
 
-	glifjes = lettertypeToezichthouder.makeGlyphDrawCommands("PI_ESCAPE 2", 900, 500);
+	glifjes = lettertypeToezichthouder.makeGlyphDrawCommands("TAART_ONTSNAP 2", 900, 500);
 	for (i = 0; i < glifjes.size(); i++) {
 		glifjes[i] = glifjes[i].changeColor(col);
 	}
+
 
     Uint32 start_time_ms = SDL_GetTicks();
     Uint32 diff_time_ms = 0;
     while (diff_time_ms < 15000) {
         graphics_begin_draw(graphics);
 
-        /*glmc_vec4_set(col, 0.0f, diff_time_ms / 15000.0f, 0.0f, 1.0f);*/
 		for (i = 0; i < glifjes.size(); i++) {
-			cout << "Stealing precious memory" + punts << endl; // Do not delete this print, without it, the animation goes way too fast
+			cout << "Scared, Potter" + punts << endl; // Do not delete this print, without it, the animation goes way too fast
 			if (punts == "...") { punts = "."; } else { punts += "."; }
 			if (i <= bounceInt) {
 				glifjes[i].bounce();
