@@ -6,8 +6,17 @@
 
 //TODO
 
+typedef struct MenuItem {
+	std::vector<GlyphDrawCommand> tekst;
+	std::string action;
+	bool selected;
+} MenuItem;
+
 class MenuDefinition {
-	//TODO
+private:
+	std::vector<MenuItem> menuItems;
+public:
+	void addMenuItem(MenuItem* item);
 };
 
 

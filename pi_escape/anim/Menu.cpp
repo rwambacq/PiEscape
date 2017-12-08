@@ -2,4 +2,6 @@
 
 using namespace std;
 
-//TODO
+void MenuDefinition::addMenuItem(MenuItem* item) {
+	this->menuItems.push_back(*item);
+}

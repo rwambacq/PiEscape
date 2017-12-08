@@ -1,7 +1,13 @@
 #include "GameUICreator.h"
+#include "../graphics/opengl_game_renderer.h"
+#include "../graphics/gl_glyph.h"
+#include "../es/game.h"
 
 #include "MenuBuilder.h"
 #include "MovieBuilder.h"
+
+Graphics* graphics = graphics_alloc(0, 0);
+GLGlyph glGlyph;
 
 GameUICreator::GameUICreator() {}
 
@@ -10,59 +16,126 @@ GameUICreator::~GameUICreator() {
 
 }
 
+EntryBuilder& EntryBuilder::setEnabledOnPc(bool e) {
+	this->enabledOnPc = e;
+	return *this;
+}
+EntryBuilder& EntryBuilder::setEnabledOnPi(bool e) {
+	this->enabledOnPi = e;
+	return *this;
+}
+EntryBuilder& EntryBuilder::setLongText(std::string text) {
+	this->longText = text;
+	return *this;
+}
+EntryBuilder& EntryBuilder::setShortText(std::string text) {
+	this->shortText = text;
+	return *this;
+}
+EntryBuilder& EntryBuilder::setMnemonic(char mnem) {
+	this->mnemonic = mnem;
+	return *this;
+}
+EntryBuilder& EntryBuilder::setFontName(std::string font) {
+	this->font = font;
+	return *this;
+}
+EntryBuilder& EntryBuilder::buildEntryWithAction(std::string action) {
+	this->action = action;
+	return *this;
+}
+EntryBuilder& EntryBuilder::addAnimation(Animation& anim, State state, MenuState menuState, bool selected, long duration) {
+	this->animations.push_back(&anim);
+	return *this;
+}
+
+EntryBuilder& MenuBuilder::addEntry() {
+	EntryBuilder entry;
+	this->entries.push_back(&entry);
+	return entry;
+}
+
+std::string EntryBuilder::getAction() {
+	return this->action;
+}
+
+std::string EntryBuilder::getLongText() {
+	return this->longText;
+}
+
 //TODO: uncomment the code below, and make it work
 
-//EntryBuilder& addMainMenuAnimation(EntryBuilder& entryBuilder) {
-//    return entryBuilder.addAnimation(new SineAnimation(new MoveAnimation(150, 0))
-//                    , ACTIVATE, MENUSTATECHANGE_START, false, 1000l)
-//            .addAnimation(new ReverseAnimation(new FadeInAnimation())
-//                    , OTHER_ACTIVATED, MENUSTATECHANGE_START, false, 1000l)
-//            .addAnimation(new SineAnimation(new MoveAnimation(-400, 0))
-//                    , OTHER_ACTIVATED, MENUSTATECHANGE_START, false, 1000l)
-//            .addAnimation(
-//                    new ReverseAnimation(
-//                    new GlyphIteratingAnimation(
-//                            new InOutAnimation(new SineAnimation(new MoveAnimation(0, 5))),
-//                            1.5f))
-//                    , DEFAULT, MENUSTATECHANGE_START, false, 500l)
-//            .addAnimation(
-//                    new GlyphIteratingAnimation(
-//                            new InOutAnimation(new SineAnimation(new MoveAnimation(0, 10))),
-//                            1.5f)
-//                    , HOVER, MENUSTATECHANGE_START, true, 2000l)
-//            .addAnimation(new RainbowColorAnimation(), HOVER, MENUSTATECHANGE_START, true, 1000l);
-//}
-//
-//std::shared_ptr<MenuDefinition> GameUICreator::createGameMenu() {
-//    MenuBuilder builder;
-//
-//    addMainMenuAnimation(builder.addEntry())
-//            .setEnabledOnPc(true).setEnabledOnPi(true)
-//            .setLongText("Start Tutorial")
-//            .setShortText("Tut")
-//            .setMnemonic('T')
-//            .setFontName("arcade")
-//            .buildEntryWithAction("start tutorial");
-//
-//    addMainMenuAnimation(builder.addEntry())
-//            .setEnabledOnPc(true).setEnabledOnPi(true)
-//            .setLongText("Start Game")
-//            .setShortText("Go")
-//            .setMnemonic('G')
-//            .setFontName("arcade")
-//            .buildEntryWithAction("start game");
-//
-//    addMainMenuAnimation(builder.addEntry())
-//            .setEnabledOnPc(true).setEnabledOnPi(true)
-//            .setLongText("Exit")
-//            .setShortText("Exit")
-//            .setMnemonic('E')
-//            .setFontName("arcade")
-//            .buildEntryWithAction("quit");
-//
-//    return std::shared_ptr<MenuDefinition>(builder.build());
-//}
-//
+EntryBuilder& addMainMenuAnimation(EntryBuilder& entryBuilder) {
+	return entryBuilder;/*.addAnimation(new SineAnimation(new MoveAnimation(150, 0))
+                    , ACTIVATE, MENUSTATECHANGE_START, false, 1000l)
+            .addAnimation(new ReverseAnimation(new FadeInAnimation())
+                    , OTHER_ACTIVATED, MENUSTATECHANGE_START, false, 1000l)
+            .addAnimation(new SineAnimation(new MoveAnimation(-400, 0))
+                    , OTHER_ACTIVATED, MENUSTATECHANGE_START, false, 1000l)
+            .addAnimation(
+                    new ReverseAnimation(
+                    new GlyphIteratingAnimation(
+                            new InOutAnimation(new SineAnimation(new MoveAnimation(0, 5))),
+                            1.5f))
+                    , DEFAULT, MENUSTATECHANGE_START, false, 500l)
+            .addAnimation(
+                    new GlyphIteratingAnimation(
+                            new InOutAnimation(new SineAnimation(new MoveAnimation(0, 10))),
+                            1.5f)
+                    , HOVER, MENUSTATECHANGE_START, true, 2000l)
+            .addAnimation(new RainbowColorAnimation(), HOVER, MENUSTATECHANGE_START, true, 1000l);*/
+}
+
+std::shared_ptr<MenuDefinition> GameUICreator::createGameMenu() {
+    MenuBuilder builder;
+
+    addMainMenuAnimation(builder.addEntry())
+            .setEnabledOnPc(true).setEnabledOnPi(true)
+            .setLongText("Start Tutorial")
+            .setShortText("Tut")
+            .setMnemonic('T')
+            .setFontName("arcade")
+            .buildEntryWithAction("start tutorial");
+
+    addMainMenuAnimation(builder.addEntry())
+            .setEnabledOnPc(true).setEnabledOnPi(true)
+            .setLongText("Start Game")
+            .setShortText("Go")
+            .setMnemonic('G')
+            .setFontName("arcade")
+            .buildEntryWithAction("start game");
+
+    addMainMenuAnimation(builder.addEntry())
+            .setEnabledOnPc(true).setEnabledOnPi(true)
+            .setLongText("Exit")
+            .setShortText("Exit")
+            .setMnemonic('E')
+            .setFontName("arcade")
+            .buildEntryWithAction("quit");
+
+    return std::shared_ptr<MenuDefinition>(builder.build());
+}
+
+std::shared_ptr<MenuDefinition> MenuBuilder::build(){
+	MenuDefinition toReturn;
+
+	FontManager mgr(graphics, &glGlyph);
+	
+	int menuSize = this->entries.size();
+
+	for (int i = 0; i < entries.size(); i++) {
+		EntryBuilder* cur = entries.at(i);
+		MenuItem toAdd;
+
+		toAdd.action = cur->getAction();
+		toAdd.tekst = mgr.makeGlyphDrawCommands(cur->getLongText(), 0, 234*i);
+		toAdd.selected = (i == 0);
+
+		toReturn.addMenuItem(&toAdd);
+	}
+	return std::make_shared<MenuDefinition>(toReturn);
+}
+
 //std::shared_ptr<MovieDefinition> GameUICreator::createIntro() {
 //    MovieBuilder builder;
 //    builder.setDuration(10000l);

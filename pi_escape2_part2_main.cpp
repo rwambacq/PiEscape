@@ -38,7 +38,6 @@ int main() {
 
 
     Graphics* graphics = graphics_alloc(0, 0);
-
     GLGlyph glGlyph;
 
    	FontManager lettertypeToezichthouder(graphics, &glGlyph);
