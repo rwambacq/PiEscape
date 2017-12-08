@@ -9,6 +9,8 @@
 Graphics* graphics = graphics_alloc(0, 0);
 GLGlyph glGlyph;
 
+FontManager mgr(graphics, &glGlyph);
+
 GameUICreator::GameUICreator() {}
 
 
@@ -40,7 +42,7 @@ EntryBuilder& EntryBuilder::setFontName(std::string font) {
 	this->font = font;
 	return *this;
 }
-EntryBuilder& EntryBuilder::buildEntryWithAction(std::string action) {
+EntryBuilder& EntryBuilder::setAction(std::string action) {
 	this->action = action;
 	return *this;
 }
@@ -87,7 +89,7 @@ EntryBuilder& addMainMenuAnimation(EntryBuilder& entryBuilder) {
 }
 
 std::shared_ptr<MenuDefinition> GameUICreator::createGameMenu() {
-    MenuBuilder builder;
+    MenuBuilder builder(&mgr);
 
     addMainMenuAnimation(builder.addEntry())
             .setEnabledOnPc(true).setEnabledOnPi(true)
@@ -95,7 +97,7 @@ std::shared_ptr<MenuDefinition> GameUICreator::createGameMenu() {
             .setShortText("Tut")
             .setMnemonic('T')
             .setFontName("arcade")
-            .buildEntryWithAction("start tutorial");
+            .setAction("start tutorial");
 
     addMainMenuAnimation(builder.addEntry())
             .setEnabledOnPc(true).setEnabledOnPi(true)
@@ -103,7 +105,7 @@ std::shared_ptr<MenuDefinition> GameUICreator::createGameMenu() {
             .setShortText("Go")
             .setMnemonic('G')
             .setFontName("arcade")
-            .buildEntryWithAction("start game");
+            .setAction("start game");
 
     addMainMenuAnimation(builder.addEntry())
             .setEnabledOnPc(true).setEnabledOnPi(true)
@@ -111,29 +113,9 @@ std::shared_ptr<MenuDefinition> GameUICreator::createGameMenu() {
             .setShortText("Exit")
             .setMnemonic('E')
             .setFontName("arcade")
-            .buildEntryWithAction("quit");
+            .setAction("quit");
 
     return std::shared_ptr<MenuDefinition>(builder.build());
-}
-
-std::shared_ptr<MenuDefinition> MenuBuilder::build(){
-	MenuDefinition toReturn;
-
-	FontManager mgr(graphics, &glGlyph);
-	
-	int menuSize = this->entries.size();
-
-	for (int i = 0; i < entries.size(); i++) {
-		EntryBuilder* cur = entries.at(i);
-		MenuItem toAdd;
-
-		toAdd.action = cur->getAction();
-		toAdd.tekst = mgr.makeGlyphDrawCommands(cur->getLongText(), 0, 234*i);
-		toAdd.selected = (i == 0);
-
-		toReturn.addMenuItem(&toAdd);
-	}
-	return std::make_shared<MenuDefinition>(toReturn);
 }
 
 //std::shared_ptr<MovieDefinition> GameUICreator::createIntro() {

@@ -3,7 +3,17 @@
 
 #include "Animation.h"
 #include "Menu.h"
+#include "GameUICreator.h"
 
-//TODO
+class MenuBuilder {
+private:
+	FontManager* mgr;
+	std::vector<EntryBuilder*> entries;
+public:
+	MenuBuilder(FontManager* mgr);
+	EntryBuilder& addEntry();
+	std::shared_ptr<MenuDefinition> build();
+};
+
 
 #endif //PIESCAPE2_MENUBUILDER_H

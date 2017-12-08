@@ -29,20 +29,11 @@ public:
 	EntryBuilder& setShortText(std::string text);
 	EntryBuilder& setMnemonic(char mnem);
 	EntryBuilder& setFontName(std::string font);
-	EntryBuilder& buildEntryWithAction(std::string action);
+	EntryBuilder& setAction(std::string action);
 
 	std::string getAction();
 	std::string getLongText();
 };
-
-class MenuBuilder {
-private:
-	std::vector<EntryBuilder*> entries;
-public:
-	EntryBuilder& addEntry();
-	std::shared_ptr<MenuDefinition> build();
-};
-
 
 
 class GameUICreator {
