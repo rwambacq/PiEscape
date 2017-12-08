@@ -6,6 +6,22 @@
 
 //TODO
 
-class MenuDefinition;
+class MenuDefinition {
+	//TODO
+};
+
+
+class MenuModel : public UIModel {
+	//TODO
+};
+
+class MenuGLView : public UIView {
+	//TODO
+};
+
+class MenuController : public UIController {
+	//TODO
+
+};
 
 #endif //PIESCAPE2_MENU_H

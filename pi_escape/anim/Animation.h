@@ -5,6 +5,21 @@
 
 #include <glmc.h>
 
+typedef struct hsv {
+	float h;
+	float s;
+	float v;
+} hsv;
+
+typedef struct rgb {
+	float r;
+	float g;
+	float b;
+} rgb;
+
+rgb HsvToRgb(hsv);
+hsv RgbToHsv(rgb);
+
 class Animation {
 public:
     virtual ~Animation();
@@ -60,6 +75,7 @@ public:
 /** Move text position relatively */
 class MoveAnimation : public Animation {
 private:
+	t_ivec2 newPos;
 public:
     MoveAnimation(t_ivec2 relPos);
     MoveAnimation(int x, int y);
@@ -74,6 +90,9 @@ public:
 /** Apply an animation to each glyph in turn */
 class GlyphIteratingAnimation : public Animation {
 private:
+	Animation* animation;
+	float overlap;
+	int animIndex = 0;
 public:
     /**
      * @param animation

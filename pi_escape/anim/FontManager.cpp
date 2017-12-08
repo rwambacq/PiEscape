@@ -54,8 +54,8 @@ void FontManager::setScale(float x, float y) {
 
 void FontManager::setFont(const std::string& fontName) {
 	this->fontName = fontName;
-	this->fontImageFilename = "pi_escape/graphics/" + fontName + ".png";
-	this->fontMetaFilename = "pi_escape/graphics/" + fontName + ".fnt";
+	this->fontImageFilename = "pi_escape/graphics/" + fontName + "72.png";
+	this->fontMetaFilename = "pi_escape/graphics/" + fontName + "72.fnt";
 }
 
 std::vector<GlyphDrawCommand> FontManager::makeGlyphDrawCommands(std::string text, int x, int y) const {
@@ -205,35 +205,6 @@ bool GlyphDrawCommand::operator==(const GlyphDrawCommand& a) const {
 		&& color == a.color;
 }
 
-void GlyphDrawCommand::bounce() {
-		if (this->up) { // bounce up
-			this->bounceDiff++;
-			if (this->bounceDiff == 50) {
-				this->up = false;
-			}
-		}
-		else { // bounce down
-			this->bounceDiff--;
-			if (this->bounceDiff == 0) {
-				this->up = true;
-			}
-		}
-}
-
-GlyphDrawCommand GlyphDrawCommand::cycleRainbow() {
-	rgb this_rgb;
-	this_rgb.r = this->color[0];
-	this_rgb.g = this->color[1];
-	this_rgb.b = this->color[2];
-	hsv hsv = RgbToHsv(this_rgb);
-
-	hsv.h = fmod(hsv.h + 5.0f, 359.0f);
-
-	rgb newColor = HsvToRgb(hsv);
-	GlyphDrawCommand toReturn = changeColor(newColor.r, newColor.g, newColor.b);
-	return toReturn;
-}
-
 GlyphDrawCommand GlyphDrawCommand::changeColor(const t_vec4& newColor) const {
 	GlyphDrawCommand toReturn(*this);
 	glmc_vec4_set(toReturn.color, newColor[0], newColor[1], newColor[2], newColor[3]);
@@ -250,160 +221,30 @@ const t_vec4 &GlyphDrawCommand::getColor() const {
     return color;
 }
 
-int GlyphDrawCommand::getBounceDiff() {
+const int GlyphDrawCommand::getBounceDiff() const {
 	return this->bounceDiff;
 }
 
-int GlyphDrawCommand::getLTopY() {
+const int GlyphDrawCommand::getLTopY() const {
 	return this->pos_ltop_y;
 }
 
-int GlyphDrawCommand::getLTopX() {
+const int GlyphDrawCommand::getLTopX() const {
 	return this->pos_ltop_x;
 }
 
-int GlyphDrawCommand::getGlyphY() {
+const int GlyphDrawCommand::getGlyphY() const {
 	return this->glyph_y;
 }
 
-int GlyphDrawCommand::getGlyphX() {
+const int GlyphDrawCommand::getGlyphX() const {
 	return this->glyph_x;
 }
 
-int GlyphDrawCommand::getGlyphWidth() {
+const int GlyphDrawCommand::getGlyphWidth() const {
 	return this->glyph_w;
 }
 
-int GlyphDrawCommand::getGlyphHeight() {
+const int GlyphDrawCommand::getGlyphHeight() const {
 	return this->glyph_h;
-}
-
-// see https://en.wikipedia.org/wiki/HSL_and_HSV#Converting_to_RGB for an algorithm to convert hsv values to rgb
-rgb HsvToRgb(hsv hsv){
-
-	float h = hsv.h;
-	float s = hsv.s;
-	float v = hsv.v;
-
-	rgb rgb;
-	float c, hAcc, x;
-	float r1, g1, b1, m;
-
-	if (s == 0.0f){
-		rgb.r = v;
-		rgb.g = v;
-		rgb.b = v;
-		return rgb;
-	}
-
-	c = v * s;
-	m = v - c;
-
-	hAcc = h / 60;
-	x = c * (1 - abs(fmod(hAcc, 2) - 1));
-
-	if (hAcc >= 0 && hAcc <= 1) {
-		r1 = c;
-		g1 = x;
-		b1 = 0;
-	} 
-	else if (hAcc > 1 && hAcc <= 2) {
-		r1 = x;
-		g1 = c;
-		b1 = 0;
-	}
-	else if (hAcc > 2 && hAcc <= 3) {
-		r1 = 0;
-		g1 = c;
-		b1 = x;
-	}
-	else if (hAcc > 3 && hAcc <= 4) {
-		r1 = 0;
-		g1 = x;
-		b1 = c;
-	}
-	else if (hAcc > 4 && hAcc <= 5) {
-		r1 = x;
-		g1 = 0;
-		b1 = c;
-	}
-	else if (hAcc > 5 && hAcc < 6) {
-		r1 = c;
-		g1 = 0;
-		b1 = x;
-	}
-	else {
-		r1 = 0;
-		g1 = 0;
-		b1 = 0;
-	}
-
-	rgb.r = r1 + m;
-	rgb.g = g1 + m;
-	rgb.b = b1 + m;
-
-	return rgb;
-}
- // see https://www.rapidtables.com/convert/color/rgb-to-hsv.html for the algorithm used to convert rgb to hsv
-hsv RgbToHsv(rgb rgb){
-	hsv hsv;
-	float r = rgb.r, g = rgb.g, b = rgb.b;
-	float rgbMin, rgbMax, delta;
-	float h, s, v;
-
-	rgbMin = fmin_min(rgb.r, fmin_min(rgb.g, rgb.b));
-	rgbMax = fmax_max(rgb.r, fmax_max(rgb.g, rgb.b));
-	v = rgbMax;
-	delta = rgbMax - rgbMin;
-	
-	// calculate hue
-	if (delta == 0.0f) {
-		h = 0.0f;
-	}
-	else if (rgbMax == r) {
-		h = fmod((g - b) / delta, 6.0f);
-		if (h < 0) {
-			h += 6.0f;
-		}
-		h *= 60.0f;
-	}
-	else if (rgbMax == g) {
-		h = 60.0f * (((b-r) / delta) + 2.0f);
-	}
-	else if (rgbMax == b) {
-		h = 60.0f * (((r - g) / delta) + 4.0f);
-	}
-
-	// calculate 
-	//       S
-	//     A   T
-	//   U   R   A
-	// T   I   O   N
-
-	if (rgbMax == 0.0f) {
-		s = 0.0f;
-	}
-	else {
-		s = delta / rgbMax;
-	}
-
-	hsv.h = h;
-	hsv.s = s;
-	hsv.v = v;
-
-	return hsv;
-}
-
-float fmin_min(float f1, float f2) {
-	if (f1 <= f2) {
-		return f1;
-	}
-	return f2;
-}
-
-float fmax_max(float f1, float f2) {
-	if (f1 >= f2) {
-		return f1;
-	}
-	return f2;
 }

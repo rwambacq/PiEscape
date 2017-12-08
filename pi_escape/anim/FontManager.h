@@ -12,21 +12,6 @@
 
 //for format of .fnt file, see http://www.angelcode.com/products/bmfont/doc/file_format.html
 
-typedef struct hsv {
-	float h;
-	float s;
-	float v;
-} hsv;
-
-typedef struct rgb {
-	float r;
-	float g;
-	float b;
-} rgb;
-
-rgb HsvToRgb(hsv);
-hsv RgbToHsv(rgb);
-
 float fmin_min(float, float);
 float fmax_max(float, float);
 
@@ -71,17 +56,14 @@ public:
 
 	bool operator==(const GlyphDrawCommand& a) const;
 
-	void bounce();
-	GlyphDrawCommand cycleRainbow();
-
-	int getBounceDiff();
+	const int getBounceDiff()const;
     const t_vec4& getColor() const;
-	int getLTopX();
-	int getLTopY();
-	int getGlyphX();
-	int getGlyphY();
-	int getGlyphWidth();
-	int getGlyphHeight();
+	const int getLTopX() const;
+	const int getLTopY()const;
+	const int getGlyphX()const;
+	const int getGlyphY()const;
+	const int getGlyphWidth()const;
+	const int getGlyphHeight()const;
 };
 
 enum TextJustification { TEXT_LEFT, TEXT_CENTER, TEXT_RIGHT };

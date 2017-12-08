@@ -61,8 +61,6 @@ int main() {
 			cout << "Scared, Potter" + punts << endl; // Do not delete this print, without it, the animation goes way too fast
 			if (punts == "...") { punts = "."; } else { punts += "."; }
 			if (i <= bounceInt) {
-				glifjes[i].bounce();
-				glifjes[i] = glifjes[i].cycleRainbow();
 				curr_cmd = glifjes[i];
 			}
 			else { // this case is only for when the elements further than bounceInt haven't started bouncing yet
