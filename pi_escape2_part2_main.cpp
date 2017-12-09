@@ -18,6 +18,7 @@ extern "C"
 #include <SDL_timer.h>
 
 #include "pi_escape/anim/FontManager.h"
+#include "pi_escape/anim/GameUICreator.h"
 
 #include <string>
 #include <cassert>
@@ -29,7 +30,7 @@ int main() {
 	t_vec4 col = { 1.0f, 0.0f, 0.0f, 1.0f };
 	GlyphDrawCommand curr_cmd(0,0,0,0,0,0, col);
 	int i=0;
-	string punts = ".";
+	//string punts = ".";
 	int bounceInt=0;
     int imgFlags = IMG_INIT_PNG;
     if(!(IMG_Init(imgFlags) & imgFlags)) {
@@ -45,43 +46,59 @@ int main() {
 
 	gl_glyph_init(&glGlyph, graphics, (char*)lettertypeToezichthouder.getFontImageFilename().c_str());
 
-	glifjes = lettertypeToezichthouder.makeGlyphDrawCommands("TAART_ONTSNAP 2", 900, 500);
-	for (i = 0; i < glifjes.size(); i++) {
-		glifjes[i] = glifjes[i].changeColor(col);
-	}
+	GameUICreator gc = GameUICreator(lettertypeToezichthouder);
+	shared_ptr<MenuDefinition> spMenuDef = gc.createGameMenu();
+
+	//MenuDefinition* menudef = GameUICreator(lettertypeToezichthouder).createGameMenu().get();
+	//vector<MenuItem> items = menudef->getMenuItems();
+	/*for (i = 0; i < items.size(); i++) {
+		MenuItem curr_item = items.at(i);*/
+		/*for (int j = 0; j < curr_item.tekst.size(); j++) {
+			curr_cmd = curr_item.tekst.at(j);
+			gl_glyph_draw(&glGlyph, curr_cmd.getLTopX(), curr_cmd.getLTopY(),
+							curr_cmd.getGlyphX(), curr_cmd.getGlyphY(),
+							curr_cmd.getGlyphWidth(), curr_cmd.getGlyphHeight(),
+							curr_cmd.getColor());
+		}*/
+	//}
+
+	//glifjes = lettertypeToezichthouder.makeGlyphDrawCommands("TAART_ONTSNAP 2", 900, 500);
+	//for (i = 0; i < glifjes.size(); i++) {
+	//	glifjes[i] = glifjes[i].changeColor(col);
+	//}
 
 
-    Uint32 start_time_ms = SDL_GetTicks();
-    Uint32 diff_time_ms = 0;
-    while (diff_time_ms < 15000) {
-        graphics_begin_draw(graphics);
+ //   Uint32 start_time_ms = SDL_GetTicks();
+ //   Uint32 diff_time_ms = 0;
+ //   while (diff_time_ms < 15000) {
+ //       graphics_begin_draw(graphics);
 
-		for (i = 0; i < glifjes.size(); i++) {
-			cout << "Scared, Potter" + punts << endl; // Do not delete this print, without it, the animation goes way too fast
-			if (punts == "...") { punts = "."; } else { punts += "."; }
-			if (i <= bounceInt) {
-				curr_cmd = glifjes[i];
-			}
-			else { // this case is only for when the elements further than bounceInt haven't started bouncing yet
-				curr_cmd = glifjes[i];
-			}
+	//	for (i = 0; i < glifjes.size(); i++) {
+	//		cout << "Scared, Potter" + punts << endl; // Do not delete this print, without it, the animation goes way too fast
+	//		if (punts == "...") { punts = "."; } else { punts += "."; }
+	//		if (i <= bounceInt) {
+	//			curr_cmd = glifjes[i];
+	//		}
+	//		else { // this case is only for when the elements further than bounceInt haven't started bouncing yet
+	//			curr_cmd = glifjes[i];
+	//		}
 
-			gl_glyph_draw(&glGlyph, curr_cmd.getLTopX(), curr_cmd.getLTopY() + curr_cmd.getBounceDiff(),
-				curr_cmd.getGlyphX(), curr_cmd.getGlyphY(),
-				curr_cmd.getGlyphWidth(), curr_cmd.getGlyphHeight(),
-				curr_cmd.getColor());
-		}
+	//		gl_glyph_draw(&glGlyph, curr_cmd.getLTopX(), curr_cmd.getLTopY() + curr_cmd.getBounceDiff(),
+	//			curr_cmd.getGlyphX(), curr_cmd.getGlyphY(),
+	//			curr_cmd.getGlyphWidth(), curr_cmd.getGlyphHeight(),
+	//			curr_cmd.getColor());
+	//	}
 
-        graphics_end_draw(graphics);
-		if (bounceInt < (glifjes.size()-1)) {
-			if (glifjes.at(bounceInt).getBounceDiff() >= 5) {
-				bounceInt++; // cause a further letter to be the start of bounce wave
-			}
-		}
+ //       graphics_end_draw(graphics);
+	//	if (bounceInt < (glifjes.size()-1)) {
+	//		if (glifjes.at(bounceInt).getBounceDiff() >= 5) {
+	//			bounceInt++; // cause a further letter to be the start of bounce wave
+	//		}
+	//	}
 
-        Uint32 cur_time_ms = SDL_GetTicks();
-        diff_time_ms = cur_time_ms - start_time_ms;
-    }
+ //       Uint32 cur_time_ms = SDL_GetTicks();
+ //       diff_time_ms = cur_time_ms - start_time_ms;
+ //   }
 
     gl_glyph_free(&glGlyph);
     graphics_free(graphics);

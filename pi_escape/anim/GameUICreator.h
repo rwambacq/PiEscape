@@ -22,14 +22,15 @@ private:
 	std::string font;
 	std::string action;
 public:
+	EntryBuilder();
 	EntryBuilder& addAnimation(Animation& anim, State state, MenuState menuState, bool selected, long duration);
 	EntryBuilder& setEnabledOnPc(bool e);
 	EntryBuilder& setEnabledOnPi(bool e);
-	EntryBuilder& setLongText(std::string text);
+	EntryBuilder& setLongText(std::string* text);
 	EntryBuilder& setShortText(std::string text);
 	EntryBuilder& setMnemonic(char mnem);
 	EntryBuilder& setFontName(std::string font);
-	EntryBuilder& buildEntryWithAction(std::string action);
+	EntryBuilder& setAction(std::string action);
 
 	std::string getAction();
 	std::string getLongText();
@@ -37,8 +38,10 @@ public:
 
 class MenuBuilder {
 private:
-	std::vector<EntryBuilder*> entries;
+	FontManager manager;
+	std::vector<EntryBuilder> entries;
 public:
+	MenuBuilder(FontManager);
 	EntryBuilder& addEntry();
 	std::shared_ptr<MenuDefinition> build();
 };
@@ -47,8 +50,9 @@ public:
 
 class GameUICreator {
 protected:
+	FontManager manager;
 public:
-    GameUICreator();
+    GameUICreator(FontManager);
     virtual ~GameUICreator();
     
     std::shared_ptr<MenuDefinition> createGameMenu();

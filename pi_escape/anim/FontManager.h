@@ -81,6 +81,7 @@ private:
 	std::string fontMetaFilename;
 	std::string fontImageFilename;
 public:
+	FontManager();
     FontManager(Graphics* graphics, GLGlyph* glyph);
     ~FontManager();
     

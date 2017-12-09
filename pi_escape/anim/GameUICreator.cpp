@@ -6,13 +6,23 @@
 #include "MenuBuilder.h"
 #include "MovieBuilder.h"
 
-Graphics* graphics = graphics_alloc(0, 0);
-GLGlyph glGlyph;
+GameUICreator::GameUICreator(FontManager mgr) {
+	this->manager = mgr;
+}
 
-GameUICreator::GameUICreator() {}
-
+MenuBuilder::MenuBuilder(FontManager mgr) {
+	this->manager = mgr;
+}
 
 GameUICreator::~GameUICreator() {
+
+}
+
+EntryBuilder::EntryBuilder() {
+	this->longText = "";
+	this->shortText = "";
+	this->font = "";
+	this->action = "";
 
 }
 
@@ -24,8 +34,8 @@ EntryBuilder& EntryBuilder::setEnabledOnPi(bool e) {
 	this->enabledOnPi = e;
 	return *this;
 }
-EntryBuilder& EntryBuilder::setLongText(std::string text) {
-	this->longText = text;
+EntryBuilder& EntryBuilder::setLongText(std::string* text) {
+	this->longText = *text;
 	return *this;
 }
 EntryBuilder& EntryBuilder::setShortText(std::string text) {
@@ -40,7 +50,7 @@ EntryBuilder& EntryBuilder::setFontName(std::string font) {
 	this->font = font;
 	return *this;
 }
-EntryBuilder& EntryBuilder::buildEntryWithAction(std::string action) {
+EntryBuilder& EntryBuilder::setAction(std::string action) {
 	this->action = action;
 	return *this;
 }
@@ -50,8 +60,8 @@ EntryBuilder& EntryBuilder::addAnimation(Animation& anim, State state, MenuState
 }
 
 EntryBuilder& MenuBuilder::addEntry() {
-	EntryBuilder entry;
-	this->entries.push_back(&entry);
+	EntryBuilder entry = EntryBuilder();
+	this->entries.push_back(entry);
 	return entry;
 }
 
@@ -87,48 +97,48 @@ EntryBuilder& addMainMenuAnimation(EntryBuilder& entryBuilder) {
 }
 
 std::shared_ptr<MenuDefinition> GameUICreator::createGameMenu() {
-    MenuBuilder builder;
+    MenuBuilder builder(this->manager);
 
-    addMainMenuAnimation(builder.addEntry())
-            .setEnabledOnPc(true).setEnabledOnPi(true)
-            .setLongText("Start Tutorial")
-            .setShortText("Tut")
-            .setMnemonic('T')
-            .setFontName("arcade")
-            .buildEntryWithAction("start tutorial");
+	EntryBuilder& hihi = addMainMenuAnimation(builder.addEntry())
+		.setEnabledOnPc(true)
+		.setEnabledOnPi(true);
 
-    addMainMenuAnimation(builder.addEntry())
+		hihi.setLongText(&"Start Tutorial");/*
+		.setShortText("Tut")
+		.setMnemonic('T')
+		.setFontName("arcade")
+		.setAction("start tutorial");*/
+
+	addMainMenuAnimation(builder.addEntry());/*
             .setEnabledOnPc(true).setEnabledOnPi(true)
             .setLongText("Start Game")
             .setShortText("Go")
             .setMnemonic('G')
             .setFontName("arcade")
-            .buildEntryWithAction("start game");
+            .setAction("start game");*/
 
-    addMainMenuAnimation(builder.addEntry())
+	addMainMenuAnimation(builder.addEntry());/*
             .setEnabledOnPc(true).setEnabledOnPi(true)
             .setLongText("Exit")
             .setShortText("Exit")
             .setMnemonic('E')
             .setFontName("arcade")
-            .buildEntryWithAction("quit");
+            .setAction("quit");*/
 
     return std::shared_ptr<MenuDefinition>(builder.build());
 }
 
 std::shared_ptr<MenuDefinition> MenuBuilder::build(){
 	MenuDefinition toReturn;
-
-	FontManager mgr(graphics, &glGlyph);
 	
 	int menuSize = this->entries.size();
 
 	for (int i = 0; i < entries.size(); i++) {
-		EntryBuilder* cur = entries.at(i);
+		EntryBuilder cur = entries.at(i);
 		MenuItem toAdd;
 
-		toAdd.action = cur->getAction();
-		toAdd.tekst = mgr.makeGlyphDrawCommands(cur->getLongText(), 0, 234*i);
+		toAdd.action = cur.getAction();
+		toAdd.tekst = this->manager.makeGlyphDrawCommands(cur.getLongText(), 300, 234*i);
 		toAdd.selected = (i == 0);
 
 		toReturn.addMenuItem(&toAdd);

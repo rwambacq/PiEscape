@@ -2,6 +2,8 @@
 
 using namespace std;
 
+FontManager::FontManager(){}
+
 FontManager::FontManager(Graphics* graphics, GLGlyph* glyph) {
 	this->graphics = graphics;
 	this->glyph = glyph;

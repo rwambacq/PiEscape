@@ -17,6 +17,7 @@ private:
 	std::vector<MenuItem> menuItems;
 public:
 	void addMenuItem(MenuItem* item);
+	std::vector<MenuItem> getMenuItems();
 };
 
 
