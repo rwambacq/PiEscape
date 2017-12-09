@@ -43,6 +43,8 @@ int main() {
     Graphics* graphics = graphics_alloc(0, 0);
     GLGlyph glGlyph;
 
+	cout << "het glyphje bevindt zich op: " << &glGlyph << endl;
+
    	FontManager lettertypeToezichthouder(graphics, &glGlyph);
 	lettertypeToezichthouder.setColor(col);
 	lettertypeToezichthouder.loadFont("zorque72", "pi_escape/graphics/zorque72.png", "pi_escape/graphics/zorque72.fnt");
@@ -55,7 +57,6 @@ int main() {
 	MenuController controller;
 	controller.menuLoop(&items, &lettertypeToezichthouder);
 
-	cout << "items size: " << items.size() << endl;
 	Uint32 start_time_ms = SDL_GetTicks();
 	Uint32 diff_time_ms = 0;
 	while (diff_time_ms < 5000) {

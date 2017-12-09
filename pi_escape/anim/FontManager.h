@@ -98,6 +98,9 @@ public:
     void setScale(float xScale, float yScale);
     void setFont(const std::string& fontName);
 
+	Graphics* getGraphics();
+	GLGlyph* getGlyphPtr();
+
 	std::string getFontImageFilename();
 
     std::vector<GlyphDrawCommand> makeGlyphDrawCommands(std::string text, int x, int y) const;

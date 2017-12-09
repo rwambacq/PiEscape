@@ -4,13 +4,6 @@ using namespace std;
 
 MenuModel::MenuModel(std::vector<MenuItem> *m) : UIModel(){
 	this->baseMenu = *m;
-
-	vector<MenuSelection> sel;
-	for (MenuItem mi : *m) {
-		MenuSelection toAdd{mi, false};
-		sel.push_back(toAdd);
-	}
-	this->selection = sel;
 }
 
 void MenuDefinition::addMenuItem(MenuItem* item) {
@@ -40,6 +33,8 @@ std::vector<Animation*> MenuItem::getSelectedAnimations() {
 	return this->selectedAnimations;
 }
 
+
+// controller
 MenuModel* MenuController::getModel() { 
 	return this->model; 
 }
@@ -60,6 +55,9 @@ void MenuController::menuLoop(std::vector<MenuItem>* menuItems, FontManager* man
 	this->view = &view;
 
 	view.setFontManager(manager);
+	view.setModel(&model); // hier zit de fout: bij model heeft de juist lijst met MenuItems
+	// maar na deze call verwijst de MenuModel* in view naar een model met een baseMenu met size ???
+	// gezien while debugging...
 	
 	SDL_Event event;
 	memset(&event, 0, sizeof(SDL_Event));
@@ -75,6 +73,8 @@ void MenuController::menuLoop(std::vector<MenuItem>* menuItems, FontManager* man
 				break;
 			}
 		}
+		// draw menu (read: alert view that model has changed)
+		view.draw();
 	}
 }
 
@@ -100,35 +100,21 @@ void MenuController::onExitKey() {
 	this->model->setDone(true);
 }
 
+
+ //model
 void MenuModel::menuUp() {
-	this->selection.at(this->selected).selected = false;
 	this->selected = (this->selected - 1) % 3;
 	if (this->selected < 0) {
 		this->selected += 3;
 	}
-	this->selection.at(this->selected).selected = true;
 
 	cout << this->selected << endl;
 }
 
 void MenuModel::menuDown() {
-	this->selection.at(this->selected).selected = false;
 	this->selected = (this->selected + 1) % 3;
-	this->selection.at(this->selected).selected = true;
 
 	cout << this->selected << endl;
-}
-
-void MenuModel::updateSelection(vector<MenuSelection> selection, int selected) {
-
-}
-
-int MenuModel::getSelection() {
-	return 0;
-}
-
-MenuItem MenuModel::getSelectedItem() {
-	return this->selection.at(0).item;
 }
 
 void MenuModel::setDone(bool done) {
@@ -139,12 +125,16 @@ int MenuModel::isDone() const {
 	return this->isGedaan;
 }
 
-void MenuGLView::setFontManager(FontManager* mgr) {
-	this->manager = mgr;
-}
-
 MenuModel::~MenuModel() {
 
+}
+
+vector<MenuItem> MenuModel::getMenu() {
+	return this->baseMenu;
+}
+
+int MenuModel::getSelected() {
+	return this->selected;
 }
 
 void MenuModel::setTime(uint64_t time) {
@@ -154,9 +144,45 @@ uint64_t MenuModel::getTime() const {
 	return this->time;
 }
 
+// view
 MenuGLView::MenuGLView() {}
 MenuGLView::~MenuGLView() {}
-void MenuGLView::draw() {}
+
+void MenuGLView::setFontManager(FontManager* mgr) {
+	this->manager = mgr;
+}
+
+void MenuGLView::setModel(MenuModel* mod) {
+	this->model = model;
+}
+
+void MenuGLView::draw() {
+	vector<MenuItem> items;
+	int i = 0;
+	int j = 0;
+	vector<GlyphDrawCommand> GDCs;
+	GlyphDrawCommand curr_cmd;
+
+
+	graphics_begin_draw(this->manager->getGraphics());
+	items = this->model->getMenu();
+	//for (i = 0; i < items.size(); i++) {
+	//	MenuItem curr_item = items.at(i);
+	//	GDCs = curr_item.getTekst();
+	//	/*for (j = 0; j < GDCs.size(); j++) {
+	//		curr_cmd = GDCs.at(j);
+	//		if (i == this->model->getSelected()) {
+	//			curr_cmd = curr_cmd.changeColor(1,1,1);
+	//		}
+	//		cout << "in ons model bevindt het glyphje zich op: " << this->manager->getGlyphPtr() << endl;
+	//		gl_glyph_draw(this->manager->getGlyphPtr(), curr_cmd.getLTopX(), curr_cmd.getLTopY(),
+	//			curr_cmd.getGlyphX(), curr_cmd.getGlyphY(),
+	//			curr_cmd.getGlyphWidth(), curr_cmd.getGlyphHeight(),
+	//			curr_cmd.getColor());
+	//	}*/
+	//}
+	graphics_end_draw(this->manager->getGraphics());
+}
 
 MenuController::MenuController() {
 	

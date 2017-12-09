@@ -1,6 +1,18 @@
 #ifndef PIESCAPE2_MENU_H
 #define PIESCAPE2_MENU_H
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+#include "../graphics/opengl_game_renderer.h"
+#include "../graphics/gl_glyph.h"
+
+#ifdef __cplusplus
+}
+#endif
+
 #include "UI.h"
 #include "Animation.h"
 
@@ -18,11 +30,6 @@ public:
 	std::string getFont();
 };
 
-typedef struct MenuSelection {
-	MenuItem item;
-	bool selected;
-} MenuSelection;
-
 class MenuDefinition {
 private:
 	std::vector<MenuItem> menuItems;
@@ -36,18 +43,17 @@ protected:
 	uint64_t time;
 private:
 	std::vector<MenuItem> baseMenu;
-	std::vector<MenuSelection> selection;
 	int selected = 0;
 	bool isGedaan = false;
 public:
 	void menuUp();
 	void menuDown();
-	void updateSelection(std::vector<MenuSelection> selection, int selected);
-	int getSelection();
-	MenuItem getSelectedItem();
 	void setDone(bool done);
 
-	MenuModel(std::vector<MenuItem> *baseMenu);
+	std::vector<MenuItem> getMenu();
+	int getSelected();
+
+	MenuModel(std::vector<MenuItem>* baseMenu);
 	virtual ~MenuModel();
 	void setTime(uint64_t time) override;
 	uint64_t getTime() const;
@@ -57,9 +63,10 @@ public:
 class MenuGLView : public UIView {
 private:
 	FontManager* manager;
+	MenuModel* model;
 public:
 	void setFontManager(FontManager* mgr);
-	void drawMenu(std::vector<MenuSelection> menu);
+	void setModel(MenuModel*);
 
 	MenuGLView();
 	virtual ~MenuGLView();
@@ -74,7 +81,7 @@ private:
 public:
 	void setModel(MenuModel);
 	MenuModel* getModel();
-	void menuLoop(std::vector<MenuItem>* menuItems, FontManager* manager);
+	void menuLoop(std::vector<MenuItem>*, FontManager*);
 	virtual void onKey(SDLKey key);
 	virtual void onExitKey();
 

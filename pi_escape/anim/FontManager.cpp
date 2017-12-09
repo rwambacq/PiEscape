@@ -142,6 +142,13 @@ void GlyphDrawCommand::setLtopY(float y) {
 	this->pos_ltop_y = y;
 }
 
+Graphics* FontManager::getGraphics() {
+	return this->graphics;
+}
+
+GLGlyph* FontManager::getGlyphPtr() {
+	return this->glyph;
+}
 
 GlyphDrawCommand GlyphDrawCommand::changeColor(float r, float g, float b) const {
 	GlyphDrawCommand toReturn = GlyphDrawCommand(*this);
