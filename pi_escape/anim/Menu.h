@@ -23,25 +23,17 @@ public:
 	std::string getFont();
 };
 
+typedef struct MenuSelection {
+	MenuItem item;
+	bool selected;
+} MenuSelection;
+
 class MenuDefinition {
 private:
 	std::vector<MenuItem> menuItems;
 public:
 	void addMenuItem(MenuItem* item);
 	std::vector<MenuItem> getMenuItems();
-};
-
-class MenuController : public UIController {
-private:
-	MenuModel* model;
-	MenuGLView* view;
-public:
-	void menuLoop(std::vector<MenuItem> menuItems, FontManager manager);
-	void onKey(SDLKey key) override;
-	void onExitKey() override;
-
-	MenuController();
-	virtual ~MenuController();
 };
 
 class MenuModel : public UIModel {
@@ -51,12 +43,13 @@ private:
 	std::vector<MenuItem> baseMenu;
 	std::vector<MenuSelection> selection;
 	int selected;
-	bool done;
+	bool isGedaan;
 public:
 	void menuUp();
 	void menuDown();
-	/*int getSelection();
-	MenuItem getSelectedItem();*/
+	void updateSelection(std::vector<MenuSelection> selection, int selected);
+	int getSelection();
+	MenuItem getSelectedItem();
 	void setDone(bool done);
 
 	MenuModel();
@@ -76,7 +69,22 @@ public:
 	MenuGLView();
 	virtual ~MenuGLView();
 
-	void draw() override;
+	virtual void draw();
+};
+
+class MenuController : public UIController {
+private:
+	MenuModel model;
+	MenuGLView* view;
+public:
+	void setModel(MenuModel);
+	MenuModel getModel();
+	void menuLoop(std::vector<MenuItem> menuItems, FontManager manager);
+	virtual void onKey(SDLKey key);
+	virtual void onExitKey();
+
+	MenuController();
+	virtual ~MenuController();
 };
 
 #endif //PIESCAPE2_MENU_H

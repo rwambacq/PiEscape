@@ -2,6 +2,8 @@
 
 using namespace std;
 
+MenuModel::MenuModel() : UIModel(){}
+
 void MenuDefinition::addMenuItem(MenuItem* item) {
 	this->menuItems.push_back(*item);
 }
@@ -29,6 +31,14 @@ std::vector<Animation*> MenuItem::getSelectedAnimations() {
 	return this->selectedAnimations;
 }
 
+MenuModel MenuController::getModel() { 
+	return this->model; 
+}
+
+void MenuController::setModel(MenuModel mod) {
+	this->model = mod;
+}
+
 std::string MenuItem::getFont() {
 	return this->font;
 }
@@ -45,7 +55,7 @@ void MenuController::menuLoop(std::vector<MenuItem> menuItems, FontManager manag
 	SDL_Event event;
 	memset(&event, 0, sizeof(SDL_Event));
 
-	while (!this->model->isDone) {
+	while (!this->model.isDone()) {
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_KEYDOWN:
@@ -62,15 +72,15 @@ void MenuController::menuLoop(std::vector<MenuItem> menuItems, FontManager manag
 void MenuController::onKey(SDLKey key) {
 	switch (key) {
 	case SDLK_UP: {
-		this->model->menuUp();
+		this->model.menuUp();
 		break;
 	}
 	case SDLK_DOWN: {
-		this->model->menuDown();
+		this->model.menuDown();
 		break;
 	}
 	case SDLK_ESCAPE: {
-		this->onExitKey();
+		onExitKey();
 		break;
 	}
 	}
@@ -78,11 +88,7 @@ void MenuController::onKey(SDLKey key) {
 
 
 void MenuController::onExitKey() {
-	this->model->setDone(true);
-}
-
-void MenuModel::setDone(bool done) {
-	this->done = done;
+	this->model.setDone(true);
 }
 
 void MenuModel::menuUp() {
@@ -104,8 +110,24 @@ void MenuModel::menuDown() {
 	cout << this->selected << endl;
 }
 
+void MenuModel::updateSelection(vector<MenuSelection> selection, int selected) {
+
+}
+
+int MenuModel::getSelection() {
+	return 0;
+}
+
+MenuItem MenuModel::getSelectedItem() {
+	return this->selection.at(0).item;
+}
+
+void MenuModel::setDone(bool done) {
+	this->isGedaan = done;
+}
+
 int MenuModel::isDone() const {
-	return this->isDone;
+	return this->isGedaan;
 }
 
 void MenuGLView::setFontManager(FontManager* mgr) {
@@ -113,7 +135,9 @@ void MenuGLView::setFontManager(FontManager* mgr) {
 }
 
 
-MenuModel::MenuModel() {}
+MenuModel::MenuModel() {
+	
+}
 MenuModel::~MenuModel() {}
 void MenuModel::setTime(uint64_t time) {}
 uint64_t MenuModel::getTime() const {}
@@ -122,5 +146,8 @@ MenuGLView::MenuGLView() {}
 MenuGLView::~MenuGLView() {}
 void MenuGLView::draw() {}
 
-MenuController::MenuController() {}
+MenuController::MenuController() {
+	this->model;
+	this->view = NULL;
+}
 MenuController::~MenuController() {}

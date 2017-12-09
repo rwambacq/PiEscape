@@ -28,8 +28,7 @@ public:
      * 0.0 being no change, 1.0 being full effect of animation */
     virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
-            float position)
-    const = 0;
+            float position) const;
 };
 
 /** From alpha 0.0f to 1.0f (= from invisible to visible) */
