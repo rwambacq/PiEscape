@@ -32,8 +32,8 @@ public:
 
 class MenuController : public UIController {
 private:
-	class::MenuModel* model;
-	class::MenuGLView* view;
+	MenuModel* model;
+	MenuGLView* view;
 public:
 	void menuLoop(std::vector<MenuItem> menuItems, FontManager manager);
 	void onKey(SDLKey key) override;
@@ -50,7 +50,7 @@ private:
 	std::vector<MenuItem> baseMenu;
 	std::vector<MenuSelection> selection;
 	int selected;
-	bool isDone;
+	bool isGedaan;
 public:
 	void menuUp();
 	void menuDown();
@@ -61,9 +61,7 @@ public:
 
 	MenuModel();
 	~MenuModel();
-	void setTime(uint64_t time) override;
-	uint64_t getTime() const;
-	int isDone() const override;
+	virtual int isDone() const;
 };
 
 class MenuGLView : public UIView {

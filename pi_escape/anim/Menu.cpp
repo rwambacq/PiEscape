@@ -2,6 +2,8 @@
 
 using namespace std;
 
+MenuModel::MenuModel() : UIModel(){}
+
 void MenuDefinition::addMenuItem(MenuItem* item) {
 	this->menuItems.push_back(*item);
 }
@@ -40,7 +42,7 @@ void MenuController::menuLoop(std::vector<MenuItem> menuItems, FontManager manag
 	SDL_Event event;
 	memset(&event, 0, sizeof(SDL_Event));
 
-	while (!this->model->isDone) {
+	while (!(*this->model).isDone()) {
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_KEYDOWN:
@@ -57,15 +59,15 @@ void MenuController::menuLoop(std::vector<MenuItem> menuItems, FontManager manag
 void MenuController::onKey(SDLKey key) {
 	switch (key) {
 	case SDLK_UP: {
-		this->model->menuUp();
+		(*this->model).menuUp();
 		break;
 	}
 	case SDLK_DOWN: {
-		this->model->menuDown();
+		(*this->model).menuDown();
 		break;
 	}
 	case SDLK_ESCAPE: {
-		this->onExitKey();
+		onExitKey();
 		break;
 	}
 	}
@@ -96,24 +98,22 @@ void MenuModel::menuDown() {
 }
 
 int MenuModel::isDone() const {
-	return this->isDone;
+	return this->isGedaan;
 }
 
 void MenuGLView::setFontManager(FontManager* mgr) {
 	this->manager = mgr;
 }
 
-
-MenuModel::MenuModel() {
-	
-}
 MenuModel::~MenuModel() {}
-void MenuModel::setTime(uint64_t time) {}
-uint64_t MenuModel::getTime() const {}
+
 
 MenuGLView::MenuGLView() {}
 MenuGLView::~MenuGLView() {}
 void MenuGLView::draw() {}
 
-MenuController::MenuController() {}
+MenuController::MenuController() {
+	this->model = NULL;
+	this->view = NULL;
+}
 MenuController::~MenuController() {}
