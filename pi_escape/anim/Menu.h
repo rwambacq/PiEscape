@@ -16,6 +16,8 @@ extern "C"
 #include "UI.h"
 #include "Animation.h"
 
+typedef struct MVCRefs;
+
 class MenuItem {
 private:
 	std::vector<GlyphDrawCommand> tekst;
@@ -63,10 +65,12 @@ public:
 class MenuGLView : public UIView {
 private:
 	FontManager* manager;
-	MenuModel* model;
+	MVCRefs* mvc;
 public:
 	void setFontManager(FontManager* mgr);
-	void setModel(MenuModel*);
+	void setMVCRef(MVCRefs*);
+
+	FontManager* getFontManager();
 
 	MenuGLView();
 	virtual ~MenuGLView();
@@ -76,17 +80,21 @@ public:
 
 class MenuController : public UIController {
 private:
-	MenuModel* model;
-	MenuGLView* view;
+	MVCRefs* mvcRef;
 public:
-	void setModel(MenuModel);
-	MenuModel* getModel();
 	void menuLoop(std::vector<MenuItem>*, FontManager*);
-	virtual void onKey(SDLKey key);
-	virtual void onExitKey();
+	void onKey(SDLKey key);
+	void onExitKey();
+
 
 	MenuController();
 	virtual ~MenuController();
 };
+
+typedef struct MVCRefs {
+	MenuModel model;
+	MenuGLView view;
+	MenuController controller;
+} MVCRefs;
 
 #endif //PIESCAPE2_MENU_H

@@ -55,7 +55,7 @@ void FontManager::setScale(float x, float y) {
 }
 
 void FontManager::setFont(const std::string& fontName) {
-	this->fontName = fontName;
+	this->fontName = fontName + "72";
 	this->fontImageFilename = "pi_escape/graphics/" + fontName + "72.png";
 	this->fontMetaFilename = "pi_escape/graphics/" + fontName + "72.fnt";
 }

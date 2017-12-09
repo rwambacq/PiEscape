@@ -35,13 +35,6 @@ std::vector<Animation*> MenuItem::getSelectedAnimations() {
 
 
 // controller
-MenuModel* MenuController::getModel() { 
-	return this->model; 
-}
-
-void MenuController::setModel(MenuModel mod) {
-	this->model = &mod;
-}
 
 std::string MenuItem::getFont() {
 	return this->font;
@@ -50,19 +43,19 @@ std::string MenuItem::getFont() {
 void MenuController::menuLoop(std::vector<MenuItem>* menuItems, FontManager* manager) {
 	MenuModel model(menuItems);
 	MenuGLView view;
-
-	this->model = &model;
-	this->view = &view;
+	
+	MVCRefs mvc{model, view, *this};
+	this->mvcRef = &mvc;
 
 	view.setFontManager(manager);
-	view.setModel(&model); // hier zit de fout: bij model heeft de juist lijst met MenuItems
+	view.setMVCRef(&mvc); // hier zit de fout: bij model heeft de juist lijst met MenuItems
 	// maar na deze call verwijst de MenuModel* in view naar een model met een baseMenu met size ???
 	// gezien while debugging...
 	
 	SDL_Event event;
 	memset(&event, 0, sizeof(SDL_Event));
 
-	while (!this->model->isDone()) {
+	while (! this->mvcRef->model.isDone()) {
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_KEYDOWN:
@@ -81,11 +74,11 @@ void MenuController::menuLoop(std::vector<MenuItem>* menuItems, FontManager* man
 void MenuController::onKey(SDLKey key) {
 	switch (key) {
 	case SDLK_UP: {
-		this->model->menuUp();
+		this->mvcRef->model.menuUp();
 		break;
 	}
 	case SDLK_DOWN: {
-		this->model->menuDown();
+		this->mvcRef->model.menuDown();
 		break;
 	}
 	case SDLK_ESCAPE: {
@@ -97,7 +90,7 @@ void MenuController::onKey(SDLKey key) {
 
 
 void MenuController::onExitKey() {
-	this->model->setDone(true);
+	this->mvcRef->model.setDone(true);
 }
 
 
@@ -152,8 +145,8 @@ void MenuGLView::setFontManager(FontManager* mgr) {
 	this->manager = mgr;
 }
 
-void MenuGLView::setModel(MenuModel* mod) {
-	this->model = model;
+void MenuGLView::setMVCRef(MVCRefs* mvc) {
+	this->mvc = mvc;
 }
 
 void MenuGLView::draw() {
@@ -163,24 +156,23 @@ void MenuGLView::draw() {
 	vector<GlyphDrawCommand> GDCs;
 	GlyphDrawCommand curr_cmd;
 
-
 	graphics_begin_draw(this->manager->getGraphics());
-	items = this->model->getMenu();
-	//for (i = 0; i < items.size(); i++) {
-	//	MenuItem curr_item = items.at(i);
-	//	GDCs = curr_item.getTekst();
-	//	/*for (j = 0; j < GDCs.size(); j++) {
-	//		curr_cmd = GDCs.at(j);
-	//		if (i == this->model->getSelected()) {
-	//			curr_cmd = curr_cmd.changeColor(1,1,1);
-	//		}
-	//		cout << "in ons model bevindt het glyphje zich op: " << this->manager->getGlyphPtr() << endl;
-	//		gl_glyph_draw(this->manager->getGlyphPtr(), curr_cmd.getLTopX(), curr_cmd.getLTopY(),
-	//			curr_cmd.getGlyphX(), curr_cmd.getGlyphY(),
-	//			curr_cmd.getGlyphWidth(), curr_cmd.getGlyphHeight(),
-	//			curr_cmd.getColor());
-	//	}*/
-	//}
+	items = this->mvc->model.getMenu();
+	for (i = 0; i < items.size(); i++) {
+		MenuItem curr_item = items.at(i);
+		GDCs = curr_item.getTekst();
+		for (j = 0; j < GDCs.size(); j++) {
+			curr_cmd = GDCs.at(j);
+			if (i == this->mvc->model.getSelected()) {
+				curr_cmd = curr_cmd.changeColor(1,1,1);
+			}
+			//cout << "in ons model bevindt het glyphje zich op: " << this->manager->getGlyphPtr() << endl;
+			gl_glyph_draw(this->manager->getGlyphPtr(), curr_cmd.getLTopX(), curr_cmd.getLTopY(),
+				curr_cmd.getGlyphX(), curr_cmd.getGlyphY(),
+				curr_cmd.getGlyphWidth(), curr_cmd.getGlyphHeight(),
+				curr_cmd.getColor());
+		}
+	}
 	graphics_end_draw(this->manager->getGraphics());
 }
 
