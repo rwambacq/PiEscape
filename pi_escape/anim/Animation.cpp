@@ -6,6 +6,10 @@ Animation::~Animation() {
 
 }
 
+vector<GlyphDrawCommand> Animation::applyTransform(const vector<GlyphDrawCommand>& draws,float position) const {
+	return vector<GlyphDrawCommand>();
+}
+
 std::vector<GlyphDrawCommand> FadeInAnimation::applyTransform(const std::vector<GlyphDrawCommand>& draws, float position) const {
     float curAlpha = position;
     

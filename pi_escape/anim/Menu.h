@@ -4,11 +4,6 @@
 #include "UI.h"
 #include "Animation.h"
 
-typedef struct MenuSelection {
-	MenuItem item;
-	bool selected;
-} MenuSelection;
-
 class MenuItem {
 private:
 	std::vector<GlyphDrawCommand> tekst;
@@ -19,8 +14,12 @@ public:
 	std::vector<GlyphDrawCommand> getTekst();
 	std::vector<Animation> getSelectedAnimations();
 	std::string getAction();
-
 };
+
+typedef struct MenuSelection {
+	MenuItem item;
+	bool selected;
+} MenuSelection;
 
 class MenuDefinition {
 private:
@@ -28,19 +27,6 @@ private:
 public:
 	void addMenuItem(MenuItem* item);
 	std::vector<MenuItem> getMenuItems();
-};
-
-class MenuController : public UIController {
-private:
-	MenuModel* model;
-	MenuGLView* view;
-public:
-	void menuLoop(std::vector<MenuItem> menuItems, FontManager manager);
-	void onKey(SDLKey key) override;
-	void onExitKey() override;
-
-	MenuController();
-	virtual ~MenuController();
 };
 
 class MenuModel : public UIModel {
@@ -74,7 +60,22 @@ public:
 	MenuGLView();
 	virtual ~MenuGLView();
 
-	void draw() override;
+	virtual void draw();
+};
+
+class MenuController : public UIController {
+private:
+	MenuModel model;
+	MenuGLView* view;
+public:
+	void setModel(MenuModel);
+	MenuModel getModel();
+	void menuLoop(std::vector<MenuItem> menuItems, FontManager manager);
+	virtual void onKey(SDLKey key);
+	virtual void onExitKey();
+
+	MenuController();
+	virtual ~MenuController();
 };
 
 #endif //PIESCAPE2_MENU_H

@@ -8,7 +8,7 @@ void MenuDefinition::addMenuItem(MenuItem* item) {
 	this->menuItems.push_back(*item);
 }
 
-MenuItem::MenuItem(std::vector<GlyphDrawCommand> tekst, std::string action) {
+MenuItem::MenuItem(vector<GlyphDrawCommand> tekst, string action, vector<Animation> animations) {
 	this->tekst = tekst;
 	this->action = action;
 	this->selectedAnimations = animations;
@@ -30,19 +30,27 @@ std::vector<Animation> MenuItem::getSelectedAnimations() {
 	return this->selectedAnimations;
 }
 
+MenuModel MenuController::getModel() { 
+	return this->model; 
+}
+
+void MenuController::setModel(MenuModel mod) {
+	this->model = mod;
+}
+
 void MenuController::menuLoop(std::vector<MenuItem> menuItems, FontManager manager) {
 	MenuModel model;
 	MenuGLView view;
 
 	view.setFontManager(&manager);
 
-	this->model = &model;
+	this->model = model;
 	this->view = &view;
 	
 	SDL_Event event;
 	memset(&event, 0, sizeof(SDL_Event));
 
-	while (!(*this->model).isDone()) {
+	while (!this->model.isDone()) {
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_KEYDOWN:
@@ -59,11 +67,11 @@ void MenuController::menuLoop(std::vector<MenuItem> menuItems, FontManager manag
 void MenuController::onKey(SDLKey key) {
 	switch (key) {
 	case SDLK_UP: {
-		(*this->model).menuUp();
+		this->model.menuUp();
 		break;
 	}
 	case SDLK_DOWN: {
-		(*this->model).menuDown();
+		this->model.menuDown();
 		break;
 	}
 	case SDLK_ESCAPE: {
@@ -75,7 +83,7 @@ void MenuController::onKey(SDLKey key) {
 
 
 void MenuController::onExitKey() {
-	this->model->setDone(true);
+	this->model.setDone(true);
 }
 
 void MenuModel::menuUp() {
@@ -97,6 +105,22 @@ void MenuModel::menuDown() {
 	cout << this->selected << endl;
 }
 
+void MenuModel::updateSelection(vector<MenuSelection> selection, int selected) {
+
+}
+
+int MenuModel::getSelection() {
+	return 0;
+}
+
+MenuItem MenuModel::getSelectedItem() {
+	return this->selection.at(0).item;
+}
+
+void MenuModel::setDone(bool done) {
+	this->isGedaan = done;
+}
+
 int MenuModel::isDone() const {
 	return this->isGedaan;
 }
@@ -113,7 +137,7 @@ MenuGLView::~MenuGLView() {}
 void MenuGLView::draw() {}
 
 MenuController::MenuController() {
-	this->model = NULL;
+	this->model;
 	this->view = NULL;
 }
 MenuController::~MenuController() {}
