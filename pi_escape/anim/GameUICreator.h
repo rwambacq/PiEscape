@@ -26,7 +26,7 @@ public:
 	EntryBuilder& addAnimation(Animation& anim, State state, MenuState menuState, bool selected, long duration);
 	EntryBuilder& setEnabledOnPc(bool e);
 	EntryBuilder& setEnabledOnPi(bool e);
-	EntryBuilder& setLongText(std::string* text);
+	EntryBuilder& setLongText(std::string text);
 	EntryBuilder& setShortText(std::string text);
 	EntryBuilder& setMnemonic(char mnem);
 	EntryBuilder& setFontName(std::string font);

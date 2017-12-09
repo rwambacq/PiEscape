@@ -34,8 +34,8 @@ EntryBuilder& EntryBuilder::setEnabledOnPi(bool e) {
 	this->enabledOnPi = e;
 	return *this;
 }
-EntryBuilder& EntryBuilder::setLongText(std::string* text) {
-	this->longText = *text;
+EntryBuilder& EntryBuilder::setLongText(std::string text) {
+	this->longText = text;
 	return *this;
 }
 EntryBuilder& EntryBuilder::setShortText(std::string text) {
@@ -103,7 +103,7 @@ std::shared_ptr<MenuDefinition> GameUICreator::createGameMenu() {
 		.setEnabledOnPc(true)
 		.setEnabledOnPi(true);
 
-		hihi.setLongText(&"Start Tutorial");/*
+		hihi.setLongText("Start Tutorial");/*
 		.setShortText("Tut")
 		.setMnemonic('T')
 		.setFontName("arcade")
