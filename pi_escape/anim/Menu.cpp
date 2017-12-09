@@ -2,7 +2,16 @@
 
 using namespace std;
 
-MenuModel::MenuModel() : UIModel(){}
+MenuModel::MenuModel(std::vector<MenuItem> *m) : UIModel(){
+	this->baseMenu = *m;
+
+	vector<MenuSelection> sel;
+	for (MenuItem mi : *m) {
+		MenuSelection toAdd{mi, false};
+		sel.push_back(toAdd);
+	}
+	this->selection = sel;
+}
 
 void MenuDefinition::addMenuItem(MenuItem* item) {
 	this->menuItems.push_back(*item);
@@ -31,31 +40,31 @@ std::vector<Animation*> MenuItem::getSelectedAnimations() {
 	return this->selectedAnimations;
 }
 
-MenuModel MenuController::getModel() { 
+MenuModel* MenuController::getModel() { 
 	return this->model; 
 }
 
 void MenuController::setModel(MenuModel mod) {
-	this->model = mod;
+	this->model = &mod;
 }
 
 std::string MenuItem::getFont() {
 	return this->font;
 }
 
-void MenuController::menuLoop(std::vector<MenuItem> menuItems, FontManager manager) {
-	MenuModel model;
+void MenuController::menuLoop(std::vector<MenuItem>* menuItems, FontManager* manager) {
+	MenuModel model(menuItems);
 	MenuGLView view;
 
 	this->model = &model;
 	this->view = &view;
 
-	view.setFontManager(&manager);
+	view.setFontManager(manager);
 	
 	SDL_Event event;
 	memset(&event, 0, sizeof(SDL_Event));
 
-	while (!this->model.isDone()) {
+	while (!this->model->isDone()) {
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_KEYDOWN:
@@ -72,11 +81,11 @@ void MenuController::menuLoop(std::vector<MenuItem> menuItems, FontManager manag
 void MenuController::onKey(SDLKey key) {
 	switch (key) {
 	case SDLK_UP: {
-		this->model.menuUp();
+		this->model->menuUp();
 		break;
 	}
 	case SDLK_DOWN: {
-		this->model.menuDown();
+		this->model->menuDown();
 		break;
 	}
 	case SDLK_ESCAPE: {
@@ -88,7 +97,7 @@ void MenuController::onKey(SDLKey key) {
 
 
 void MenuController::onExitKey() {
-	this->model.setDone(true);
+	this->model->setDone(true);
 }
 
 void MenuModel::menuUp() {
@@ -134,20 +143,22 @@ void MenuGLView::setFontManager(FontManager* mgr) {
 	this->manager = mgr;
 }
 
+MenuModel::~MenuModel() {
 
-MenuModel::MenuModel() {
-	
 }
-MenuModel::~MenuModel() {}
-void MenuModel::setTime(uint64_t time) {}
-uint64_t MenuModel::getTime() const {}
+
+void MenuModel::setTime(uint64_t time) {
+	this->time = time;
+}
+uint64_t MenuModel::getTime() const {
+	return this->time;
+}
 
 MenuGLView::MenuGLView() {}
 MenuGLView::~MenuGLView() {}
 void MenuGLView::draw() {}
 
 MenuController::MenuController() {
-	this->model;
-	this->view = NULL;
+	
 }
 MenuController::~MenuController() {}

@@ -51,6 +51,10 @@ int main() {
 
 	shared_ptr<MenuDefinition> menudef = GameUICreator(lettertypeToezichthouder).createGameMenu();
 	vector<MenuItem> items = (*menudef).getMenuItems();
+
+	MenuController controller;
+	controller.menuLoop(&items, &lettertypeToezichthouder);
+
 	cout << "items size: " << items.size() << endl;
 	Uint32 start_time_ms = SDL_GetTicks();
 	Uint32 diff_time_ms = 0;

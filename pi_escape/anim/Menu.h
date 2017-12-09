@@ -4,11 +4,6 @@
 #include "UI.h"
 #include "Animation.h"
 
-typedef struct MenuSelection {
-	MenuItem item;
-	bool selected;
-} MenuSelection;
-
 class MenuItem {
 private:
 	std::vector<GlyphDrawCommand> tekst;
@@ -42,8 +37,8 @@ protected:
 private:
 	std::vector<MenuItem> baseMenu;
 	std::vector<MenuSelection> selection;
-	int selected;
-	bool isGedaan;
+	int selected = 0;
+	bool isGedaan = false;
 public:
 	void menuUp();
 	void menuDown();
@@ -52,7 +47,7 @@ public:
 	MenuItem getSelectedItem();
 	void setDone(bool done);
 
-	MenuModel();
+	MenuModel(std::vector<MenuItem> *baseMenu);
 	virtual ~MenuModel();
 	void setTime(uint64_t time) override;
 	uint64_t getTime() const;
@@ -74,12 +69,12 @@ public:
 
 class MenuController : public UIController {
 private:
-	MenuModel model;
+	MenuModel* model;
 	MenuGLView* view;
 public:
 	void setModel(MenuModel);
-	MenuModel getModel();
-	void menuLoop(std::vector<MenuItem> menuItems, FontManager manager);
+	MenuModel* getModel();
+	void menuLoop(std::vector<MenuItem>* menuItems, FontManager* manager);
 	virtual void onKey(SDLKey key);
 	virtual void onExitKey();
 
