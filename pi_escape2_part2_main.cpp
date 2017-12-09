@@ -74,7 +74,7 @@ int main() {
  //       graphics_begin_draw(graphics);
 
 	//	for (i = 0; i < glifjes.size(); i++) {
-	//		cout << "Scared, Potter" + punts << endl; // Do not delete this print, without it, the animation goes way too fast
+	//		cout << "you wish" + punts << endl; // Do not delete this print, without it, the animation goes way too fast
 	//		if (punts == "...") { punts = "."; } else { punts += "."; }
 	//		if (i <= bounceInt) {
 	//			curr_cmd = glifjes[i];

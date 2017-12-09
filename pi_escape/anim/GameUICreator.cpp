@@ -97,9 +97,8 @@ std::shared_ptr<MenuDefinition> GameUICreator::createGameMenu() {
 
 	EntryBuilder& hihi = addMainMenuAnimation(builder.addEntry())
 		.setEnabledOnPc(true)
-		.setEnabledOnPi(true);
-
-		//hihi.setLongText("Start Tutorial");
+		.setEnabledOnPi(true).
+		setLongText(std::string("Start Tutorial"));
 		/*.setShortText("Tut")
 		.setMnemonic('T')
 		.setFontName("arcade")
