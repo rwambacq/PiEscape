@@ -11,7 +11,7 @@ private:
 	std::vector<EntryBuilder> entries;
 public:
 	MenuBuilder(FontManager);
-	EntryBuilder& addEntry();
+	EntryBuilder& addEntry(std::string, std::string, std::string, std::string);
 	std::shared_ptr<MenuDefinition> build();
 };
 

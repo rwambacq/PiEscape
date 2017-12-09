@@ -6,6 +6,8 @@
 #include "MenuBuilder.h"
 #include "MovieBuilder.h"
 
+using namespace std;
+
 GameUICreator::GameUICreator(FontManager mgr) {
 	this->manager = mgr;
 }
@@ -14,12 +16,11 @@ GameUICreator::~GameUICreator() {
 
 }
 
-EntryBuilder::EntryBuilder() {
-	this->longText = "";
-	this->shortText = "";
-	this->font = "";
-	this->action = "";
-
+EntryBuilder::EntryBuilder(string ltext, string stext, string font, string action) {
+	this->longText = ltext;
+	this->shortText = stext;
+	this->font = font;
+	this->action = action;
 }
 
 EntryBuilder& EntryBuilder::setEnabledOnPc(bool e) {
@@ -55,8 +56,8 @@ EntryBuilder& EntryBuilder::addAnimation(Animation& anim, State state, MenuState
 	return *this;
 }
 
-EntryBuilder& MenuBuilder::addEntry() {
-	EntryBuilder entry = EntryBuilder();
+EntryBuilder& MenuBuilder::addEntry(string ltext, string stext, string font, string act) {
+	EntryBuilder entry = EntryBuilder(ltext, stext, font, act);
 	this->entries.push_back(entry);
 	return entry;
 }
@@ -95,30 +96,18 @@ EntryBuilder& addMainMenuAnimation(EntryBuilder& entryBuilder) {
 std::shared_ptr<MenuDefinition> GameUICreator::createGameMenu() {
     MenuBuilder builder(this->manager);
 
-	EntryBuilder& hihi = addMainMenuAnimation(builder.addEntry())
+	EntryBuilder& hihi = addMainMenuAnimation(builder.addEntry("Start Tutorial", "Tut", "arcade", "start tutorial"))
 		.setEnabledOnPc(true)
-		.setEnabledOnPi(true).
-		setLongText(std::string("Start Tutorial"));
-		/*.setShortText("Tut")
-		.setMnemonic('T')
-		.setFontName("arcade")
-		.setAction("start tutorial");*/
+		.setEnabledOnPi(true)
+		.setMnemonic('T');
 
-	addMainMenuAnimation(builder.addEntry());/*
-            .setEnabledOnPc(true).setEnabledOnPi(true)
-            .setLongText("Start Game")
-            .setShortText("Go")
-            .setMnemonic('G')
-            .setFontName("arcade")
-            .setAction("start game");*/
+	addMainMenuAnimation(builder.addEntry("Start Game", "Go", "arcade", "start game"))
+		.setEnabledOnPc(true).setEnabledOnPi(true)
+		.setMnemonic('G');
 
-	addMainMenuAnimation(builder.addEntry());/*
-            .setEnabledOnPc(true).setEnabledOnPi(true)
-            .setLongText("Exit")
-            .setShortText("Exit")
-            .setMnemonic('E')
-            .setFontName("arcade")
-            .setAction("quit");*/
+	addMainMenuAnimation(builder.addEntry("Exit", "Exit", "arcade", "quit"))
+		.setEnabledOnPc(true).setEnabledOnPi(true)
+		.setMnemonic('E');
 
     return std::shared_ptr<MenuDefinition>(builder.build());
 }

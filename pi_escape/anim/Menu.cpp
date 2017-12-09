@@ -14,3 +14,11 @@ MenuItem::MenuItem(std::vector<GlyphDrawCommand> tekst, std::string action) {
 vector<MenuItem> MenuDefinition::getMenuItems() {
 	return this->menuItems;
 }
+
+vector<GlyphDrawCommand> MenuItem::getTekst() {
+	return this->tekst;
+}
+
+string MenuItem::getAction() {
+	return this->action;
+}

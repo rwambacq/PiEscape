@@ -17,6 +17,8 @@ extern "C"
 #undef main //Weird bug on windows where SDL overwrite main definition
 #include <SDL_timer.h>
 
+#include "util/sleep.h"
+
 #include "pi_escape/anim/FontManager.h"
 #include "pi_escape/anim/GameUICreator.h"
 
@@ -46,21 +48,26 @@ int main() {
 
 	gl_glyph_init(&glGlyph, graphics, (char*)lettertypeToezichthouder.getFontImageFilename().c_str());
 
-	GameUICreator gc = GameUICreator(lettertypeToezichthouder);
-	shared_ptr<MenuDefinition> spMenuDef = gc.createGameMenu();
-
-	//MenuDefinition* menudef = GameUICreator(lettertypeToezichthouder).createGameMenu().get();
-	//vector<MenuItem> items = menudef->getMenuItems();
-	/*for (i = 0; i < items.size(); i++) {
-		MenuItem curr_item = items.at(i);*/
-		/*for (int j = 0; j < curr_item.tekst.size(); j++) {
-			curr_cmd = curr_item.tekst.at(j);
-			gl_glyph_draw(&glGlyph, curr_cmd.getLTopX(), curr_cmd.getLTopY(),
-							curr_cmd.getGlyphX(), curr_cmd.getGlyphY(),
-							curr_cmd.getGlyphWidth(), curr_cmd.getGlyphHeight(),
-							curr_cmd.getColor());
-		}*/
-	//}
+	shared_ptr<MenuDefinition> menudef = GameUICreator(lettertypeToezichthouder).createGameMenu();
+	vector<MenuItem> items = (*menudef).getMenuItems();
+	cout << "items size: " << items.size() << endl;
+	int ticks = 0;
+	while (ticks < 500) {
+		graphics_begin_draw(graphics);
+		for (i = 0; i < items.size(); i++) {
+			MenuItem curr_item = items.at(i);
+			for (int j = 0; j < curr_item.getTekst().size(); j++) {
+				curr_cmd = curr_item.getTekst().at(j);
+				gl_glyph_draw(&glGlyph, curr_cmd.getLTopX(), curr_cmd.getLTopY(),
+					curr_cmd.getGlyphX(), curr_cmd.getGlyphY(),
+					curr_cmd.getGlyphWidth(), curr_cmd.getGlyphHeight(),
+					col);
+			}
+		}
+		graphics_end_draw(graphics);
+		sleep_ms(1000);
+		ticks++;
+	}
 
 	//glifjes = lettertypeToezichthouder.makeGlyphDrawCommands("TAART_ONTSNAP 2", 900, 500);
 	//for (i = 0; i < glifjes.size(); i++) {

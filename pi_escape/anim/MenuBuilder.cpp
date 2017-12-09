@@ -9,7 +9,7 @@ shared_ptr<MenuDefinition> MenuBuilder::build() {
 
 	for (int i = 0; i < entries.size(); i++) {
 		EntryBuilder cur = entries.at(i);
-		MenuItem toAdd = MenuItem(this->manager.makeGlyphDrawCommands(cur.getLongText(), 300, 234 * i), cur.getAction());
+		MenuItem toAdd = MenuItem(this->manager.makeGlyphDrawCommands(cur.getLongText(), 300, 40 * i), cur.getAction());
 
 		toReturn.addMenuItem(&toAdd);
 	}

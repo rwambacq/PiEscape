@@ -68,7 +68,7 @@ std::vector<GlyphDrawCommand> FontManager::makeGlyphDrawCommands(std::string tex
 	int maxHeight = 0;
 
 	std::vector<GlyphDrawCommand> toReturn(text.size());
-	cout << "text: " << text << endl;
+	//cout << "text: " << text << endl;
 	for (char& c : text) {
 		/*cout << "################################" << endl;
 		cout << "letter " << i << ": " << c << "(id should be " << (int) c << ")" << endl;*/
