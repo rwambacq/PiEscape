@@ -6,10 +6,11 @@ void MenuDefinition::addMenuItem(MenuItem* item) {
 	this->menuItems.push_back(*item);
 }
 
-MenuItem::MenuItem(std::vector<GlyphDrawCommand> tekst, std::string action) {
+MenuItem::MenuItem(std::vector<GlyphDrawCommand> tekst, std::string action, std::vector<Animation*> animations, std::string font) {
 	this->tekst = tekst;
 	this->action = action;
 	this->selectedAnimations = animations;
+	this->font = font;
 }
 
 vector<MenuItem> MenuDefinition::getMenuItems() {
@@ -24,18 +25,22 @@ string MenuItem::getAction() {
 	return this->action;
 }
 
-std::vector<Animation> MenuItem::getSelectedAnimations() {
+std::vector<Animation*> MenuItem::getSelectedAnimations() {
 	return this->selectedAnimations;
+}
+
+std::string MenuItem::getFont() {
+	return this->font;
 }
 
 void MenuController::menuLoop(std::vector<MenuItem> menuItems, FontManager manager) {
 	MenuModel model;
 	MenuGLView view;
 
-	view.setFontManager(&manager);
-
 	this->model = &model;
 	this->view = &view;
+
+	view.setFontManager(&manager);
 	
 	SDL_Event event;
 	memset(&event, 0, sizeof(SDL_Event));
@@ -76,6 +81,10 @@ void MenuController::onExitKey() {
 	this->model->setDone(true);
 }
 
+void MenuModel::setDone(bool done) {
+	this->done = done;
+}
+
 void MenuModel::menuUp() {
 	this->selection.at(this->selected).selected = false;
 	this->selected = (this->selected - 1) % 3;
@@ -104,9 +113,7 @@ void MenuGLView::setFontManager(FontManager* mgr) {
 }
 
 
-MenuModel::MenuModel() {
-	
-}
+MenuModel::MenuModel() {}
 MenuModel::~MenuModel() {}
 void MenuModel::setTime(uint64_t time) {}
 uint64_t MenuModel::getTime() const {}

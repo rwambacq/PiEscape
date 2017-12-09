@@ -71,6 +71,14 @@ std::string EntryBuilder::getLongText() {
 	return this->longText;
 }
 
+std::vector<Animation*> EntryBuilder::getAnimations() {
+	return this->animations;
+}
+
+std::string EntryBuilder::getFont() {
+	return this->font;
+}
+
 //TODO: uncomment the code below, and make it work
 
 EntryBuilder& addMainMenuAnimation(EntryBuilder& entryBuilder) {

@@ -22,7 +22,7 @@ shared_ptr<MenuDefinition> MenuBuilder::build() {
 	for (i = 0; i < entries.size(); i++) {
 		EntryBuilder cur = entries.at(i);
 		cout << "i: " << i << ", action: " << cur.getAction() << ". Now making GDCs..." << endl;
-		MenuItem toAdd = MenuItem(this->manager.makeGlyphDrawCommands(cur.getLongText(), lTopX, topY - MENU_ITEM_Y_SPACING * i), cur.getAction(), vector<Animation>());
+		MenuItem toAdd = MenuItem(this->manager.makeGlyphDrawCommands(cur.getLongText(), lTopX, topY - MENU_ITEM_Y_SPACING * i), cur.getAction(), cur.getAnimations(), cur.getFont());
 
 		toReturn.addMenuItem(&toAdd);
 	}

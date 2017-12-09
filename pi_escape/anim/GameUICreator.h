@@ -34,6 +34,8 @@ public:
 
 	std::string getAction();
 	std::string getLongText();
+	std::vector<Animation*> getAnimations();
+	std::string getFont();
 };
 
 class GameUICreator {

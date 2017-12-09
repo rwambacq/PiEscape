@@ -12,14 +12,15 @@ typedef struct MenuSelection {
 class MenuItem {
 private:
 	std::vector<GlyphDrawCommand> tekst;
-	std::vector<Animation> selectedAnimations;
+	std::vector<Animation*> selectedAnimations;
 	std::string action;
+	std::string font;
 public:
-	MenuItem(std::vector<GlyphDrawCommand>, std::string, std::vector<Animation>);
+	MenuItem(std::vector<GlyphDrawCommand>, std::string, std::vector<Animation*>, std::string font);
 	std::vector<GlyphDrawCommand> getTekst();
-	std::vector<Animation> getSelectedAnimations();
+	std::vector<Animation*> getSelectedAnimations();
 	std::string getAction();
-
+	std::string getFont();
 };
 
 class MenuDefinition {
@@ -32,8 +33,8 @@ public:
 
 class MenuController : public UIController {
 private:
-	class::MenuModel* model;
-	class::MenuGLView* view;
+	MenuModel* model;
+	MenuGLView* view;
 public:
 	void menuLoop(std::vector<MenuItem> menuItems, FontManager manager);
 	void onKey(SDLKey key) override;
@@ -50,17 +51,16 @@ private:
 	std::vector<MenuItem> baseMenu;
 	std::vector<MenuSelection> selection;
 	int selected;
-	bool isDone;
+	bool done;
 public:
 	void menuUp();
 	void menuDown();
-	void updateSelection(std::vector<MenuSelection> selection, int selected);
-	int getSelection();
-	MenuItem getSelectedItem();
+	/*int getSelection();
+	MenuItem getSelectedItem();*/
 	void setDone(bool done);
 
 	MenuModel();
-	~MenuModel();
+	virtual ~MenuModel();
 	void setTime(uint64_t time) override;
 	uint64_t getTime() const;
 	int isDone() const override;
