@@ -10,10 +10,6 @@ GameUICreator::GameUICreator(FontManager mgr) {
 	this->manager = mgr;
 }
 
-MenuBuilder::MenuBuilder(FontManager mgr) {
-	this->manager = mgr;
-}
-
 GameUICreator::~GameUICreator() {
 
 }
@@ -103,8 +99,8 @@ std::shared_ptr<MenuDefinition> GameUICreator::createGameMenu() {
 		.setEnabledOnPc(true)
 		.setEnabledOnPi(true);
 
-		hihi.setLongText("Start Tutorial");/*
-		.setShortText("Tut")
+		//hihi.setLongText("Start Tutorial");
+		/*.setShortText("Tut")
 		.setMnemonic('T')
 		.setFontName("arcade")
 		.setAction("start tutorial");*/
@@ -126,24 +122,6 @@ std::shared_ptr<MenuDefinition> GameUICreator::createGameMenu() {
             .setAction("quit");*/
 
     return std::shared_ptr<MenuDefinition>(builder.build());
-}
-
-std::shared_ptr<MenuDefinition> MenuBuilder::build(){
-	MenuDefinition toReturn;
-	
-	int menuSize = this->entries.size();
-
-	for (int i = 0; i < entries.size(); i++) {
-		EntryBuilder cur = entries.at(i);
-		MenuItem toAdd;
-
-		toAdd.action = cur.getAction();
-		toAdd.tekst = this->manager.makeGlyphDrawCommands(cur.getLongText(), 300, 234*i);
-		toAdd.selected = (i == 0);
-
-		toReturn.addMenuItem(&toAdd);
-	}
-	return std::make_shared<MenuDefinition>(toReturn);
 }
 
 //std::shared_ptr<MovieDefinition> GameUICreator::createIntro() {

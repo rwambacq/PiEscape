@@ -36,18 +36,6 @@ public:
 	std::string getLongText();
 };
 
-class MenuBuilder {
-private:
-	FontManager manager;
-	std::vector<EntryBuilder> entries;
-public:
-	MenuBuilder(FontManager);
-	EntryBuilder& addEntry();
-	std::shared_ptr<MenuDefinition> build();
-};
-
-
-
 class GameUICreator {
 protected:
 	FontManager manager;

@@ -7,10 +7,10 @@
 
 class MenuBuilder {
 private:
-	FontManager* mgr;
-	std::vector<EntryBuilder*> entries;
+	FontManager manager;
+	std::vector<EntryBuilder> entries;
 public:
-	MenuBuilder(FontManager* mgr);
+	MenuBuilder(FontManager);
 	EntryBuilder& addEntry();
 	std::shared_ptr<MenuDefinition> build();
 };

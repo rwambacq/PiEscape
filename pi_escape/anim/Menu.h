@@ -11,8 +11,7 @@ private:
 	std::vector<GlyphDrawCommand> tekst;
 	std::string action;
 public:
-	MenuItem(std::vector<GlyphDrawCommand> tekst,
-		std::string action);
+	MenuItem(std::vector<GlyphDrawCommand>, std::string);
 };
 
 class MenuDefinition {
