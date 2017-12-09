@@ -44,6 +44,7 @@ int main() {
     GLGlyph glGlyph;
 
    	FontManager lettertypeToezichthouder(graphics, &glGlyph);
+	lettertypeToezichthouder.setColor(col);
 	lettertypeToezichthouder.loadFont("zorque72", "pi_escape/graphics/zorque72.png", "pi_escape/graphics/zorque72.fnt");
 
 	gl_glyph_init(&glGlyph, graphics, (char*)lettertypeToezichthouder.getFontImageFilename().c_str());
@@ -51,22 +52,28 @@ int main() {
 	shared_ptr<MenuDefinition> menudef = GameUICreator(lettertypeToezichthouder).createGameMenu();
 	vector<MenuItem> items = (*menudef).getMenuItems();
 	cout << "items size: " << items.size() << endl;
-	int ticks = 0;
-	while (ticks < 500) {
+	Uint32 start_time_ms = SDL_GetTicks();
+	Uint32 diff_time_ms = 0;
+	while (diff_time_ms < 5000) {
 		graphics_begin_draw(graphics);
 		for (i = 0; i < items.size(); i++) {
 			MenuItem curr_item = items.at(i);
 			for (int j = 0; j < curr_item.getTekst().size(); j++) {
 				curr_cmd = curr_item.getTekst().at(j);
+				/*cout << "##############################" << endl;
+				cout << "letter: " << curr_item.getAction()[j] << endl;
+				cout << "leftTopX, leftTopY of this letter: " << curr_cmd.getLTopX() << ", " << curr_cmd.getLTopY() << endl;
+				cout << "x en y in png file: " << curr_cmd.getGlyphX() << " " << curr_cmd.getGlyphY() << endl;
+				cout << "width en height: " << curr_cmd.getGlyphWidth() << " " << curr_cmd.getGlyphHeight() << endl;
+				cout << "##############################" << endl;*/
 				gl_glyph_draw(&glGlyph, curr_cmd.getLTopX(), curr_cmd.getLTopY(),
 					curr_cmd.getGlyphX(), curr_cmd.getGlyphY(),
 					curr_cmd.getGlyphWidth(), curr_cmd.getGlyphHeight(),
-					col);
+					curr_cmd.getColor());
 			}
 		}
 		graphics_end_draw(graphics);
-		sleep_ms(1000);
-		ticks++;
+		diff_time_ms = SDL_GetTicks() - start_time_ms;
 	}
 
 	//glifjes = lettertypeToezichthouder.makeGlyphDrawCommands("TAART_ONTSNAP 2", 900, 500);

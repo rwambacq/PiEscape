@@ -106,9 +106,11 @@ std::vector<GlyphDrawCommand> FontManager::makeGlyphDrawCommands(std::string tex
 					iss.ignore(INT_MAX, '=');
 					iss.ignore(INT_MAX, '=');
 					iss >> xadvance;
-					/*cout << "gevonden letter id: " << id << endl;
-					cout << "x en y in png file: " << x << " " << y << endl;
+					/*cout << "leftTopX, leftTopY of this letter: " << leftTopX << ", " << leftTopY << endl;
+					cout << "gevonden letter id: " << id << endl;
+					cout << "x en y in png file: " << xx << " " << yy << endl;
 					cout << "width en height: " << width << " " << height << endl;
+					cout << "xadvance (afstand tot volgende letter): " << xadvance << endl;
 					cout << "##############################" << endl;*/
 
 					if (height > maxHeight){
@@ -161,7 +163,7 @@ GlyphDrawCommand GlyphDrawCommand::move(int x_offset, int y_offset) const {
 }
 
 GlyphDrawCommand::GlyphDrawCommand() {
-	glmc_vec4_set(this->color, 0, 0 , 0, 1);
+	glmc_vec4_set(this->color, 1, 1 , 1, 1);
 	this->up = true;
 	this->bounceDiff = 0;
 	this->pos_ltop_x = 0;
