@@ -85,12 +85,29 @@ void MenuController::onKey(SDLKey key) {
 		onExitKey();
 		break;
 	}
+	case SDLK_RETURN: {
+		onEnterKey();
+		break;
+	}
+	case SDLK_KP_ENTER: {
+		onEnterKey();
+		break;
+	}
 	}
 }
 
+void MenuController::onEnterKey() {
+	this->menuSelection = this->mvcRef->model.getSelected();
+	this->mvcRef->model.setDone(true);
+}
 
 void MenuController::onExitKey() {
+	this->menuSelection = 2;
 	this->mvcRef->model.setDone(true);
+}
+
+int MenuController::getMenuSelection() {
+	return this->menuSelection;
 }
 
 

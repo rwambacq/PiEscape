@@ -81,11 +81,13 @@ public:
 class MenuController : public UIController {
 private:
 	MVCRefs* mvcRef;
+	int menuSelection = -1;
 public:
 	void menuLoop(std::vector<MenuItem>*, FontManager*);
 	void onKey(SDLKey key);
 	void onExitKey();
-
+	void onEnterKey();
+	int getMenuSelection();
 
 	MenuController();
 	virtual ~MenuController();
