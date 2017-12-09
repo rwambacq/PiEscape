@@ -6,7 +6,7 @@ void MenuDefinition::addMenuItem(MenuItem* item) {
 	this->menuItems.push_back(*item);
 }
 
-MenuItem::MenuItem(std::vector<GlyphDrawCommand> tekst, std::string action) {
+MenuItem::MenuItem(std::vector<GlyphDrawCommand> tekst, std::string action, std::vector<Animation> anims) {
 	this->tekst = tekst;
 	this->action = action;
 }

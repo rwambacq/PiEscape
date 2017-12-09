@@ -16,11 +16,12 @@ GameUICreator::~GameUICreator() {
 
 }
 
-EntryBuilder::EntryBuilder(string ltext, string stext, string font, string action) {
+EntryBuilder::EntryBuilder(string ltext, string stext, string font, string action, char mnemonic) {
 	this->longText = ltext;
 	this->shortText = stext;
 	this->font = font;
 	this->action = action;
+	this->mnemonic = mnemonic;
 }
 
 EntryBuilder& EntryBuilder::setEnabledOnPc(bool e) {
@@ -56,8 +57,8 @@ EntryBuilder& EntryBuilder::addAnimation(Animation& anim, State state, MenuState
 	return *this;
 }
 
-EntryBuilder& MenuBuilder::addEntry(string ltext, string stext, string font, string act) {
-	EntryBuilder entry = EntryBuilder(ltext, stext, font, act);
+EntryBuilder& MenuBuilder::addEntry(string ltext, string stext, string font, string act, char mnem) {
+	EntryBuilder entry = EntryBuilder(ltext, stext, font, act, mnem);
 	this->entries.push_back(entry);
 	return entry;
 }
@@ -96,18 +97,15 @@ EntryBuilder& addMainMenuAnimation(EntryBuilder& entryBuilder) {
 std::shared_ptr<MenuDefinition> GameUICreator::createGameMenu() {
     MenuBuilder builder(this->manager);
 
-	EntryBuilder& hihi = addMainMenuAnimation(builder.addEntry("Start Tutorial", "Tut", "arcade", "start tutorial"))
+	EntryBuilder& hihi = addMainMenuAnimation(builder.addEntry("Start Tutorial", "Tut", "arcade", "start tutorial", 'T'))
 		.setEnabledOnPc(true)
-		.setEnabledOnPi(true)
-		.setMnemonic('T');
+		.setEnabledOnPi(true);
 
-	addMainMenuAnimation(builder.addEntry("Start Game", "Go", "arcade", "start game"))
-		.setEnabledOnPc(true).setEnabledOnPi(true)
-		.setMnemonic('G');
+	addMainMenuAnimation(builder.addEntry("Start Game", "Go", "arcade", "start game", 'G'))
+		.setEnabledOnPc(true).setEnabledOnPi(true);
 
-	addMainMenuAnimation(builder.addEntry("Exit", "Exit", "arcade", "quit"))
-		.setEnabledOnPc(true).setEnabledOnPi(true)
-		.setMnemonic('E');
+	addMainMenuAnimation(builder.addEntry("Exit", "Exit", "arcade", "quit", 'E'))
+		.setEnabledOnPc(true).setEnabledOnPi(true);
 
     return std::shared_ptr<MenuDefinition>(builder.build());
 }

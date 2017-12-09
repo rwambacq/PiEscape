@@ -22,7 +22,7 @@ private:
 	std::string font;
 	std::string action;
 public:
-	EntryBuilder(std::string, std::string, std::string, std::string);
+	EntryBuilder(std::string, std::string, std::string, std::string, char);
 	EntryBuilder& addAnimation(Animation& anim, State state, MenuState menuState, bool selected, long duration);
 	EntryBuilder& setEnabledOnPc(bool e);
 	EntryBuilder& setEnabledOnPi(bool e);
