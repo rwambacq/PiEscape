@@ -19,8 +19,6 @@ extern "C"
 
 
 #include "util/sleep.h"
-#include "pi_escape/graphics/opengl_game_renderer.h"
-#include "pi_escape/level/levelloader.h"
 #include "pi_escape/es/game.h"
 
 #include <assert.h>
