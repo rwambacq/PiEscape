@@ -36,7 +36,7 @@ class FadeInAnimation : public Animation {
 public:
     virtual ~FadeInAnimation();
 
-    std::vector<GlyphDrawCommand> applyTransform(
+    virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
             float position)
     const override;
@@ -52,7 +52,7 @@ public:
     ColorAnimation(float r, float g, float b);
     virtual ~ColorAnimation();
     
-    std::vector<GlyphDrawCommand> applyTransform(
+    virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
             float position)
     const override;
@@ -62,10 +62,9 @@ public:
 class RainbowColorAnimation : public Animation {
 private:
 public:
-    RainbowColorAnimation();
     virtual ~RainbowColorAnimation();
     
-    std::vector<GlyphDrawCommand> applyTransform(
+    virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
             float position)
     const override;
@@ -100,7 +99,7 @@ public:
     GlyphIteratingAnimation(Animation* animation, float overlap);
     virtual ~GlyphIteratingAnimation();
     
-    std::vector<GlyphDrawCommand> applyTransform(
+    virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
             float position)
     const override;
@@ -114,7 +113,7 @@ public:
     RepeatAnimation(Animation* animation, int repeats);
     virtual ~RepeatAnimation();
     
-    std::vector<GlyphDrawCommand> applyTransform(
+    virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
             float position)
     const override;
@@ -127,7 +126,7 @@ public:
     SineAnimation(Animation* animation);
     virtual ~SineAnimation();
     
-    std::vector<GlyphDrawCommand> applyTransform(
+    virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
             float position)
     const override;
@@ -140,7 +139,7 @@ public:
     ReverseAnimation(Animation* animation);
     virtual ~ReverseAnimation();
     
-    std::vector<GlyphDrawCommand> applyTransform(
+    virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
             float position)
     const override;
@@ -153,7 +152,7 @@ public:
     InOutAnimation(Animation* animation);
     virtual ~InOutAnimation();
     
-    std::vector<GlyphDrawCommand> applyTransform(
+    virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
             float position)
     const override;
