@@ -76,7 +76,7 @@ void MenuController::menuLoop(std::vector<MenuItem>* menuItems, FontManager* man
 			}
 		}
 		// draw menu (read: alert view that model has changed)
-		view.draw();
+		//view.draw();
 	}
 }
 
@@ -135,8 +135,8 @@ void MenuModel::menuDown() {
 	this->selected = (this->selected + 1) % 3;
 
 	cout << this->selected << endl;
-	std::thread first(aanroeper, 0);
-	first.detach();
+	//std::thread first(aanroeper, 0);
+	//first.detach();
 	
 }
 
