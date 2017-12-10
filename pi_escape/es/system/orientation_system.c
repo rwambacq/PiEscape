@@ -26,11 +26,8 @@ void system_orientation_update(OrientationSystem* system, Engine* engine) {
 	float value_y = get_imu_y();
 	float value_z = get_imu_z();
 	if (system->sensor_x && system->sensor_y && system->sensor_z) {
-		cameraLookFrom->XYdegees = fmod((cameraLookFrom->XYdegees - (value_z - system->sensor_z) * 180 / M_PI), 360);
-
-		if (cameraLookFrom->Zdegrees >= 0.0f && cameraLookFrom->Zdegrees <= 90.0f) {
-			cameraLookFrom->Zdegrees -= (value_y - system->sensor_y) * 180 / M_PI;
-		}
+		cameraLookFrom->XYdegees = fmod((cameraLookFrom->XYdegees + (value_z - system->sensor_z) * 180 / M_PI), 360);
+		cameraLookFrom->Zdegrees -= (value_x - system->sensor_x) * 180 / M_PI;
 	}
 	system->sensor_x = value_x;
 	system->sensor_y = value_y;
