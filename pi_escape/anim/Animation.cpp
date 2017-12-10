@@ -1,5 +1,7 @@
 #include "Animation.h"
 
+#include <math.h>
+
 using namespace std;
 
 Animation::~Animation() {
@@ -370,6 +372,48 @@ vector<GlyphDrawCommand> GlyphIteratingAnimation::applyTransform(const vector<Gl
 
 	return res;
 }
+
+vector<GlyphDrawCommand> ReverseAnimation::applyTransform(const vector<GlyphDrawCommand>& draws, float position) const {
+	return animation->applyTransform(draws, 1.0f - position);
+}
+
+ReverseAnimation::ReverseAnimation(Animation* animation) {
+	this->animation = animation;
+}
+ReverseAnimation::~ReverseAnimation() {
+	
+}
+
+vector<GlyphDrawCommand> InOutAnimation::applyTransform(const vector<GlyphDrawCommand>& draws, float position) const {
+	if (position < 0.5f) {
+		return animation->applyTransform(draws, position * 2.0f);
+	}
+	else {
+		return animation->applyTransform(draws, ( 1.0f - ((position - 0.5f)* 2.0f)));
+	}
+	
+}
+
+InOutAnimation::InOutAnimation(Animation* animation) {
+	this->animation = animation;
+}
+InOutAnimation::~InOutAnimation() {
+	
+}
+
+vector<GlyphDrawCommand> RepeatAnimation::applyTransform(const vector<GlyphDrawCommand>& draws, float position) const {
+	return this->animation->applyTransform(draws, fmod((position/this->repeats), (1.0f/this->repeats)));
+}
+
+RepeatAnimation::RepeatAnimation(Animation* animation, int repeats, bool startIn, bool endIn, bool cycleInOut) {
+	this->animation = animation;
+	this->repeats = repeats;
+	this->inOut = cycleInOut;
+}
+RepeatAnimation::~RepeatAnimation() {
+	
+}
+
 // TODO implement  
 // RepeatAnimation, 
 // SineAnimation, 
