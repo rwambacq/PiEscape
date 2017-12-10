@@ -81,15 +81,14 @@ int main() {
 	// START MENU
 		cout << "werkt1";
 		lettertypeToezichthouder.setColor(col);
-		cout << "werkt1";
+		cout << "werkt2";
 		lettertypeToezichthouder.loadFont("arcade72", "pi_escape/graphics/arcade72.png", "pi_escape/graphics/arcade72.fnt");
-		cout << "werkt1";
+		cout << "werkt3";
 		std::string fromStringFont = lettertypeToezichthouder.getFontImageFilename();
 		char *cstr = new char[fromStringFont.length() + 1];
 		strcpy(cstr, fromStringFont.c_str());
-
 		gl_glyph_init(&glGlyph, graphics, cstr);
-		cout << "werkt1";
+		cout << "werkt4";
 		shared_ptr<MenuDefinition> menudef = GameUICreator(lettertypeToezichthouder).createGameMenu();
 		cout << "werkt1";
 		vector<MenuItem> items = (*menudef).getMenuItems();
