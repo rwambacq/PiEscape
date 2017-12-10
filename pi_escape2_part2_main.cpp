@@ -55,6 +55,7 @@ void startGameFromLevel(int level, Graphics* graphics);
 void fill_level_loader(LevelLoader* level_loader);
 
 int main() {
+	cout << "test1";
 	t_vec4 col = { 1.0f, 0.0f, 0.0f, 1.0f };
 
     int imgFlags = IMG_INIT_PNG;
@@ -68,6 +69,8 @@ int main() {
    	FontManager lettertypeToezichthouder(graphics, &glGlyph);
 	
 	bool done = false;
+	cout << "test";
+
 	while (!done) {
 
 	// HERE IS WHERE THE INTRO MOVIE SHOULD BE PLAYED
