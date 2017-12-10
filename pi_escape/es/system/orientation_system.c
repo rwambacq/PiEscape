@@ -23,5 +23,5 @@ void system_orientation_update(OrientationSystem* system, Engine* engine) {
 	float value_x = get_imu_x();
 	float value_y = get_imu_y();
 	float value_z = get_imu_z();
-	printf("%f %f %f/n", value_x, value_y, value_z);
+	printf("imu %f %f %f/n", value_x, value_y, value_z);
 }
