@@ -46,8 +46,7 @@ void fill_level_loader(LevelLoader* level_loader);
 
 #if defined(RPI)
 int main() {
-	cout << "testen van scrollen aangezien menu op pi niet werkt";
-	showColor2(0);
+	
 }
 #else
 int main() {
