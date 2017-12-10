@@ -55,19 +55,22 @@ void startGameFromLevel(int level, Graphics* graphics);
 void fill_level_loader(LevelLoader* level_loader);
 
 int main() {
-	cout << "test1";
+	cout << "test1\n";
 	t_vec4 col = { 1.0f, 0.0f, 0.0f, 1.0f };
-
+	cout << "test2\n";
     int imgFlags = IMG_INIT_PNG;
+	cout << "test3\n";
     if(!(IMG_Init(imgFlags) & imgFlags)) {
         fatal("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
     }
+	cout << "test4\n";
 
     Graphics* graphics = graphics_alloc(0, 0);
+	cout << "test5\n";
     GLGlyph glGlyph;
-
+	cout << "test6\n";
    	FontManager lettertypeToezichthouder(graphics, &glGlyph);
-	
+	cout << "test7\n";
 	bool done = false;
 	cout << "test";
 
