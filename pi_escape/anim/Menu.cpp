@@ -55,10 +55,12 @@ void MenuController::menuLoop(std::vector<MenuItem>* menuItems, FontManager* man
 	this->mvcRef = &mvc;
 
 	view.setFontManager(manager);
-	view.setMVCRef(&mvc); // hier zit de fout: bij model heeft de juist lijst met MenuItems
-	// maar na deze call verwijst de MenuModel* in view naar een model met een baseMenu met size ???
-	// gezien while debugging...
+	view.setMVCRef(&mvc);
 	
+	int firstSelected = mvc.model.getSelected();
+
+	// GEBRUIK HIER BOVENSTAANDE INT OM DE LED FUNCTIE AAN TE ROEPEN (2 ANDERE PRINTS ZITTEN IN MENUUP en MENUDOWN)
+
 	SDL_Event event;
 	memset(&event, 0, sizeof(SDL_Event));
 
