@@ -19,9 +19,11 @@
 using namespace std;
 
 int aantal_bmp = 0;
+int getalx = 0;
 unsigned char header[14];
 unsigned char dipheader[40];
 unsigned char *colorzelf;
+
 
 extern "C" int maakFake(SPGM_RGBTRIPLE ledgrid[8][8], int hoogte, int breedte);
 
@@ -118,7 +120,7 @@ int maakFake(SPGM_RGBTRIPLE ledgrid[8][8], int hoogte, int breedte) {
 	aantal_bmp += 1;
 }
 
-void toonLed(int geval) {
+int toonLed(int geval) {
 
 	string c;
 	SPGM_RGBTRIPLE g = { 250,0,0 };
@@ -206,6 +208,11 @@ void toonLed(int geval) {
 	//opvullen voor letter
 
 	for (std::string::iterator it = c.begin(); it != c.end(); ++it) {
+		
+		if (getalx == 1) {
+			return 0;
+		}else{
+		
 		SPGM_RGBTRIPLE gridgroen[8][4];
 
 		if (*it == ' ') {
@@ -287,7 +294,6 @@ void toonLed(int geval) {
 			}
 
 		}
-
 		showColor2(gridzwart);
 		//aantal keer
 
@@ -302,11 +308,17 @@ void toonLed(int geval) {
 				}
 				gridzwart[y][7] = gridgroen[y][x];
 			}
+
 			showColor2(gridzwart);
 			sleep_ms(200);
 
-
 		}
+		}
+	}
+
+
+	if (getalx == 1) {
+		return 0;
 	}
 
 	//opkuis van led
@@ -322,10 +334,22 @@ void toonLed(int geval) {
 		showColor2(gridzwart);
 		sleep_ms(200);
 	}
+	return 0;
 }
 
+void changegetal(int getal) {
+	
+	std::thread first(aanroeper, getal);
+	first.detach();
+	
+}
+
+
 void aanroeper(int geval) {
-	for (int i = 0; i < 10000 ; i++){
-		cout << "oie brand";
+	getalx = 1;
+	sleep_ms(1000);
+	getalx = 0;
+	 while (getalx==0){
+		 toonLed(geval);
 	}
 }

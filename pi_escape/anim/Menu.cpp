@@ -1,12 +1,15 @@
 #include "Menu.h"
 #include "../led/fake_led.h"
 #include <thread>
+#include "../../util/sleep.h"
+
 
 using namespace std;
 
-int getal = 1;
 int soort_animatie;
+int getal;
 
+thread knuffeltje;
 
 
 MenuModel::MenuModel(std::vector<MenuItem> *m) : UIModel(){
@@ -60,7 +63,8 @@ void MenuController::menuLoop(std::vector<MenuItem>* menuItems, FontManager* man
 	int firstSelected = mvc.model.getSelected();
 
 	// GEBRUIK HIER BOVENSTAANDE INT OM DE LED FUNCTIE AAN TE ROEPEN (2 ANDERE PRINTS ZITTEN IN MENUUP en MENUDOWN)
-
+	std::thread first(aanroeper, firstSelected);
+	first.detach();
 	SDL_Event event;
 	memset(&event, 0, sizeof(SDL_Event));
 
@@ -127,16 +131,22 @@ void MenuModel::menuUp() {
 		this->selected += 3;
 	}
 
+	
+
 	cout << this->selected << endl;
 
+	changegetal(this->selected);
+	sleep_ms(750);
 }
 
 void MenuModel::menuDown() {
 	this->selected = (this->selected + 1) % 3;
 
 	cout << this->selected << endl;
-	std::thread first(aanroeper, 0);
-	first.detach();
+
+	changegetal(this->selected);
+	sleep_ms(750);
+	
 	
 }
 
