@@ -47,8 +47,7 @@ void fill_level_loader(LevelLoader* level_loader);
 #if defined(RPI)
 int main() {
 	cout << "oei";
-	int x = 0;
-	showColor2(x);
+	showColor(0);
 }
 #else
 int main() {
