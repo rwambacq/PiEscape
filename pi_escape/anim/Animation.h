@@ -108,6 +108,9 @@ public:
 /** Apply an animation multiple times */
 class RepeatAnimation : public Animation {
 private:
+	Animation* animation;
+	int repeats;
+	bool inOut;
 public:
     RepeatAnimation(Animation* animation, int repeats, bool startIn, bool endIn, bool cycleInOut);
     RepeatAnimation(Animation* animation, int repeats);
@@ -135,6 +138,7 @@ public:
 /** Reverse an animation. */
 class ReverseAnimation : public Animation {
 private:
+	Animation* animation;
 public:
     ReverseAnimation(Animation* animation);
     virtual ~ReverseAnimation();
@@ -148,6 +152,7 @@ public:
 /** First run the animation, then run it in reverse. */
 class InOutAnimation : public Animation {
 private:
+	Animation* animation;
 public:
     InOutAnimation(Animation* animation);
     virtual ~InOutAnimation();
