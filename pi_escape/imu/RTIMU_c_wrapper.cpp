@@ -1,4 +1,5 @@
 #include "RTIMU_c_wrapper.h"
+#include "RTIMULib.h"
 
 RTIMU_DATA imuData;
 RTIMU *imu;
