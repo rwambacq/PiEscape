@@ -45,7 +45,11 @@ void fill_level_loader(LevelLoader* level_loader);
 
 
 
-
+#if defined(RPI)
+int main() {
+	toonLed(0);
+	}
+#else
 int main() {
 	t_vec4 col = { 1.0f, 0.0f, 0.0f, 1.0f };
 
@@ -68,9 +72,8 @@ int main() {
 		lettertypeToezichthouder.setColor(col);
 		lettertypeToezichthouder.loadFont("arcade72", "pi_escape/graphics/arcade72.png", "pi_escape/graphics/arcade72.fnt");
 		
-		const char * c = lettertypeToezichthouder.getFontImageFilename().c_str();
 
-		gl_glyph_init(&glGlyph, graphics,"pi_escape/graphics/arcade72.png");
+		gl_glyph_init(&glGlyph, graphics, (char*)lettertypeToezichthouder.getFontImageFilename().c_str());
 
 		shared_ptr<MenuDefinition> menudef = GameUICreator(lettertypeToezichthouder).createGameMenu();
 		vector<MenuItem> items = (*menudef).getMenuItems();
@@ -230,5 +233,5 @@ void fill_level_loader(LevelLoader* level_loader) {
 	strcpy(level_loader->level_paths[8], "pi_escape/level/level_files/game2.lvl");
 	strcpy(level_loader->level_paths[9], "pi_escape/level/level_files/game3.lvl");
 }
-
+#endif
 
