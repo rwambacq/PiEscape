@@ -10,7 +10,7 @@
 
 void delay(int t);
 
-void display_ledgrid(SPGM_RGBTRIPLE* ledgrid, const char* framebuffer) {
+void display_ledgrid(SPGM_RGBTRIPLE ledgrid[8][8], const char* framebuffer) {
 	int i;
 	int fbfd;
 	uint16_t *map;
@@ -39,12 +39,14 @@ void display_ledgrid(SPGM_RGBTRIPLE* ledgrid, const char* framebuffer) {
 	p = map;
 	memset(map, 0, FILESIZE);
 
-	for (i = 0; i < NUM_WORDS; i++) {
-		SPGM_RGBTRIPLE kleur = ledgrid[i];
-		int Uint16_value = (((31 * (kleur.rgbRed + 4)) / 255) << 11) |
-			(((63 * (kleur.rgbGreen + 2)) / 255) << 5) |
-			((31 * (kleur.rgbBlue + 4)) / 255);
-		*(p + i) = Uint16_value;
+	for (i = 0; i < 8; i++) {
+
+		for (int x = 0; x < 8; x++) {
+			SPGM_RGBTRIPLE kleur = ledgrid[i][x];
+			int Uint16_value = (((31 * (kleur.rgbRed + 4)) / 255) << 11) |
+				(((63 * (kleur.rgbGreen + 2)) / 255) << 5) |
+				((31 * (kleur.rgbBlue + 4)) / 255);
+			*(p + (i * 8) + x) = Uint16_value;
+		}
 	}
 }
-
