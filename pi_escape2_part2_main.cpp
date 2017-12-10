@@ -65,7 +65,7 @@ int main() {
     }
 	cout << "test4\n";
 
-   // Graphics* graphics = graphics_alloc(0, 0);
+	Graphics* graphics = graphics_alloc(0, 0);
 	cout << "test5\n";
     GLGlyph glGlyph;
 	cout << "test6\n";
