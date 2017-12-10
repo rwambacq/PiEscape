@@ -1,3 +1,5 @@
+/////////
+
 #define __STDC_FORMAT_MACROS
 
 #ifdef __cplusplus
@@ -8,28 +10,6 @@ extern "C"
 #include "pi_escape/graphics/opengl_game_renderer.h"
 #include "pi_escape/es/game.h"
 
-
-#define __STDC_FORMAT_MACROS
-#include <inttypes.h>
-
-#ifndef STDIO_INCLUDED
-#include <stdio.h>
-#define STDIO_INCLUDED
-#endif
-
-
-#include "util/sleep.h"
-#include "pi_escape/es/game.h"
-
-#include <assert.h>
-
-#include "pi_escape/es/es_memory_manager.h"
-#define BENCHLOG_FILE_PATH "benchmarks/benchlog.txt"
-
-#include <SDL.h>
-#undef main //Weird bug on windows where SDL overwrite main definition
-#include <SDL_timer.h>
-
 #ifdef __cplusplus
 }
 #endif
@@ -38,11 +18,7 @@ extern "C"
 #include <SDL.h>
 #undef main //Weird bug on windows where SDL overwrite main definition
 #include <SDL_timer.h>
-#include "util/sleep.h"
 #include "pi_escape/anim/FontManager.h"
-#include "pi_escape/anim/GameUICreator.h"
-#include <string>
-#include <cassert>
 #include <string>
 #include <cassert>
 #include <iostream>
@@ -53,7 +29,11 @@ extern "C"
 #include <bitset>
 #include <iterator>
 #include "util/sleep.h"
+#include "pi_escape/led/ledcontrol.h"
 #include "pi_escape/led/fake_led.h"
+#include "pi_escape/anim/GameUICreator.h"
+
+
 
 using namespace std;
 
