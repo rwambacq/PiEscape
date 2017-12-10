@@ -5,6 +5,13 @@
 #include <math.h>
 #include <glmc.h>
 
+typedef struct interval {
+	float begin;
+	float end;
+	bool inc;
+	int incrementIndex;
+} interval;
+
 typedef struct hsv {
 	float h;
 	float s;
@@ -36,7 +43,7 @@ class FadeInAnimation : public Animation {
 public:
     virtual ~FadeInAnimation();
 
-    std::vector<GlyphDrawCommand> applyTransform(
+    virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
             float position)
     const override;
@@ -52,7 +59,7 @@ public:
     ColorAnimation(float r, float g, float b);
     virtual ~ColorAnimation();
     
-    std::vector<GlyphDrawCommand> applyTransform(
+    virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
             float position)
     const override;
@@ -62,10 +69,9 @@ public:
 class RainbowColorAnimation : public Animation {
 private:
 public:
-    RainbowColorAnimation();
     virtual ~RainbowColorAnimation();
     
-    std::vector<GlyphDrawCommand> applyTransform(
+    virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
             float position)
     const override;
@@ -91,7 +97,6 @@ class GlyphIteratingAnimation : public Animation {
 private:
 	Animation* animation;
 	float overlap;
-	int animIndex = 0;
 public:
     /**
      * @param animation
@@ -100,7 +105,7 @@ public:
     GlyphIteratingAnimation(Animation* animation, float overlap);
     virtual ~GlyphIteratingAnimation();
     
-    std::vector<GlyphDrawCommand> applyTransform(
+    virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
             float position)
     const override;
@@ -109,12 +114,15 @@ public:
 /** Apply an animation multiple times */
 class RepeatAnimation : public Animation {
 private:
+	Animation* animation;
+	int repeats;
+	bool inOut;
 public:
     RepeatAnimation(Animation* animation, int repeats, bool startIn, bool endIn, bool cycleInOut);
     RepeatAnimation(Animation* animation, int repeats);
     virtual ~RepeatAnimation();
     
-    std::vector<GlyphDrawCommand> applyTransform(
+    virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
             float position)
     const override;
@@ -127,7 +135,7 @@ public:
     SineAnimation(Animation* animation);
     virtual ~SineAnimation();
     
-    std::vector<GlyphDrawCommand> applyTransform(
+    virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
             float position)
     const override;
@@ -136,11 +144,12 @@ public:
 /** Reverse an animation. */
 class ReverseAnimation : public Animation {
 private:
+	Animation* animation;
 public:
     ReverseAnimation(Animation* animation);
     virtual ~ReverseAnimation();
     
-    std::vector<GlyphDrawCommand> applyTransform(
+    virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
             float position)
     const override;
@@ -149,11 +158,12 @@ public:
 /** First run the animation, then run it in reverse. */
 class InOutAnimation : public Animation {
 private:
+	Animation* animation;
 public:
     InOutAnimation(Animation* animation);
     virtual ~InOutAnimation();
     
-    std::vector<GlyphDrawCommand> applyTransform(
+    virtual std::vector<GlyphDrawCommand> applyTransform(
             const std::vector<GlyphDrawCommand>& draws,
             float position)
     const override;
