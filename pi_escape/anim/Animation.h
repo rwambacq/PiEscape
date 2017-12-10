@@ -2,7 +2,7 @@
 #define PIESCAPE2_ANIMATION_H
 
 #include "FontManager.h"
-
+#include <math.h>
 #include <glmc.h>
 
 typedef struct hsv {
