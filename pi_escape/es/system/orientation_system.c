@@ -32,7 +32,7 @@ void system_orientation_update(OrientationSystem* system, Engine* engine) {
 				cameraLookFrom->Zdegrees = 0.0f;
 			}
 			if (cameraLookFrom->Zdegrees > 90.0f) {
-				cameraLookFrom->Zdegrees = 90.0f;
+				cameraLookFrom->Zdegrees = 90.0f - 0.001f;
 			}
 		}
 	}
