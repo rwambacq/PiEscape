@@ -2,8 +2,15 @@
 #define PIESCAPE2_ANIMATION_H
 
 #include "FontManager.h"
-
+#include <math.h>
 #include <glmc.h>
+
+typedef struct interval {
+	float begin;
+	float end;
+	bool inc;
+	int incrementIndex;
+} interval;
 
 typedef struct hsv {
 	float h;
@@ -90,7 +97,6 @@ class GlyphIteratingAnimation : public Animation {
 private:
 	Animation* animation;
 	float overlap;
-	int animIndex = 0;
 public:
     /**
      * @param animation

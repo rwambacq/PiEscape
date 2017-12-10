@@ -48,9 +48,7 @@ void MenuController::menuLoop(std::vector<MenuItem>* menuItems, FontManager* man
 	this->mvcRef = &mvc;
 
 	view.setFontManager(manager);
-	view.setMVCRef(&mvc); // hier zit de fout: bij model heeft de juist lijst met MenuItems
-	// maar na deze call verwijst de MenuModel* in view naar een model met een baseMenu met size ???
-	// gezien while debugging...
+	view.setMVCRef(&mvc);
 	
 	SDL_Event event;
 	memset(&event, 0, sizeof(SDL_Event));

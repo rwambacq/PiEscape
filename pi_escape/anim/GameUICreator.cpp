@@ -1,8 +1,4 @@
 #include "GameUICreator.h"
-#include "../graphics/opengl_game_renderer.h"
-#include "../graphics/gl_glyph.h"
-#include "../es/game.h"
-
 #include "MenuBuilder.h"
 #include "MovieBuilder.h"
 
