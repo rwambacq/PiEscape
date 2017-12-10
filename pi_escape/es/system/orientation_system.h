@@ -1,7 +1,6 @@
 #ifndef ORIENTATION_SYSTEM_H
 #define ORIENTATION_SYSTEM_H
 
-#include "RTIMU_c_wrapper.h"
 #include <stdint.h>
 
 typedef struct OrientationSystem {
