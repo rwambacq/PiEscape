@@ -9,7 +9,7 @@ shared_ptr<MenuDefinition> MenuBuilder::build() {
 	int i=0;
 
 	//middle of the screen + amount_of_entries/2*MENU_ITEM_Y_SPACING above 
-	int topY = 1080/2 + menuSize/2*MENU_ITEM_Y_SPACING; 
+	int topY = 256/2 + menuSize/2*MENU_ITEM_Y_SPACING; 
 
 	int maxTextLength = 0;
 	for (i = 0; i < entries.size(); i++) {
@@ -17,7 +17,7 @@ shared_ptr<MenuDefinition> MenuBuilder::build() {
 			maxTextLength = entries.at(i).getAction().size();
 		}
 	}
-	int lTopX = 1920 / 2 - maxTextLength / 2 * MEAN_LETTER_WIDTH;
+	int lTopX = 512 / 2 - maxTextLength / 2 * MEAN_LETTER_WIDTH;
 
 	for (i = 0; i < entries.size(); i++) {
 		EntryBuilder cur = entries.at(i);
