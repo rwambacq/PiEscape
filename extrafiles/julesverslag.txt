@@ -1,0 +1,29 @@
+Verslag Jules De Vos sysprog project
+
+[Sensor input via I2C: temperatuur, luchtdruk en luchtvochtigheid]
+Ik heb eerst de i2c functies gemaakt m.b.v. de documentatie.
+Voor de inleesfuncties heb ik gekozen om te werken met de decimale waarde van de registers.
+Deze worden omgevormd door het gebruik van modulo rekenen en integer deling.
+De waarden worden dan doorgeven aan het real_sensor struct.
+
+[Sensor Emulatie]
+De waarden voor temperatuur, luchtdruk en vochtigheid zijn te veranderen door de t, p en h toesten. 
+Wanner een van deze worden ingedrukt zal het bijhorende veld kunnen aangepast worden door gebruik te maken van - en +.
+
+[Sensor systems]
+De sensorwaarden zelf worden bijgehouden via het process_sensor struct.
+Op een gewone PC worden ze geinitialiseerd met de normaalwaarden: 15°C 1013Hpa en 35%Humidity.
+In dit systeem worden de kleuren berekend met behulp van de sinusfunctie.
+ik heb ervoor gekozen voor een periode van 30°C/Hpa/%.
+deze worden dan doorgegeven naar het rendersystem.
+
+[problemen en bevindingen]
+De meeste problemen waar ik tegen aan liep waren kleine foutjes.
+Zoals het declareren maar niet initialiseren van variabelen en structs.
+Ook het gebruik maken van verkeerde gevenstypes en het vergeten casten naar het juiste type.
+
+Ik heb vooral bevonden dat debuggen op de Pi zelf eerder moeilijk is.
+Hiervoor heb ik vooral gebruik gemaakt van een groot aantal printf opdrachten om te zien wat er precies gebeurt.
+Ik zie nu ook zeker het nut in van een goede engine system en struct structuur.
+Deze kunnen heel gemakkelijk met elkaar communiceren
+

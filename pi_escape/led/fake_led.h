@@ -1,5 +1,4 @@
 #ifndef _FAKE_LED_H
 #define _FAKE_LED_H
-//TODO
-
+#include "../../util/rgb_triple.h"
 #endif

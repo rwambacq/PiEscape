@@ -114,7 +114,7 @@ int main(int argc, char **argv) {
 			}
 			else {
 				player_blocked = 0;
-      }
+			}
 			
 		}
 		else if (exit_comp->done && level_nr == 9) {

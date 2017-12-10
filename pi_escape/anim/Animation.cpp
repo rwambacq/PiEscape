@@ -15,9 +15,9 @@ vector<GlyphDrawCommand> Animation::applyTransform(const vector<GlyphDrawCommand
 vector<GlyphDrawCommand> FadeInAnimation::applyTransform(const std::vector<GlyphDrawCommand>& draws, float position) const {
     float curAlpha = position;
     
-    std::vector<GlyphDrawCommand> res;
+    vector<GlyphDrawCommand> res;
     
-    for (std::vector<GlyphDrawCommand>::const_iterator it = draws.begin(); it != draws.end(); it++) {
+    for (vector<GlyphDrawCommand>::const_iterator it = draws.begin(); it != draws.end(); it++) {
         const GlyphDrawCommand& cur = *it;
         GlyphDrawCommand replacement = cur.changeAlpha(cur.getColor()[3] * curAlpha);
         res.push_back(replacement);
@@ -65,10 +65,10 @@ vector<GlyphDrawCommand> ColorAnimation::applyTransform(const vector<GlyphDrawCo
     return res;
 }
 
-std::vector<GlyphDrawCommand> RainbowColorAnimation::applyTransform( const std::vector<GlyphDrawCommand>& draws, float position) const {
-	std::vector<GlyphDrawCommand> res;
+vector<GlyphDrawCommand> RainbowColorAnimation::applyTransform( const vector<GlyphDrawCommand>& draws, float position) const {
+	vector<GlyphDrawCommand> res;
 
-	for (std::vector<GlyphDrawCommand>::const_iterator it = draws.begin(); it != draws.end(); it++) {
+	for (vector<GlyphDrawCommand>::const_iterator it = draws.begin(); it != draws.end(); it++) {
 		const GlyphDrawCommand& cur = *it;
 
 		rgb this_rgb;

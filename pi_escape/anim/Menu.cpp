@@ -1,6 +1,8 @@
 #include "Menu.h"
 
+
 using namespace std;
+
 
 MenuModel::MenuModel(std::vector<MenuItem> *m) : UIModel(){
 	this->baseMenu = *m;
@@ -192,6 +194,12 @@ void MenuGLView::draw() {
 	}
 	graphics_end_draw(this->manager->getGraphics());
 }
+
+
+
+
+
+
 
 MenuController::MenuController() {
 	
