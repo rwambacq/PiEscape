@@ -63,6 +63,15 @@ using namespace std;
 void startGameFromLevel(int level, Graphics* graphics);
 void fill_level_loader(LevelLoader* level_loader);
 
+
+
+
+#if defined(RPI)
+int main() {
+	cout << "testen van scrollen aangezien menu op pi niet werkt"
+	showColor2(0);
+}
+#else
 int main() {
 	t_vec4 col = { 1.0f, 0.0f, 0.0f, 1.0f };
 
@@ -117,7 +126,7 @@ int main() {
 
 	return 0;
 }
-
+#endif
 void startGameFromLevel(int lvl, Graphics* graphics) {
 	player_blocked = 1;
 	// if you call the main game with more than one argument, assume it is benchmarking.
