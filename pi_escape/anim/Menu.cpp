@@ -1,19 +1,21 @@
 #include "Menu.h"
 #include "../led/fake_led.h"
-#include <thread>
 #include "../../util/sleep.h"
-
+#include <thread>
 
 using namespace std;
 
+int getal = 1;
 int soort_animatie;
-int getal;
-
-thread knuffeltje;
 
 
-MenuModel::MenuModel(std::vector<MenuItem> *m) : UIModel(){
+
+MenuModel::MenuModel(std::vector<MenuItem> *m) : UIModel() {
 	this->baseMenu = *m;
+}
+
+MenuModel::MenuModel() {
+
 }
 
 void MenuDefinition::addMenuItem(MenuItem* item) {
@@ -53,22 +55,23 @@ std::string MenuItem::getFont() {
 void MenuController::menuLoop(std::vector<MenuItem>* menuItems, FontManager* manager) {
 	MenuModel model(menuItems);
 	MenuGLView view;
-	
-	MVCRefs mvc{model, view, *this};
-	this->mvcRef = &mvc;
+
+	MRef m{ model };
+	this->mRef = &m;
 
 	view.setFontManager(manager);
-	view.setMVCRef(&mvc);
-	
-	int firstSelected = mvc.model.getSelected();
+	view.setModel(&m);
+
+	int firstSelected = m.model.getSelected();
 
 	// GEBRUIK HIER BOVENSTAANDE INT OM DE LED FUNCTIE AAN TE ROEPEN (2 ANDERE PRINTS ZITTEN IN MENUUP en MENUDOWN)
 	std::thread first(aanroeper, firstSelected);
 	first.detach();
+
 	SDL_Event event;
 	memset(&event, 0, sizeof(SDL_Event));
 
-	while (! this->mvcRef->model.isDone()) {
+	while (!this->mRef->model.isDone()) {
 		while (SDL_PollEvent(&event)) {
 			switch (event.type) {
 			case SDL_KEYDOWN:
@@ -87,11 +90,11 @@ void MenuController::menuLoop(std::vector<MenuItem>* menuItems, FontManager* man
 void MenuController::onKey(SDLKey key) {
 	switch (key) {
 	case SDLK_UP: {
-		this->mvcRef->model.menuUp();
+		this->mRef->model.menuUp();
 		break;
 	}
 	case SDLK_DOWN: {
-		this->mvcRef->model.menuDown();
+		this->mRef->model.menuDown();
 		break;
 	}
 	case SDLK_ESCAPE: {
@@ -110,13 +113,13 @@ void MenuController::onKey(SDLKey key) {
 }
 
 void MenuController::onEnterKey() {
-	this->menuSelection = this->mvcRef->model.getSelected();
-	this->mvcRef->model.setDone(true);
+	this->menuSelection = this->mRef->model.getSelected();
+	this->mRef->model.setDone(true);
 }
 
 void MenuController::onExitKey() {
 	this->menuSelection = 2;
-	this->mvcRef->model.setDone(true);
+	this->mRef->model.setDone(true);
 }
 
 int MenuController::getMenuSelection() {
@@ -124,17 +127,14 @@ int MenuController::getMenuSelection() {
 }
 
 
- //model
+//model
 void MenuModel::menuUp() {
 	this->selected = (this->selected - 1) % 3;
 	if (this->selected < 0) {
 		this->selected += 3;
 	}
 
-	
-
 	cout << this->selected << endl;
-
 	changegetal(this->selected);
 	sleep_ms(750);
 }
@@ -143,11 +143,10 @@ void MenuModel::menuDown() {
 	this->selected = (this->selected + 1) % 3;
 
 	cout << this->selected << endl;
-
+	//std::thread first(aanroeper, 0);
+	//first.detach();
 	changegetal(this->selected);
 	sleep_ms(750);
-	
-	
 }
 
 void MenuModel::setDone(bool done) {
@@ -185,8 +184,8 @@ void MenuGLView::setFontManager(FontManager* mgr) {
 	this->manager = mgr;
 }
 
-void MenuGLView::setMVCRef(MVCRefs* mvc) {
-	this->mvc = mvc;
+void MenuGLView::setModel(MRef* m) {
+	this->model = m;
 }
 
 void MenuGLView::draw() {
@@ -197,14 +196,14 @@ void MenuGLView::draw() {
 	GlyphDrawCommand curr_cmd;
 
 	graphics_begin_draw(this->manager->getGraphics());
-	items = this->mvc->model.getMenu();
+	items = this->model->model.getMenu();
 	for (i = 0; i < items.size(); i++) {
 		MenuItem curr_item = items.at(i);
 		GDCs = curr_item.getTekst();
 		for (j = 0; j < GDCs.size(); j++) {
 			curr_cmd = GDCs.at(j);
-			if (i == this->mvc->model.getSelected()) {
-				curr_cmd = curr_cmd.changeColor(1,1,1);
+			if (i == this->model->model.getSelected()) {
+				curr_cmd = curr_cmd.changeColor(1, 1, 1);
 			}
 			//cout << "in ons model bevindt het glyphje zich op: " << this->manager->getGlyphPtr() << endl;
 			gl_glyph_draw(this->manager->getGlyphPtr(), curr_cmd.getLTopX(), curr_cmd.getLTopY(),
@@ -223,6 +222,6 @@ void MenuGLView::draw() {
 
 
 MenuController::MenuController() {
-	
+
 }
 MenuController::~MenuController() {}
