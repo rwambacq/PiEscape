@@ -221,8 +221,8 @@ float fmax_max(float f1, float f2) {
 	return f2;
 }
 
-std::vector<GlyphDrawCommand> MoveAnimation::applyTransform( const std::vector<GlyphDrawCommand>& draws, float position) const {
-	std::vector<GlyphDrawCommand> res;
+vector<GlyphDrawCommand> MoveAnimation::applyTransform( const std::vector<GlyphDrawCommand>& draws, float position) const {
+	vector<GlyphDrawCommand> res;
 
 	for (std::vector<GlyphDrawCommand>::const_iterator it = draws.begin(); it != draws.end(); it++) {
 		const GlyphDrawCommand& cur = *it;
@@ -244,14 +244,133 @@ MoveAnimation::~MoveAnimation() {
 
 }
 
-GlyphIteratingAnimation::GlyphIteratingAnimation(Animation* animation, float overlap) : animation(animation), overlap(overlap) {}
+GlyphIteratingAnimation::GlyphIteratingAnimation(Animation* animation, float overlap) : animation(animation){
+	if (overlap > 1.0f) {
+		this->overlap = overlap;
+	}
+	else {
+		this->overlap = overlap;
+	}
+}
 
 GlyphIteratingAnimation::~GlyphIteratingAnimation() {
 
 }
 
 vector<GlyphDrawCommand> GlyphIteratingAnimation::applyTransform(const vector<GlyphDrawCommand>& draws, float position) const{
-	return draws;
+	vector<GlyphDrawCommand> res;
+	vector<GlyphDrawCommand> singleGlyph;
+	int i = 0;
+	int glyphAmount = draws.size();
+	vector<float> positions = vector<float>(glyphAmount); // all separate animation progresses
+
+	// calculate positions out of @position
+	float rangeAmount = glyphAmount*overlap;
+	float delta = 1.0f / rangeAmount;
+		// construct the possible ranges
+	vector<interval> intervals;
+	if (glyphAmount % 2 == 0) { // even, there will be 2 intervals of size glyphamount*delta
+		float nextBegin = 0.0f;
+		for (i = 0; i < glyphAmount; i++) {
+			interval curInterval;
+			curInterval.begin = nextBegin;
+			curInterval.end = nextBegin + (i+1)*delta;
+			nextBegin = curInterval.end;
+			if ( (curInterval.begin == 0.0f && position <= curInterval.end) || (position > curInterval.begin && position <= curInterval.end) ) {
+				// this is the interval in which our position lies
+				curInterval.inc = true;
+			}
+			else {
+				curInterval.inc = false;
+			}
+			curInterval.incrementIndex = i; // i and below have to be incremented
+			intervals.push_back(curInterval);
+		}
+		for (i = glyphAmount; i > 0; i--) {
+			interval curInterval;
+			curInterval.begin = nextBegin;
+			curInterval.end = nextBegin + i*delta;
+			nextBegin = curInterval.end;
+			if (position > curInterval.begin && position <= curInterval.end) {
+				// this is the interval in which our position lies
+				curInterval.inc = true;
+			}
+			else {
+				curInterval.inc = false;
+			}
+			curInterval.incrementIndex = glyphAmount - 1; // glyphAmount - 1 and (intervalwidth/delta) elements before it should be incremented
+			intervals.push_back(curInterval);
+		}
+	// at this point, all intervals should be constructed correctly (for an even amount of glyphs)
+	}
+	else {
+		float nextBegin = 0.0f;
+		for (i = 0; i < glyphAmount; i++) {
+			interval curInterval;
+			curInterval.begin = nextBegin;
+			curInterval.end = nextBegin + (i + 1)*delta;
+			nextBegin = curInterval.end;
+			if ((curInterval.begin == 0.0f && position <= curInterval.end) || (position > curInterval.begin && position <= curInterval.end)) {
+				// this is the interval in which our position lies
+				curInterval.inc = true;
+			}
+			else {
+				curInterval.inc = false;
+			}
+			curInterval.incrementIndex = i; // i and below have to be incremented
+			intervals.push_back(curInterval);
+		}
+		for (i = glyphAmount-1; i > 0; i--) {
+			interval curInterval;
+			curInterval.begin = nextBegin;
+			curInterval.end = nextBegin + i*delta;
+			nextBegin = curInterval.end;
+			if (position > curInterval.begin && position <= curInterval.end) {
+				// this is the interval in which our position lies
+				curInterval.inc = true;
+			}
+			else {
+				curInterval.inc = false;
+			}
+			curInterval.incrementIndex = glyphAmount - 1; // glyphAmount - 1 and (intervalwidth/delta) elements before it should be incremented
+			intervals.push_back(curInterval);
+		}
+		// at this point, all intervals should be constructed correctly (for an even amount of glyphs)
+	}
+		// calculate every animation position
+		// do this by running over all intervals up until the one in which our @position lies
+		// for this last one, add (@position-interval.begin)/delta * overlap to every applicable animation position
+	//first fill up positions
+	for (i = 0; i < glyphAmount; i++) {
+		positions.push_back(0.0f);
+	}
+	i = 0;
+	while (i < intervals.size() && !intervals.at(i).inc) {
+		interval curInterval = intervals.at(i);
+		float intervalSize = curInterval.end - curInterval.begin;
+		int amIntervals = floor(intervalSize / delta); // amount of intervals that should be incremented with overlap
+		for (int j = 0; j < amIntervals; j++) {
+			positions.at(curInterval.incrementIndex - j) += this->overlap;
+		}
+	}
+	// i stopped at index of interval containing @position,
+	// because it's impossible to exceed intervals.size()-1: at least 1 interval should contain @position
+	interval containingInterval = intervals.at(i);
+	float intervalSize = containingInterval.end - containingInterval.begin;
+	float toIncrement = (position - containingInterval.begin) / delta * this->overlap;
+	int amIntervals = floor(intervalSize / delta);
+	for (int j = 0; j < amIntervals; j++) {
+		positions.at(containingInterval.incrementIndex - j) += toIncrement;
+	}
+
+	// apply every animation with according position
+	for (i = 0; i < positions.size(); i++) {
+		singleGlyph.clear();
+		singleGlyph.push_back(draws.at(i));
+		res.push_back(this->animation->applyTransform(singleGlyph, positions.at(i)).at(0));
+	}
+
+	return res;
 }
 
 vector<GlyphDrawCommand> ReverseAnimation::applyTransform(const vector<GlyphDrawCommand>& draws, float position) const {
