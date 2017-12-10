@@ -59,8 +59,6 @@ extern "C"
 
 using namespace std;
 
-int getal = 1;
-int soort_animatie;
 
 void startGameFromLevel(int level, Graphics* graphics);
 void fill_level_loader(LevelLoader* level_loader);
