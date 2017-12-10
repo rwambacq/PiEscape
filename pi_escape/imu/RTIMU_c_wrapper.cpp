@@ -10,7 +10,7 @@ void sensor_imu_init() {
 }
 
 void check_new_imudata() {
-	if (imu->IMUread()) {
+	if (imu->IMURead()) {
 		imuData = imu->getIMUData();
 	}
 }
