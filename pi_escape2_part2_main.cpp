@@ -46,7 +46,7 @@ void fill_level_loader(LevelLoader* level_loader);
 
 #if defined(RPI)
 int main() {
-	
+	cout << "oei";
 }
 #else
 int main() {
@@ -103,7 +103,7 @@ int main() {
 
 	return 0;
 }
-#endif
+
 void startGameFromLevel(int lvl, Graphics* graphics) {
 	player_blocked = 1;
 	// if you call the main game with more than one argument, assume it is benchmarking.
@@ -231,4 +231,6 @@ void fill_level_loader(LevelLoader* level_loader) {
 	strcpy(level_loader->level_paths[8], "pi_escape/level/level_files/game2.lvl");
 	strcpy(level_loader->level_paths[9], "pi_escape/level/level_files/game3.lvl");
 }
+
+#endif
 
