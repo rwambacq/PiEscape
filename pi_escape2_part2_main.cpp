@@ -8,6 +8,30 @@ extern "C"
 #include "pi_escape/graphics/opengl_game_renderer.h"
 #include "pi_escape/es/game.h"
 
+
+#define __STDC_FORMAT_MACROS
+#include <inttypes.h>
+
+#ifndef STDIO_INCLUDED
+#include <stdio.h>
+#define STDIO_INCLUDED
+#endif
+
+
+#include "util/sleep.h"
+#include "pi_escape/graphics/opengl_game_renderer.h"
+#include "pi_escape/level/levelloader.h"
+#include "pi_escape/es/game.h"
+
+#include <assert.h>
+
+#include "pi_escape/es/es_memory_manager.h"
+#define BENCHLOG_FILE_PATH "benchmarks/benchlog.txt"
+
+#include <SDL.h>
+#undef main //Weird bug on windows where SDL overwrite main definition
+#include <SDL_timer.h>
+
 #ifdef __cplusplus
 }
 #endif
@@ -31,59 +55,37 @@ void startGameFromLevel(int level, Graphics* graphics);
 void fill_level_loader(LevelLoader* level_loader);
 
 int main() {
-	cout << "test1\n";
 	t_vec4 col = { 1.0f, 0.0f, 0.0f, 1.0f };
-	cout << "test2\n";
-    int imgFlags = IMG_INIT_PNG;
-	cout << "test3\n";
-    if(!(IMG_Init(imgFlags) & imgFlags)) {
-        fatal("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
-    }
-	cout << "test4\n";
+
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags) & imgFlags)) {
+		fatal("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+	}
 
 	Graphics* graphics = graphics_alloc(0, 0);
-	cout << "test5\n";
-    GLGlyph glGlyph;
-	cout << "test6\n";
-   	FontManager lettertypeToezichthouder(graphics, &glGlyph);
-	cout << "test7\n";
-	bool done = false;
-	cout << "test";
+	GLGlyph glGlyph;
 
+	FontManager lettertypeToezichthouder(graphics, &glGlyph);
+
+	bool done = false;
 	while (!done) {
 
-	// HERE IS WHERE THE INTRO MOVIE SHOULD BE PLAYED
+		// HERE IS WHERE THE INTRO MOVIE SHOULD BE PLAYED
 
-	// START MENU
-		cout << "werkt1";
+		// START MENU
 		lettertypeToezichthouder.setColor(col);
-		cout << "werkt2";
 		lettertypeToezichthouder.loadFont("arcade72", "pi_escape/graphics/arcade72.png", "pi_escape/graphics/arcade72.fnt");
-		cout << "werkt3";
-		std::string fromStringFont = lettertypeToezichthouder.getFontImageFilename();
-		char *cstr = new char[fromStringFont.length() + 1];
-		strcpy(cstr, fromStringFont.c_str());
 
-		try
-		{
-			gl_glyph_init(&glGlyph, graphics, cstr);
-		}
-		catch (std::exception& e)
-		{
-			std::cerr << "Exception catched : " << e.what() << std::endl;
-		}
+		gl_glyph_init(&glGlyph, graphics, (char*)lettertypeToezichthouder.getFontImageFilename().c_str());
 
-		cout << "werkt4";
 		shared_ptr<MenuDefinition> menudef = GameUICreator(lettertypeToezichthouder).createGameMenu();
-		cout << "werkt1";
 		vector<MenuItem> items = (*menudef).getMenuItems();
-		cout << "werkt1";
+
 		MenuController controller;
-		cout << "werkt1";
 		controller.menuLoop(&items, &lettertypeToezichthouder);
-		cout << "werkt2";
-	// CHECK SELECTION AND EXECUTE ACTION ACCORDINGLY
-		
+
+		// CHECK SELECTION AND EXECUTE ACTION ACCORDINGLY
+
 		switch (controller.getMenuSelection()) {
 		case 0:
 			startGameFromLevel(0, graphics);
@@ -97,32 +99,28 @@ int main() {
 			done = true;
 			break;
 		}
-		cout << "werkt3";
 		glmc_vec3_set(graphics->background_color, 0.0f, 0.0f, 0.0f);
 
 	}
-	cout << "werkt4";
-    gl_glyph_free(&glGlyph);
-    graphics_free(graphics);
-	cout << "werkt5";
-    free(graphics);
+	gl_glyph_free(&glGlyph);
+	graphics_free(graphics);
+	free(graphics);
 
-	cout << "werkt6";
-    return 0;
+	return 0;
 }
 
 void startGameFromLevel(int lvl, Graphics* graphics) {
 	player_blocked = 1;
 	// if you call the main game with more than one argument, assume it is benchmarking.
 	/*if (argc > 1) {
-		printf("benchmark mode\n\n%d\n", logging_benchmark);
-		logging_benchmark = 1;
-		benchfile = fopen(BENCHLOG_FILE_PATH, "w");
-		if (benchfile == NULL) { printf("Error when opening file!\nCalls to memory mgmt will not be logged!\n"); exit(1); }
-		else { printf("benchmark file is: %s\n", BENCHLOG_FILE_PATH); }
+	printf("benchmark mode\n\n%d\n", logging_benchmark);
+	logging_benchmark = 1;
+	benchfile = fopen(BENCHLOG_FILE_PATH, "w");
+	if (benchfile == NULL) { printf("Error when opening file!\nCalls to memory mgmt will not be logged!\n"); exit(1); }
+	else { printf("benchmark file is: %s\n", BENCHLOG_FILE_PATH); }
 	}
 	else {
-		printf("normal mode\n\n");
+	printf("normal mode\n\n");
 	}*/
 
 	int imgFlags = IMG_INIT_PNG;
@@ -222,7 +220,7 @@ void startGameFromLevel(int lvl, Graphics* graphics) {
 	free(level_loader);
 
 	/*if (logging_benchmark) {
-		fclose(benchfile);
+	fclose(benchfile);
 	}*/
 }
 
