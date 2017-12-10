@@ -87,7 +87,15 @@ int main() {
 		std::string fromStringFont = lettertypeToezichthouder.getFontImageFilename();
 		char *cstr = new char[fromStringFont.length() + 1];
 		strcpy(cstr, fromStringFont.c_str());
-		gl_glyph_init(&glGlyph, graphics, cstr);
+
+		try
+		{
+			gl_glyph_init(&glGlyph, graphics, cstr);
+		}
+		catch (std::exception& e)
+		{
+			std::cerr << "Exception catched : " << e.what() << std::endl;
+		}
 		cout << "werkt4";
 		shared_ptr<MenuDefinition> menudef = GameUICreator(lettertypeToezichthouder).createGameMenu();
 		cout << "werkt1";
