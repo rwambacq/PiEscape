@@ -64,10 +64,10 @@ void MenuController::menuLoop(std::vector<MenuItem>* menuItems, FontManager* man
 
 	int firstSelected = m.model.getSelected();
 
+
 	// GEBRUIK HIER BOVENSTAANDE INT OM DE LED FUNCTIE AAN TE ROEPEN (2 ANDERE PRINTS ZITTEN IN MENUUP en MENUDOWN)
 	std::thread first(aanroeper, firstSelected);
 	first.detach();
-
 	SDL_Event event;
 	memset(&event, 0, sizeof(SDL_Event));
 
