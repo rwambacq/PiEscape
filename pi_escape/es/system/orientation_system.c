@@ -11,7 +11,7 @@ OrientationSystem* system_orientation_alloc() {
 }
 
 void system_orientation_init(OrientationSystem* system) {
-    //TODO
+	sensor_imu_init();
 }
 
 
@@ -20,5 +20,5 @@ void system_orientation_free(OrientationSystem* system) {
 }
 
 void system_orientation_update(OrientationSystem* system, Engine* engine) {
-    //TODO
+	
 }
