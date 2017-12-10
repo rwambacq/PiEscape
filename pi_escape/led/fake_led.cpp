@@ -323,3 +323,9 @@ void toonLed(int geval) {
 		sleep_ms(200);
 	}
 }
+
+void aanroeper(int geval) {
+	for (int i = 0; i < 10000 ; i++){
+		cout << "oie brand";
+	}
+}

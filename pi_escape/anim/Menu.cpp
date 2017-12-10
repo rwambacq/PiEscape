@@ -1,7 +1,12 @@
 #include "Menu.h"
-
+#include "../led/fake_led.h"
+#include <thread>
 
 using namespace std;
+
+int getal = 1;
+int soort_animatie;
+
 
 
 MenuModel::MenuModel(std::vector<MenuItem> *m) : UIModel(){
@@ -121,12 +126,16 @@ void MenuModel::menuUp() {
 	}
 
 	cout << this->selected << endl;
+
 }
 
 void MenuModel::menuDown() {
 	this->selected = (this->selected + 1) % 3;
 
 	cout << this->selected << endl;
+	std::thread first(aanroeper, 0);
+	first.detach();
+	
 }
 
 void MenuModel::setDone(bool done) {
