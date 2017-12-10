@@ -76,7 +76,7 @@ void MenuController::menuLoop(std::vector<MenuItem>* menuItems, FontManager* man
 			}
 		}
 		// draw menu (read: alert view that model has changed)
-		//view.draw();
+		view.draw();
 	}
 }
 
