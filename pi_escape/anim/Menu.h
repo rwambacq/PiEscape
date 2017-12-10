@@ -16,7 +16,7 @@ extern "C"
 #include "UI.h"
 #include "Animation.h"
 
-typedef struct MVCRefs;
+typedef struct MRef;
 
 class MenuItem {
 private:
@@ -55,6 +55,7 @@ public:
 	std::vector<MenuItem> getMenu();
 	int getSelected();
 
+	MenuModel();
 	MenuModel(std::vector<MenuItem>* baseMenu);
 	virtual ~MenuModel();
 	void setTime(uint64_t time) override;
@@ -65,10 +66,10 @@ public:
 class MenuGLView : public UIView {
 private:
 	FontManager* manager;
-	MVCRefs* mvc;
+	MRef* model;
 public:
 	void setFontManager(FontManager* mgr);
-	void setMVCRef(MVCRefs*);
+	void setModel(MRef*);
 
 	FontManager* getFontManager();
 
@@ -80,7 +81,7 @@ public:
 
 class MenuController : public UIController {
 private:
-	MVCRefs* mvcRef;
+	MRef* mRef;
 	int menuSelection = -1;
 public:
 	void menuLoop(std::vector<MenuItem>*, FontManager*);
@@ -93,10 +94,8 @@ public:
 	virtual ~MenuController();
 };
 
-typedef struct MVCRefs {
+typedef struct MRef {
 	MenuModel model;
-	MenuGLView view;
-	MenuController controller;
-} MVCRefs;
+} MRef;
 
 #endif //PIESCAPE2_MENU_H
