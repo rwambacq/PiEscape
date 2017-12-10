@@ -73,6 +73,7 @@ int main() {
 	// HERE IS WHERE THE INTRO MOVIE SHOULD BE PLAYED
 
 	// START MENU
+		cout << "werkt1";
 		lettertypeToezichthouder.setColor(col);
 		lettertypeToezichthouder.loadFont("arcade72", "pi_escape/graphics/arcade72.png", "pi_escape/graphics/arcade72.fnt");
 
@@ -84,6 +85,7 @@ int main() {
 		MenuController controller;
 		controller.menuLoop(&items, &lettertypeToezichthouder);
 
+		cout << "werkt2";
 	// CHECK SELECTION AND EXECUTE ACTION ACCORDINGLY
 		
 		switch (controller.getMenuSelection()) {
@@ -99,13 +101,17 @@ int main() {
 			done = true;
 			break;
 		}
+		cout << "werkt3";
 		glmc_vec3_set(graphics->background_color, 0.0f, 0.0f, 0.0f);
 
 	}
+	cout << "werkt4";
     gl_glyph_free(&glGlyph);
     graphics_free(graphics);
+	cout << "werkt5";
     free(graphics);
 
+	cout << "werkt6";
     return 0;
 }
 
