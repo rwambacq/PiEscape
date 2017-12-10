@@ -67,8 +67,10 @@ int main() {
 		// START MENU
 		lettertypeToezichthouder.setColor(col);
 		lettertypeToezichthouder.loadFont("arcade72", "pi_escape/graphics/arcade72.png", "pi_escape/graphics/arcade72.fnt");
+		
+		const char * c = lettertypeToezichthouder.getFontImageFilename().c_str();
 
-		gl_glyph_init(&glGlyph, graphics, (char*)lettertypeToezichthouder.getFontImageFilename().c_str());
+		gl_glyph_init(&glGlyph, graphics,"pi_escape/graphics/arcade72.png");
 
 		shared_ptr<MenuDefinition> menudef = GameUICreator(lettertypeToezichthouder).createGameMenu();
 		vector<MenuItem> items = (*menudef).getMenuItems();
