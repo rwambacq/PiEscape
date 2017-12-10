@@ -222,9 +222,15 @@ void system_input_update(InputSystem* system, Engine* engine) {
 						float y_move = mouseMotionEvent->yrel * 1.0f;
 							cameraLookFrom->XYdegees = fmod((cameraLookFrom->XYdegees - x_move), 360);
 
-						if (cameraLookFrom->Zdegrees >= 0.0f && cameraLookFrom->Zdegrees <= 90.0f) {
-							cameraLookFrom->Zdegrees -= y_move;
-						}
+							if (cameraLookFrom->Zdegrees >= 0.0f && cameraLookFrom->Zdegrees <= 90.0f) {
+								cameraLookFrom->Zdegrees -= y_move;
+								if (cameraLookFrom->Zdegrees >= 90.0f) {
+									cameraLookFrom->Zdegrees = 89.9f;
+								}
+								if (cameraLookFrom->Zdegrees <= 00.0f) {
+									cameraLookFrom->Zdegrees = 0.1f;
+								}
+							}
 					}
 					else {
 						//printf("Mouse moved %f %f\n", mouseMotionEvent->xrel * 1.0f, mouseMotionEvent->yrel * 1.0f);

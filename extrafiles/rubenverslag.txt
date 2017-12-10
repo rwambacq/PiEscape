@@ -1,0 +1,49 @@
+Levelloader
+------------
+Voor het inladen van de level files gebruik ik de stdio functies fopen(), fgets() en fclose().
+Met behulp van deze functies kan ik de files lijn voor lijn inladen.
+De info die ik daar dan uit haal wordt opgeslagen in een Level struct.
+Deze struct bestaat uit een 2D character array waarin dan steeds voor elke mogelijke character in de file een eigen char wordt geplaatst.
+Ik heb niet alle chars behouden om steeds meervoudige selectie te vermijden, zo is bv. de aanduiding van een connector veranderd van "=" of "-" of  "." naar simpelweg "-".
+
+Het uiteindelijk inladen van een level in het spel wordt gedaan binnen de game.c file, in de functie game_load_level().
+Hiervoor heb ik aanvankelijk de functie create_demo_entities uit de main overgenomen en deze dan naar behoren aangepast zodat ze werkt voor wat wij nodig hebben.
+
+Entity System Framework
+------------------------
+Voor het implementeren van de delen van het entity system framework waar ik voor gezorgd heb, heb ik vrijwel bij elk systeem dezelfde methodiek toegepast.
+De systemen van dit spelen steunen grotendeels op de informatie en functionaliteit die verwerkt zit in de Entities en Components.
+Ik zal nu voor elk systeem dat ik geïmplementeerd hebben een korte uitleg geven van hoe deze tot stand zijn gekomen en eventuele problemen die ik ben tegengekomen.
+
+Voor het action system, het systeem dat voor interactie van de player met de keys zorgt was het een kwestie van bij een update te checken of er entities zijn met een ItemActionComponent.
+Deze wordt aan de player gegeven binnen het input system, wanneer op enter gedrukt wordt. Als er zulke Entity gevonden is, wordt gezocht of er een key op dezelfde plaats staat en indien dit zo is,
+wordt de correcte actie uitgevoerd (opnemen, laten vallen, wisselen).
+Er wordt hier dan ook gecheckt of de key op een lock staat om het lock system te maken.
+De problemen die hierbij naar boven kwamen waren dat doordat het checken op Entities met een iterator gebeurt, 
+er soms fouten naar boven kwamen of dingen niet gebeurden door de volgorde waaring de iterator over de keys liep.
+
+Het animation system wordt eigenlijk enkel gebruikt om een animatie aan het begin van elk level mogelijk te maken.
+Dit gebeurt door een int in het struct van dit systeem te plaatsen die wordt aangepast wanneer een intro animatie moet worden gespeeld.
+De animatie zelf gebeurt door gewoon de game loop te laten lopen en elke update een kleine beweging te doen.
+
+Het camera system is eigenlijk in twee delen opgesplitst, 1 deel dat gaat veranderen wanneer via de muis inputs worden gegeven 
+en 1 deel dat binnen het move system staat dat gaat veranderen wanneer de speler beweegt.
+Bij elke verandering van spelerpositie, rotatie van de camera of afstand van de speler wordt het coordinaat berekend waarop de camera moet staan, 
+dit is steeds een punt op een bol rond de speler.
+De reden waarom dit systeem in 2 is gesplists is omdat we wouden dat bij het bewegen van de speler, de camera op een vlotte manier mee volgt,
+maar bij een verandering van de hoek of de afstand a.d.h.v de muis was dit niet nodig, daar is een onmiddelijke verandering natuurlijker.
+
+Het movement system werkt door bij een input van een van de pijltjestoetsen te kijken of het mogelijk is om in die richting te bewegen en indien dit mogelijk is, deze beweging uit te voeren.
+Dit is een groot systeem aangezien er veel checks nodig zijn om na te kijken of de beweging mogelijk is.
+
+Het container system is een vrij simpel systeem dat grotendeels steunt op de inContainerComponent.
+Deze component houdt een GridLocationComponent bij van het object waarvan het in de container zit.
+Ook houdt het een vorige waarde van deze locatie bij, hierdoor kan worden nagekeken of deze locatie is veranderd.
+Indien de locatie veranderd is, wordt de locatie van het object in de container mee aangepast.
+
+Het endlevel systeem gaat simpelweg elke update checken of de locatie van de speler en de exit hetzelfde zijn en indien dit zo is,
+het "done" veld van de ExitComponent die we aan de speler in het begin mee geven op 1 zetten.
+Dit geeft in de main een signaal dat het volgende level mag worden ingeladen.
+
+Het lock system zal nakijken of wanneer er een sleutel op een slot wordt geplaatst, 
+deze twee compatibel zijn en indien dit zo is, het slot te activeren.

@@ -40,16 +40,27 @@ extern "C"
 #include <SDL.h>
 #undef main //Weird bug on windows where SDL overwrite main definition
 #include <SDL_timer.h>
-
 #include "util/sleep.h"
-
 #include "pi_escape/anim/FontManager.h"
 #include "pi_escape/anim/GameUICreator.h"
-
 #include <string>
 #include <cassert>
+#include <string>
+#include <cassert>
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <map>
+#include <thread>
+#include <bitset>
+#include <iterator>
+#include "util/sleep.h"
+#include "pi_escape/led/fake_led.h"
 
 using namespace std;
+
+int getal = 1;
+int soort_animatie;
 
 void startGameFromLevel(int level, Graphics* graphics);
 void fill_level_loader(LevelLoader* level_loader);
@@ -57,22 +68,22 @@ void fill_level_loader(LevelLoader* level_loader);
 int main() {
 	t_vec4 col = { 1.0f, 0.0f, 0.0f, 1.0f };
 
-    int imgFlags = IMG_INIT_PNG;
-    if(!(IMG_Init(imgFlags) & imgFlags)) {
-        fatal("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
-    }
+	int imgFlags = IMG_INIT_PNG;
+	if (!(IMG_Init(imgFlags) & imgFlags)) {
+		fatal("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
+	}
 
-    Graphics* graphics = graphics_alloc(0, 0);
-    GLGlyph glGlyph;
+	Graphics* graphics = graphics_alloc(0, 0);
+	GLGlyph glGlyph;
 
-   	FontManager lettertypeToezichthouder(graphics, &glGlyph);
-	
+	FontManager lettertypeToezichthouder(graphics, &glGlyph);
+
 	bool done = false;
 	while (!done) {
 
-	// HERE IS WHERE THE INTRO MOVIE SHOULD BE PLAYED
+		// HERE IS WHERE THE INTRO MOVIE SHOULD BE PLAYED
 
-	// START MENU
+		// START MENU
 		lettertypeToezichthouder.setColor(col);
 		lettertypeToezichthouder.loadFont("arcade72", "pi_escape/graphics/arcade72.png", "pi_escape/graphics/arcade72.fnt");
 
@@ -84,8 +95,8 @@ int main() {
 		MenuController controller;
 		controller.menuLoop(&items, &lettertypeToezichthouder);
 
-	// CHECK SELECTION AND EXECUTE ACTION ACCORDINGLY
-		
+		// CHECK SELECTION AND EXECUTE ACTION ACCORDINGLY
+
 		switch (controller.getMenuSelection()) {
 		case 0:
 			startGameFromLevel(0, graphics);
@@ -102,25 +113,25 @@ int main() {
 		glmc_vec3_set(graphics->background_color, 0.0f, 0.0f, 0.0f);
 
 	}
-    gl_glyph_free(&glGlyph);
-    graphics_free(graphics);
-    free(graphics);
+	gl_glyph_free(&glGlyph);
+	graphics_free(graphics);
+	free(graphics);
 
-    return 0;
+	return 0;
 }
 
 void startGameFromLevel(int lvl, Graphics* graphics) {
 	player_blocked = 1;
 	// if you call the main game with more than one argument, assume it is benchmarking.
 	/*if (argc > 1) {
-		printf("benchmark mode\n\n%d\n", logging_benchmark);
-		logging_benchmark = 1;
-		benchfile = fopen(BENCHLOG_FILE_PATH, "w");
-		if (benchfile == NULL) { printf("Error when opening file!\nCalls to memory mgmt will not be logged!\n"); exit(1); }
-		else { printf("benchmark file is: %s\n", BENCHLOG_FILE_PATH); }
+	printf("benchmark mode\n\n%d\n", logging_benchmark);
+	logging_benchmark = 1;
+	benchfile = fopen(BENCHLOG_FILE_PATH, "w");
+	if (benchfile == NULL) { printf("Error when opening file!\nCalls to memory mgmt will not be logged!\n"); exit(1); }
+	else { printf("benchmark file is: %s\n", BENCHLOG_FILE_PATH); }
 	}
 	else {
-		printf("normal mode\n\n");
+	printf("normal mode\n\n");
 	}*/
 
 	int imgFlags = IMG_INIT_PNG;
@@ -220,7 +231,7 @@ void startGameFromLevel(int lvl, Graphics* graphics) {
 	free(level_loader);
 
 	/*if (logging_benchmark) {
-		fclose(benchfile);
+	fclose(benchfile);
 	}*/
 }
 
@@ -236,3 +247,4 @@ void fill_level_loader(LevelLoader* level_loader) {
 	strcpy(level_loader->level_paths[8], "pi_escape/level/level_files/game2.lvl");
 	strcpy(level_loader->level_paths[9], "pi_escape/level/level_files/game3.lvl");
 }
+

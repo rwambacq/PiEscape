@@ -1,0 +1,21 @@
+[geheugenbeheer]
+Ik heb volgende werkwijze gehanteerd:
+Eerst heb ik ervoor gezorgd dat het spel in "benchmark modus" gestart kon worden,
+door een argument aan de main toe voegen en hierop te checken kon dit al geactiveerd worden.
+In deze modus heb ik dan elke call naar geheugenbeheer weggeschreven, door een print in de functiecalls zelf te includeren, waar nodig.
+
+Om de benchmarks dan uiteindelijk te kunnen inlezen en uitvoeren, leest het programma een "benchmark log bestand" in, en verwerkt dit lijn per lijn,
+op elke lijn staat een functieoproep, die dan verwerkt wordt.
+Voor het beginnen met functies oproepen gaat het programma ook al eens door het volledige bestand en telt hoeveel calls het bevat, dit
+om een intermediair voortgangspercentage te kunnen uitprinten (dit helpt de gebruiker ook om zeker te zijn dat niets vastgelopen is).
+Ook wordt er een begintijd opgenomen en, na het 100% doorlopen van het bestand, ook een eindtijd, zo is er geweten hoeveel CPU-tijd het programma in beslag nam.
+Ten slotte berekent het programma hoe groot de matrix die de entities en components bijhield was, in bytes. Dit gebeurt als volgt:
+aantal_components * max_aantal_entities * grootte_grootste_component_in_bytes + grootte_int, de laatste grootte van een int, is omdat een ESMemory naast de matrix ook nog
+een integer bijhoudt, next_entity_id. Deze is van belang voor het triggeren van uitbreiding van het geheugen, indien nodig.
+
+Het geheugen zelf blijft een matrix, maar deze wordt dynamisch op het heap geheugen van de machine gealloceerd, ipv statisch op het stack geheugen, en begint op grootte
+aantal_components x 50, en verdubbelt naar x100, x200, etc. indien het level dit vereist.
+
+Mijn bevindingen waren vooral dat er niet veel hulpfuncties beschikbaar zijn in C, om bijvoorbeeld de lijnen in het logbestand te verwerken. 
+Deze dienden allemaal zelf geschreven te worden. Ook was er een probleem met het loggen en uitvoeren van es_memory_manager_init bij zijn allereerste aanroep.
+Omwille hiervan heb ik de eerste call niet gelogd, en log ik enkel die calls die voorkomen na een endlevel.

@@ -1,0 +1,34 @@
+Thomas Verslag :
+
+[Led Raspberry pi]
+
+Hierbij werd gevraagd om wanneer er een bepaald sleuteltje wordt vastgehouden, de kleur van het sleutel te tonen op de led. In een c bestand ledcontrol.c ga ik 
+ga ik checken of ons systeem rpi is al dan niet, indien het geval is gaat die de functie led implementeren op de juiste manier. Ik maak eerst de 
+standaard kleuren aan, die ik dan opvul in een array. Als extraatje heb ik ipv een vlak die gekleurd is, een "pixel-art" gemaakt van het sleuteltje.
+
+[Movement system -- collision]
+
+Ik check hier simpelweg of we aan het einde komen van een "rand", een muur, of een deur, en als deze deur niet actief is, kunnen we ook niet door.
+
+[Game 'loader']
+
+Hier wordt elk element van de levelloader array afgelopen, en deze in het spel gestoken. Bij connectors moet hij checken naar zijn 'buren' om de
+juiste richting te bepalen, dit geldt ook voor een slot/and-or-connector. Hierna zullen de paden bepaald worden voor ons activeren van paden.
+Wat hier een moeilijkheid was voor me, was het weten bij een and/or wat de ingangen zijn en wat de uitgang. Via het toevoegen van een extra component
+was dit geen probleem meer.
+
+[Activation system]
+
+Bij het activeren gaat hij eigenlijk 'lopen' over elk next entity van een activatable component, tot hij aan null komt. Nu de tussentijd heb ik
+gemaakt door elke update een increment te doen, die na een bepaald getal zal activeren. Het probleem hiermee is wel dat op tragere systemen, het langer zal duren (zie pi)
+Bij een downstream doe ik dan het tegenovergestelde en zit ik alles op 0.
+
+
+[Lock system] 
+
+Hier zit een functie in die checkt voor een activation, en is redelijk complex opgebouwd omdat er met veel dingen moet rekening gehouden worden. Ook waren
+er wat problemen met het feit dat bij het switchen nooit zeker was wat hij eerst ging doen, neerzetten of activeren (probleem met plaats components). Dit is nu gefixt
+waardoor alles werkt zoals het hoort.
+
+
+

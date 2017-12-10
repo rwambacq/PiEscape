@@ -91,6 +91,7 @@ void gl_glyph_init(GLGlyph *obj, Graphics *graphics, char* font_image_filename) 
     glGetIntegerv(GL_MAX_TEXTURE_SIZE, &max_texture_size);
     printf("Loaded image with size %dx%d  (max is %d)\n", obj->w, obj->h, max_texture_size);
     
+	printf("ok1\n");
     glTexImage2D(GL_TEXTURE_2D,
                  0,
                  GL_RGBA,
@@ -101,11 +102,14 @@ void gl_glyph_init(GLGlyph *obj, Graphics *graphics, char* font_image_filename) 
                  GL_UNSIGNED_BYTE,
                  obj->font_image->pixels);
     handle_gl_error("POST gl_glyph init glTexImage2D");
-    
+	printf("ok1\n");
+
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR); //GL_NEAREST
+	printf("ok1\n");
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR); //GL_NEAREST
-    
+	printf("ok1\n");
     handle_gl_error("POST gl_glyph init");
+	printf("ok1\n");
 }
 
 void gl_glyph_free(GLGlyph *obj) {
