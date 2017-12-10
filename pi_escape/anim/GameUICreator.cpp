@@ -166,55 +166,55 @@ std::shared_ptr<MovieDefinition> GameUICreator::createIntro() {
     return builder.build();
 }
 
-//std::shared_ptr<MovieDefinition> GameUICreator::createCredits() {
-//    MovieBuilder builder;
-//
-//    return builder.build();
-//}
-//
-//std::shared_ptr<MovieDefinition> GameUICreator::createOutro() {
-//    MovieBuilder builder;
-//
-//    builder.setDuration(10000l);
-//
-//    t_vec4 col1 = {1.0f, 1.0f, 0.0f, 1.0f};
-//    t_vec4 col2 = {0.0f, 1.0f, 1.0f, 1.0f};
-//
-//    builder.addText("You have reached the end!")
-//            .setFont("arcade")
-//            .setColor(col1)
-//            .setPos_percent(50.0f, 75.0f)
-//            .setStartTime(0000l).setEndTime(7000l)
-////            .addAnimation(new ColorAnimation(1.0f, 0.0f, 0.0f),
-////                          AnimationType::IN_OUT, 1000l, 1000l)
-//            .addAnimation(new GlyphIteratingAnimation(
-//                    new ColorAnimation(1.0f, 0.0f, 0.0f), 1.7f),
-//                          1000l, 1000l)
-//            .addAnimation(new GlyphIteratingAnimation(
-//                    new SineAnimation(new MoveAnimation(0, 20)), 3.0f),
-//                          1000l, 2000l)
-//            .addAnimation(new FadeInAnimation(), 0l, 2000l)
-//            .endText();
-//
-//    builder.addText("Thank you for playing PiEscape 2.")
-//            .setFont("zorque")
-//            .setColor(col2)
-//            .setPos_percent(50.0f, 25.0f)
-//            .setStartTime(1000l).setEndTime(10000l)
-//            .addAnimation(
-//                    new RepeatAnimation(
-//                            new GlyphIteratingAnimation(
-//                                    new RainbowColorAnimation(), 10.5f),
-//                            9, true, false, true)
-//                    , 0l, 9000l)
-//            .addAnimation(new GlyphIteratingAnimation(
-//                    new SineAnimation(new MoveAnimation(0, 400)), 1.0f),
-//                          0l, 3000l)
-//            .addAnimation(new GlyphIteratingAnimation(
-//                    new FadeInAnimation(), 1.0f),
-//                          0l, 3000l)
-//            .addAnimation(new ReverseAnimation(new FadeInAnimation()), 9000l, 1000l)
-//            .endText();
-//
-//    return builder.build();
-//}
+std::shared_ptr<MovieDefinition> GameUICreator::createCredits() {
+    MovieBuilder builder;
+
+    return builder.build();
+}
+
+std::shared_ptr<MovieDefinition> GameUICreator::createOutro() {
+    MovieBuilder builder;
+
+    builder.setDuration(10000l);
+
+    t_vec4 col1 = {1.0f, 1.0f, 0.0f, 1.0f};
+    t_vec4 col2 = {0.0f, 1.0f, 1.0f, 1.0f};
+
+    builder.addText("You have reached the end!")
+            .setFont("arcade")
+            .setColor(col1)
+            .setPos_percent(50.0f, 75.0f)
+            .setStartTime(0000l).setEndTime(7000l)
+//            .addAnimation(new ColorAnimation(1.0f, 0.0f, 0.0f),
+//                          AnimationType::IN_OUT, 1000l, 1000l)
+            .addAnimation(new GlyphIteratingAnimation(
+                    new ColorAnimation(1.0f, 0.0f, 0.0f), 1.7f),
+                          1000l, 1000l)
+            .addAnimation(new GlyphIteratingAnimation(
+                    new SineAnimation(new MoveAnimation(0, 20)), 3.0f),
+                          1000l, 2000l)
+            .addAnimation(new FadeInAnimation(), 0l, 2000l)
+            .endText();
+
+    builder.addText("Thank you for playing PiEscape 2.")
+            .setFont("zorque")
+            .setColor(col2)
+            .setPos_percent(50.0f, 25.0f)
+            .setStartTime(1000l).setEndTime(10000l)
+            .addAnimation(
+                    new RepeatAnimation(
+                            new GlyphIteratingAnimation(
+                                    new RainbowColorAnimation(), 10.5f),
+                            9, true, false, true)
+                    , 0l, 9000l)
+            .addAnimation(new GlyphIteratingAnimation(
+                    new SineAnimation(new MoveAnimation(0, 400)), 1.0f),
+                          0l, 3000l)
+            .addAnimation(new GlyphIteratingAnimation(
+                    new FadeInAnimation(), 1.0f),
+                          0l, 3000l)
+            .addAnimation(new ReverseAnimation(new FadeInAnimation()), 9000l, 1000l)
+            .endText();
+
+    return builder.build();
+}
