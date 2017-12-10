@@ -87,6 +87,7 @@ int main() {
 		std::string fromStringFont = lettertypeToezichthouder.getFontImageFilename();
 		char *cstr = new char[fromStringFont.length() + 1];
 		strcpy(cstr, fromStringFont.c_str());
+
 		gl_glyph_init(&glGlyph, graphics, cstr);
 		cout << "werkt1";
 		shared_ptr<MenuDefinition> menudef = GameUICreator(lettertypeToezichthouder).createGameMenu();
