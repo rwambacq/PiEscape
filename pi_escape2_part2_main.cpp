@@ -51,26 +51,19 @@ extern "C"
 
 using namespace std;
 
-int startGameFromLevel(int level, Graphics* graphics);
+void startGameFromLevel(int level, Graphics* graphics);
 void fill_level_loader(LevelLoader* level_loader);
 
 int main() {
-	vector<GlyphDrawCommand> glifjes;
 	t_vec4 col = { 1.0f, 0.0f, 0.0f, 1.0f };
-	GlyphDrawCommand curr_cmd(0,0,0,0,0,0, col);
-	int i=0;
-	//string punts = ".";
-	int bounceInt=0;
+
     int imgFlags = IMG_INIT_PNG;
     if(!(IMG_Init(imgFlags) & imgFlags)) {
         fatal("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
     }
 
-
     Graphics* graphics = graphics_alloc(0, 0);
     GLGlyph glGlyph;
-
-	cout << "het glyphje bevindt zich op: " << &glGlyph << endl;
 
    	FontManager lettertypeToezichthouder(graphics, &glGlyph);
 	
@@ -92,22 +85,21 @@ int main() {
 		controller.menuLoop(&items, &lettertypeToezichthouder);
 
 	// CHECK SELECTION AND EXECUTE ACTION ACCORDINGLY
-		int gameExit;
+		
 		switch (controller.getMenuSelection()) {
 		case 0:
-			 gameExit = startGameFromLevel(0, graphics);
-			done = gameExit;
+			startGameFromLevel(0, graphics);
 			//PLAY OUTRO MOVIE AFTER THIS
 			break;
 		case 1:
-			gameExit = startGameFromLevel(7, graphics);
-			done = gameExit;
+			startGameFromLevel(7, graphics);
 			//PLAY OUTRO MOVIE AFTER THIS
 			break;
 		case 2:
 			done = true;
 			break;
 		}
+		glmc_vec3_set(graphics->background_color, 0.0f, 0.0f, 0.0f);
 
 	}
     gl_glyph_free(&glGlyph);
@@ -117,7 +109,7 @@ int main() {
     return 0;
 }
 
-int startGameFromLevel(int lvl, Graphics* graphics) {
+void startGameFromLevel(int lvl, Graphics* graphics) {
 	player_blocked = 1;
 	// if you call the main game with more than one argument, assume it is benchmarking.
 	/*if (argc > 1) {
@@ -227,16 +219,9 @@ int startGameFromLevel(int lvl, Graphics* graphics) {
 	levelloader_free(level_loader);
 	free(level_loader);
 
-	if (logging_benchmark) {
+	/*if (logging_benchmark) {
 		fclose(benchfile);
-	}
-
-	if (pi_escape_2->engine.context.is_exit_game) {
-		return 1;
-	}
-	else {
-		return 0;
-	}
+	}*/
 }
 
 void fill_level_loader(LevelLoader* level_loader) {
