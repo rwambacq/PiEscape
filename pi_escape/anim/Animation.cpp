@@ -7,10 +7,10 @@ Animation::~Animation() {
 }
 
 vector<GlyphDrawCommand> Animation::applyTransform(const vector<GlyphDrawCommand>& draws,float position) const {
-	return vector<GlyphDrawCommand>();
+	return draws;
 }
 
-std::vector<GlyphDrawCommand> FadeInAnimation::applyTransform(const std::vector<GlyphDrawCommand>& draws, float position) const {
+vector<GlyphDrawCommand> FadeInAnimation::applyTransform(const std::vector<GlyphDrawCommand>& draws, float position) const {
     float curAlpha = position;
     
     std::vector<GlyphDrawCommand> res;
@@ -44,8 +44,8 @@ ColorAnimation::~ColorAnimation() {
 
 }
 
-std::vector<GlyphDrawCommand> ColorAnimation::applyTransform(const std::vector<GlyphDrawCommand> &draws, float position) const {
-    std::vector<GlyphDrawCommand> res;
+vector<GlyphDrawCommand> ColorAnimation::applyTransform(const vector<GlyphDrawCommand> &draws, float position) const {
+    vector<GlyphDrawCommand> res;
     
     for (std::vector<GlyphDrawCommand>::const_iterator it = draws.begin(); it != draws.end(); it++) {
         const GlyphDrawCommand& cur = *it;
@@ -75,7 +75,7 @@ std::vector<GlyphDrawCommand> RainbowColorAnimation::applyTransform( const std::
 		this_rgb.b = cur.getColor()[2];
 		hsv hsv = RgbToHsv(this_rgb);
 
-		hsv.h = fmod(hsv.h + (359.0f * position), 359.0f);
+		hsv.h = fmod(hsv.h + (359.0f * position), 359.0f); // causes colours to cycle through all hues once, stops at original colour
 
 		rgb newColor = HsvToRgb(hsv);
 		GlyphDrawCommand toReturn = cur.changeColor(newColor.r, newColor.g, newColor.b);
@@ -84,9 +84,6 @@ std::vector<GlyphDrawCommand> RainbowColorAnimation::applyTransform( const std::
 	}
 
 	return res;
-}
-
-RainbowColorAnimation::RainbowColorAnimation() {
 }
 
 RainbowColorAnimation::~RainbowColorAnimation() {
@@ -245,10 +242,16 @@ MoveAnimation::~MoveAnimation() {
 
 }
 
+GlyphIteratingAnimation::GlyphIteratingAnimation(Animation* animation, float overlap) : animation(animation), overlap(overlap) {}
 
+GlyphIteratingAnimation::~GlyphIteratingAnimation() {
 
-// TODO implement 
-// GlyphIteratingAnimation, 
+}
+
+vector<GlyphDrawCommand> GlyphIteratingAnimation::applyTransform(const vector<GlyphDrawCommand>& draws, float position) const{
+	return draws;
+}
+// TODO implement  
 // RepeatAnimation, 
 // SineAnimation, 
 // ReverseAnimation, 
