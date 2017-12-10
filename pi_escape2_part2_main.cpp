@@ -1,3 +1,5 @@
+/////////
+
 #define __STDC_FORMAT_MACROS
 
 #ifdef __cplusplus
@@ -7,22 +9,7 @@ extern "C"
 
 #include "pi_escape/graphics/opengl_game_renderer.h"
 #include "pi_escape/es/game.h"
-#define __STDC_FORMAT_MACROS
-#include <inttypes.h>
-#ifndef STDIO_INCLUDED
-#include <stdio.h>
-#define STDIO_INCLUDED
-#endif
-#include "util/sleep.h"
-#include "pi_escape/graphics/opengl_game_renderer.h"
-#include "pi_escape/level/levelloader.h"
-#include "pi_escape/es/game.h"
-#include <assert.h>
 #include "pi_escape/es/es_memory_manager.h"
-#define BENCHLOG_FILE_PATH "benchmarks/benchlog.txt"
-#include <SDL.h>
-#undef main //Weird bug on windows where SDL overwrite main definition
-#include <SDL_timer.h>
 
 #ifdef __cplusplus
 }
@@ -32,11 +19,7 @@ extern "C"
 #include <SDL.h>
 #undef main //Weird bug on windows where SDL overwrite main definition
 #include <SDL_timer.h>
-#include "util/sleep.h"
 #include "pi_escape/anim/FontManager.h"
-#include "pi_escape/anim/GameUICreator.h"
-#include <string>
-#include <cassert>
 #include <string>
 #include <cassert>
 #include <iostream>
@@ -47,7 +30,11 @@ extern "C"
 #include <bitset>
 #include <iterator>
 #include "util/sleep.h"
+#include "pi_escape/led/ledcontrol.h"
 #include "pi_escape/led/fake_led.h"
+#include "pi_escape/anim/GameUICreator.h"
+
+
 
 using namespace std;
 
@@ -55,6 +42,14 @@ using namespace std;
 void startGameFromLevel(int level, Graphics* graphics);
 void fill_level_loader(LevelLoader* level_loader);
 
+
+
+
+#if defined(RPI)
+int main() {
+	toonLed(0);
+	}
+#else
 int main() {
 	t_vec4 col = { 1.0f, 0.0f, 0.0f, 1.0f };
 
@@ -76,6 +71,7 @@ int main() {
 		// START MENU
 		lettertypeToezichthouder.setColor(col);
 		lettertypeToezichthouder.loadFont("arcade72", "pi_escape/graphics/arcade72.png", "pi_escape/graphics/arcade72.fnt");
+		
 
 		gl_glyph_init(&glGlyph, graphics, (char*)lettertypeToezichthouder.getFontImageFilename().c_str());
 
@@ -237,4 +233,5 @@ void fill_level_loader(LevelLoader* level_loader) {
 	strcpy(level_loader->level_paths[8], "pi_escape/level/level_files/game2.lvl");
 	strcpy(level_loader->level_paths[9], "pi_escape/level/level_files/game3.lvl");
 }
+#endif
 

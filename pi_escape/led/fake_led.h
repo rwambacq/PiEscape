@@ -3,4 +3,5 @@
 #include "../../util/rgb_triple.h"
 void aanroeper(int getal);
 void changegetal(int getal);
+int toonLed(int getal);
 #endif
