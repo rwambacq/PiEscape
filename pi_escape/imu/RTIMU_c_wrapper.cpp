@@ -1,4 +1,3 @@
-#ifdef __cplusplus
 #include "RTIMU_c_wrapper.h"
 
 RTIMU_DATA imuData;
@@ -33,5 +32,4 @@ float get_imu_z() {
 	float value = (float)imuData.fusionPose.z();
 	return value;
 }
-#endif
 
