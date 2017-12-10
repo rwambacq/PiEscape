@@ -9,6 +9,7 @@ extern "C"
 
 #include "pi_escape/graphics/opengl_game_renderer.h"
 #include "pi_escape/es/game.h"
+#include "pi_escape/es/es_memory_manager.h"
 
 #ifdef __cplusplus
 }
@@ -44,12 +45,7 @@ void fill_level_loader(LevelLoader* level_loader);
 
 
 
-#if defined(RPI)
-int main() {
-	cout << "oei";
-	showColor(0);
-}
-#else
+
 int main() {
 	t_vec4 col = { 1.0f, 0.0f, 0.0f, 1.0f };
 
@@ -233,5 +229,4 @@ void fill_level_loader(LevelLoader* level_loader) {
 	strcpy(level_loader->level_paths[9], "pi_escape/level/level_files/game3.lvl");
 }
 
-#endif
 
