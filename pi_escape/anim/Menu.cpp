@@ -52,8 +52,6 @@ void MenuController::menuLoop(std::vector<MenuItem>* menuItems, FontManager* man
 	
 	int firstSelected = mvc.model.getSelected();
 
-	// GEBRUIK HIER BOVENSTAANDE INT OM DE LED FUNCTIE AAN TE ROEPEN (2 ANDERE PRINTS ZITTEN IN MENUUP en MENUDOWN)
-
 	SDL_Event event;
 	memset(&event, 0, sizeof(SDL_Event));
 
