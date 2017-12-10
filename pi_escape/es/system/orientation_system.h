@@ -6,7 +6,6 @@
 
 typedef struct OrientationSystem {
 	float sensor_x;
-	float sensor_y;
 	float sensor_z;
 } OrientationSystem;
 
