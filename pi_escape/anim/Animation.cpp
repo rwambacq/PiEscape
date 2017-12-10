@@ -410,8 +410,27 @@ RepeatAnimation::RepeatAnimation(Animation* animation, int repeats, bool startIn
 	this->repeats = repeats;
 	this->inOut = cycleInOut;
 }
+
+RepeatAnimation::RepeatAnimation(Animation* animation, int repeats) {
+	this->animation = animation;
+	this->repeats = repeats;
+	this->inOut = false;
+}
+
 RepeatAnimation::~RepeatAnimation() {
 	
+}
+
+SineAnimation::SineAnimation(Animation* animation) {
+	
+}
+
+SineAnimation::~SineAnimation() {
+	
+}
+
+std::vector<GlyphDrawCommand> SineAnimation::applyTransform(const std::vector<GlyphDrawCommand>& draws, float position) const {
+	return draws;
 }
 
 // TODO implement  
