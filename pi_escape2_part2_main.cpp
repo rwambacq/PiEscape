@@ -65,7 +65,7 @@ int main() {
     }
 	cout << "test4\n";
 
-    Graphics* graphics = graphics_alloc(0, 0);
+   // Graphics* graphics = graphics_alloc(0, 0);
 	cout << "test5\n";
     GLGlyph glGlyph;
 	cout << "test6\n";
@@ -81,16 +81,18 @@ int main() {
 	// START MENU
 		cout << "werkt1";
 		lettertypeToezichthouder.setColor(col);
+		cout << "werkt1";
 		lettertypeToezichthouder.loadFont("arcade72", "pi_escape/graphics/arcade72.png", "pi_escape/graphics/arcade72.fnt");
-
+		cout << "werkt1";
 		gl_glyph_init(&glGlyph, graphics, (char*)lettertypeToezichthouder.getFontImageFilename().c_str());
-
+		cout << "werkt1";
 		shared_ptr<MenuDefinition> menudef = GameUICreator(lettertypeToezichthouder).createGameMenu();
+		cout << "werkt1";
 		vector<MenuItem> items = (*menudef).getMenuItems();
-
+		cout << "werkt1";
 		MenuController controller;
+		cout << "werkt1";
 		controller.menuLoop(&items, &lettertypeToezichthouder);
-
 		cout << "werkt2";
 	// CHECK SELECTION AND EXECUTE ACTION ACCORDINGLY
 		
