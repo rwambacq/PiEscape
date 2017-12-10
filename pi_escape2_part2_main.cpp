@@ -8,30 +8,6 @@ extern "C"
 #include "pi_escape/graphics/opengl_game_renderer.h"
 #include "pi_escape/es/game.h"
 
-
-#define __STDC_FORMAT_MACROS
-#include <inttypes.h>
-
-#ifndef STDIO_INCLUDED
-#include <stdio.h>
-#define STDIO_INCLUDED
-#endif
-
-
-#include "util/sleep.h"
-#include "pi_escape/graphics/opengl_game_renderer.h"
-#include "pi_escape/level/levelloader.h"
-#include "pi_escape/es/game.h"
-
-#include <assert.h>
-
-#include "pi_escape/es/es_memory_manager.h"
-#define BENCHLOG_FILE_PATH "benchmarks/benchlog.txt"
-
-#include <SDL.h>
-#undef main //Weird bug on windows where SDL overwrite main definition
-#include <SDL_timer.h>
-
 #ifdef __cplusplus
 }
 #endif
@@ -96,6 +72,7 @@ int main() {
 		{
 			std::cerr << "Exception catched : " << e.what() << std::endl;
 		}
+
 		cout << "werkt4";
 		shared_ptr<MenuDefinition> menudef = GameUICreator(lettertypeToezichthouder).createGameMenu();
 		cout << "werkt1";
