@@ -1,0 +1,605 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|Win32">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|Win32">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{34A68469-7A5B-319E-B7F2-E47E4C2ABEF0}</ProjectGuid>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>Win32</Platform>
+    <ProjectName>pi_escape2_benchmark</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">pi_escape2_benchmark.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">pi_escape2_benchmark</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">pi_escape2_benchmark.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">pi_escape2_benchmark</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">pi_escape2_benchmark.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">pi_escape2_benchmark</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">pi_escape2_benchmark.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">pi_escape2_benchmark</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glew-2.0.0\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL-1.2.15\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL_image-1.2.12\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level2</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;BENCHMARK=1;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;BENCHMARK=1;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glew-2.0.0\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL-1.2.15\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL_image-1.2.12\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glew-2.0.0\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL-1.2.15\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL_image-1.2.12\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>libraries/glew-2.0.0/lib/x86/glew32.lib;libraries/SDL-1.2.15/lib/x86/SDL.lib;libraries/SDL_image-1.2.12/lib/x86/SDL_image.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/Debug/pi_escape2_benchmark.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/Debug/pi_escape2_benchmark.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glew-2.0.0\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL-1.2.15\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL_image-1.2.12\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level2</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;BENCHMARK=1;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;BENCHMARK=1;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glew-2.0.0\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL-1.2.15\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL_image-1.2.12\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glew-2.0.0\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL-1.2.15\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL_image-1.2.12\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>libraries/glew-2.0.0/lib/x86/glew32.lib;libraries/SDL-1.2.15/lib/x86/SDL.lib;libraries/SDL_image-1.2.12/lib/x86/SDL_image.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/Release/pi_escape2_benchmark.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/Release/pi_escape2_benchmark.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glew-2.0.0\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL-1.2.15\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL_image-1.2.12\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level2</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;BENCHMARK=1;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat></DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;BENCHMARK=1;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glew-2.0.0\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL-1.2.15\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL_image-1.2.12\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glew-2.0.0\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL-1.2.15\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL_image-1.2.12\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>libraries/glew-2.0.0/lib/x86/glew32.lib;libraries/SDL-1.2.15/lib/x86/SDL.lib;libraries/SDL_image-1.2.12/lib/x86/SDL_image.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/MinSizeRel/pi_escape2_benchmark.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/MinSizeRel/pi_escape2_benchmark.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glew-2.0.0\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL-1.2.15\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL_image-1.2.12\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <CppLanguageStandard>c++1y</CppLanguageStandard>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level2</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;BENCHMARK=1;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;BENCHMARK=1;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glew-2.0.0\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL-1.2.15\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL_image-1.2.12\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glew-2.0.0\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL-1.2.15\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\SDL_image-1.2.12\include;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>libraries/glew-2.0.0/lib/x86/glew32.lib;libraries/SDL-1.2.15/lib/x86/SDL.lib;libraries/SDL_image-1.2.12/lib/x86/SDL_image.lib;opengl32.lib;glu32.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:X86</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/RelWithDebInfo/pi_escape2_benchmark.lib</ImportLibrary>
+      <ProgramDataBaseFile>C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/RelWithDebInfo/pi_escape2_benchmark.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Building Custom Rule C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-HC:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10" "-BC:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10" --check-stamp-file "C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/CMakeLists.txt;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeLists.txt;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\3.10.0-rc2\CMakeSystem.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\3.10.0-rc2\CMakeCCompiler.cmake;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\3.10.0-rc2\CMakeCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC.cmake;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\3.10.0-rc2\CMakeRCCompiler.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindSDL.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindSDL_image.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindGLEW.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Building Custom Rule C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-HC:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10" "-BC:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10" --check-stamp-file "C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/CMakeLists.txt;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeLists.txt;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\3.10.0-rc2\CMakeSystem.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\3.10.0-rc2\CMakeCCompiler.cmake;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\3.10.0-rc2\CMakeCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC.cmake;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\3.10.0-rc2\CMakeRCCompiler.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindSDL.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindSDL_image.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindGLEW.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">Building Custom Rule C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-HC:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10" "-BC:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10" --check-stamp-file "C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/CMakeLists.txt;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeLists.txt;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\3.10.0-rc2\CMakeSystem.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\3.10.0-rc2\CMakeCCompiler.cmake;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\3.10.0-rc2\CMakeCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC.cmake;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\3.10.0-rc2\CMakeRCCompiler.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindSDL.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindSDL_image.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindGLEW.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">Building Custom Rule C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" "-HC:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10" "-BC:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10" --check-stamp-file "C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:/Users/ruben/Documents/Desktop Folders/2e Bach Informatica/Systeemprogrammeren/PiEscape/project-group10/CMakeLists.txt;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeLists.txt;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\3.10.0-rc2\CMakeSystem.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeSystemSpecificInitialize.cmake;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\3.10.0-rc2\CMakeCCompiler.cmake;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\3.10.0-rc2\CMakeCXXCompiler.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\WindowsPaths.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC.cmake;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\3.10.0-rc2\CMakeRCCompiler.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindOpenGL.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindSDL.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindThreads.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CheckLibraryExists.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CheckSymbolExists.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\CheckIncludeFile.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindSDL_image.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindGLEW.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.10\Modules\FindPackageMessage.cmake;C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\benchmarking_main.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\level\levelloader.h" />
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\level\levelloader.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\assemblage.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\component_enums.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\component_structs.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\context.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\engine.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\entity.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\es_memory_manager.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\es_memory_manager_collections.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\game.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\game_util.h" />
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\assemblage.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\context.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\engine.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\es_memory_manager.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\es_memory_manager_collections.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\game.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\action_system.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\activation_system.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\animation_system.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\camera_system.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\component_structs.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\container_system.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\endlevel_system.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\input_system.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\lock_system.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\move_system.h" />
+    <None Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\process_sensor_system.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\real_sensors_system.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\render_system.h" />
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\action_system.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\activation_system.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\animation_system.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\camera_system.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\container_system.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\endlevel_system.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\input_system.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\lock_system.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\move_system.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\process_sensor_system.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\real_sensors_system.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\render_system.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\util\util.h" />
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\util\util.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\util\sleep.h" />
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\util\sleep.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\util\rgb_triple.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_connector.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_connector_center.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_door.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_floor.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_glyph.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_key.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_lock.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_player.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_proctex_object.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_wall.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\globject.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\opengl_game_renderer.h" />
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_connector.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_connector_center.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_door.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_floor.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_glyph.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_key.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_lock.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_player.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_proctex_object.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_wall.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\globject.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\opengl_game_renderer.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\include\glmc.h" />
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\src\glmc_matrix.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\src\glmc_model.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\src\glmc_vector.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\led\fake_led.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\led\ledcontrol.h" />
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\led\ledcontrol.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\led\sense_led.c" >
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|Win32'">CompileAsC</CompileAs>
+      <CompileAs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|Win32'">CompileAsC</CompileAs>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\led\fake_led.cpp"  />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\sensor\hts221.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\sensor\i2c.h" />
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\sensor\lps25h.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\ZERO_CHECK.vcxproj">
+      <Project>{B7E07077-3B33-3988-9322-14EC06C0E06B}</Project>
+      <Name>ZERO_CHECK</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

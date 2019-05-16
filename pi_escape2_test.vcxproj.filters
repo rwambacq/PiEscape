@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape2_test_main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\util\min_unit.c">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\level\levelloader.c">
+      <Filter>game\level</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\assemblage.c">
+      <Filter>game\es</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\context.c">
+      <Filter>game\es</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\engine.c">
+      <Filter>game\es</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\es_memory_manager.c">
+      <Filter>game\es</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\es_memory_manager_collections.c">
+      <Filter>game\es</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\game.c">
+      <Filter>game\es</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\action_system.c">
+      <Filter>game\es\system</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\activation_system.c">
+      <Filter>game\es\system</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\animation_system.c">
+      <Filter>game\es\system</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\camera_system.c">
+      <Filter>game\es\system</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\container_system.c">
+      <Filter>game\es\system</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\endlevel_system.c">
+      <Filter>game\es\system</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\input_system.c">
+      <Filter>game\es\system</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\lock_system.c">
+      <Filter>game\es\system</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\move_system.c">
+      <Filter>game\es\system</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\process_sensor_system.c">
+      <Filter>game\es\system</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\real_sensors_system.c">
+      <Filter>game\es\system</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\render_system.c">
+      <Filter>game\es\system</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\util\util.c">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\util\sleep.c">
+      <Filter>util</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_connector.c">
+      <Filter>game\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_connector_center.c">
+      <Filter>game\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_door.c">
+      <Filter>game\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_floor.c">
+      <Filter>game\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_glyph.c">
+      <Filter>game\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_key.c">
+      <Filter>game\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_lock.c">
+      <Filter>game\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_player.c">
+      <Filter>game\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_proctex_object.c">
+      <Filter>game\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_wall.c">
+      <Filter>game\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\globject.c">
+      <Filter>game\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\opengl_game_renderer.c">
+      <Filter>game\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\src\glmc_matrix.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\src\glmc_model.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\src\glmc_vector.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\led\ledcontrol.c">
+      <Filter>game\led</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\led\sense_led.c">
+      <Filter>game\led</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\led\fake_led.cpp">
+      <Filter>game\led</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\util\min_unit.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\level\levelloader.h">
+      <Filter>game\level</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\assemblage.h">
+      <Filter>game\es</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\component_enums.h">
+      <Filter>game\es</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\component_structs.h">
+      <Filter>game\es</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\context.h">
+      <Filter>game\es</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\engine.h">
+      <Filter>game\es</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\entity.h">
+      <Filter>game\es</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\es_memory_manager.h">
+      <Filter>game\es</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\es_memory_manager_collections.h">
+      <Filter>game\es</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\game.h">
+      <Filter>game\es</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\game_util.h">
+      <Filter>game\es</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\action_system.h">
+      <Filter>game\es\system</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\activation_system.h">
+      <Filter>game\es\system</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\animation_system.h">
+      <Filter>game\es\system</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\camera_system.h">
+      <Filter>game\es\system</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\component_structs.h">
+      <Filter>game\es\system</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\container_system.h">
+      <Filter>game\es\system</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\endlevel_system.h">
+      <Filter>game\es\system</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\input_system.h">
+      <Filter>game\es\system</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\lock_system.h">
+      <Filter>game\es\system</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\move_system.h">
+      <Filter>game\es\system</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\process_sensor_system.h">
+      <Filter>game\es\system</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\real_sensors_system.h">
+      <Filter>game\es\system</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\es\system\render_system.h">
+      <Filter>game\es\system</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\util\util.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\util\sleep.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\util\rgb_triple.h">
+      <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_connector.h">
+      <Filter>game\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_connector_center.h">
+      <Filter>game\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_door.h">
+      <Filter>game\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_floor.h">
+      <Filter>game\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_glyph.h">
+      <Filter>game\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_key.h">
+      <Filter>game\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_lock.h">
+      <Filter>game\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_player.h">
+      <Filter>game\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_proctex_object.h">
+      <Filter>game\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\gl_wall.h">
+      <Filter>game\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\globject.h">
+      <Filter>game\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\graphics\opengl_game_renderer.h">
+      <Filter>game\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\libraries\glmc\include\glmc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\led\fake_led.h">
+      <Filter>game\led</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\led\ledcontrol.h">
+      <Filter>game\led</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\sensor\hts221.h">
+      <Filter>game\sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\sensor\i2c.h">
+      <Filter>game\sensor</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\pi_escape\sensor\lps25h.h">
+      <Filter>game\sensor</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape\project-group10\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\ruben\Documents\Desktop Folders\2e Bach Informatica\Systeemprogrammeren\PiEscape" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{5EEB6276-9BB9-3A6A-99C5-1356AC5443ED}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{D2D94D3A-49E2-38AB-A7D0-63A70FCD8C1D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game">
+      <UniqueIdentifier>{05D408D6-C408-3BF8-A54C-BCE0759A4938}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="util">
+      <UniqueIdentifier>{E9776E48-1742-3087-8404-F7509B30B4C1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\es\system">
+      <UniqueIdentifier>{75EBA3F7-B6B4-3934-9228-3C51F6FEE499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\led">
+      <UniqueIdentifier>{26A47EF2-E1C4-3338-99C8-4E4320932869}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\sensor">
+      <UniqueIdentifier>{5C48F9ED-8F31-3B6F-BB2E-F243156CB4FB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\level">
+      <UniqueIdentifier>{B655F0FB-3F06-37E7-84CC-AD69CC1A9907}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\es">
+      <UniqueIdentifier>{560FBCF4-8E55-37C4-8445-ACCCFB93C770}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="game\graphics">
+      <UniqueIdentifier>{581A83F1-A55C-378E-8638-38B4037A7A3E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
